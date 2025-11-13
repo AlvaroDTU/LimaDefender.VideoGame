@@ -6,6 +6,7 @@
 #include "conio.h"
 #include "cctype"
 int main() {
+	//pingaza
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
 	bool inicio = true, juego = false, opciones = true, nivel[] = { 0, 0, 0, 0 };
@@ -50,7 +51,7 @@ int main() {
 						inicio = false;
 						juego = false;
 						instrucciones();
-						system("pause>0");
+						while(_getch()!=13){}
 					}
 				}
 			}
