@@ -15,6 +15,7 @@ int main() {
 	//gabotevoyAMETERELPENE
 	//alvaro FULL
 	//sexolapelicula
+	//toy chica es la unica animatronica que tiene ropa la cual es un shor lo que para mi la hace ver muy sexy y los hombres la adoran
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
 	bool inicio = true, juego = false, nivel[] = { 0, 0, 0, 0 };
