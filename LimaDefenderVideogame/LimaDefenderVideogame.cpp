@@ -10,6 +10,7 @@ int main() {
 	//gabotevoyAMETERELPENE
 	//alvaro FULL PEDO A KITI PATITAS, Ese dia dijiste q era tu tipo
 	//gabotevoyAMETERELPENE
+	//ALVAROPONTENE4PAMTERTEPINGAOCNGABO
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
 	bool inicio = true, juego = false, nivel[] = { 0, 0, 0, 0 };
