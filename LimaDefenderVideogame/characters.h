@@ -1,0 +1,480 @@
+#pragma once
+#include "essentials.h"
+using namespace std;
+using namespace System;
+//EDSON KCHAME PARA MI 20, TE DEJO LIBRE MI CULITO VIRGEN
+
+void borrar_prota(int x, int y) {
+    int borrar[6][8] = {
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0}
+    };
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (borrar[f][c] == 0) { Console::BackgroundColor = ConsoleColor::Gray; cout << " "; }
+        }
+    }
+}
+void borrar_enemigo(int x, int y) {
+    int borrar[6][8] = {
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0},
+       {0,0,0,0,0,0,0,0}
+    };
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (borrar[f][c] == 0) { Console::BackgroundColor = ConsoleColor::Black; cout << " "; }
+        }
+    }
+}
+//aliados
+void dibujar_prota(int x, int y) {
+
+    int prota[6][8] = {
+       {0,6,6,6,6,6,6,0},
+       {0,5,2,8,2,8,5,0},
+       {0,3,3,1,1,1,1,0},
+       {1,1,3,2,2,3,1,1},
+       {5,1,1,1,1,3,3,5},
+       {0,7,7,0,0,7,7,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (prota[f][c] == 1) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (prota[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (prota[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (prota[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkCyan; cout << (char)219; }
+            if (prota[f][c] == 5) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (prota[f][c] == 6) { setTextColorRGB(135, 65, 0); cout << (char)219; }
+            if (prota[f][c] == 7) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (prota[f][c] == 8) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+        }
+    }
+}
+
+
+
+
+void dibujar_aliado_robotin(int x, int y) {
+    int robotin[6][8] = {
+       {2,2,2,2,2,2,2,2},
+       {1,6,6,1,1,6,6,1},
+       {0,1,1,5,5,1,1,0},
+       {1,6,4,6,6,4,6,1},
+       {2,1,1,1,1,1,1,2},
+       {0,2,2,0,0,2,2,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (robotin[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
+            if (robotin[f][c] == 2) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+            if (robotin[f][c] == 3) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (robotin[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (robotin[f][c] == 5) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (robotin[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+        }
+    }
+
+}
+
+void dibujar_aliado_uchu(int x, int y) {
+    int uchu[6][8] = {
+       {5,5,5,5,5,5,5,5},
+       {5,4,6,2,6,2,4,5},
+       {5,4,4,4,4,4,4,5},
+       {3,3,3,3,3,3,3,3},
+       {4,3,3,3,3,3,3,4},
+       {0,1,1,0,0,1,1,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (uchu[f][c] == 1) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (uchu[f][c] == 2) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (uchu[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkGreen; cout << (char)219; }
+            if (uchu[f][c] == 4) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (uchu[f][c] == 5) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (uchu[f][c] == 6) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+        }
+    }
+
+}
+
+void dibujar_vecino1(int x, int y) {
+    int vecino1[6][8] = {
+    {0,1,1,1,1,1,1,0},
+    {0,2,5,2,2,5,2,0},
+    {0,2,2,2,2,2,2,0},
+    {3,3,3,3,3,3,3,3},
+    {2,3,3,3,3,3,3,2},
+    {0,4,4,0,0,4,4,0},
+    };
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (vecino1[f][c] == 1) { setTextColorRGB(135, 65, 0); cout << (char)219; cout << (char)219; }
+            if (vecino1[f][c] == 2) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (vecino1[f][c] == 3) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (vecino1[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+            if (vecino1[f][c] == 5) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+        }
+    }
+
+}
+void dibujar_vecino2(int x, int y) {
+    int vecino2[6][8] = {
+    {1,1,1,1,1,1,1,1},
+    {1,2,5,2,2,5,2,1},
+    {1,2,2,2,2,2,2,1},
+    {2,3,3,2,2,3,3,2},
+    {2,3,3,3,3,3,3,2},
+    {0,4,4,0,0,4,4,0}
+    };
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (vecino2[f][c] == 1) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (vecino2[f][c] == 2) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (vecino2[f][c] == 3) { Console::ForegroundColor = ConsoleColor::Red; cout << (char)219; }
+            if (vecino2[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (vecino2[f][c] == 5) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+        }
+    }
+}
+//enemigos
+void dibujar_enemigo_chamo(int x, int y) {
+    int chamo[6][8] = {
+      { 7,7,7,3,3,4,4,0},
+      { 0,2,1,5,2,1,5,7},
+      { 0,5,5,5,5,5,5,5},
+      { 5,4,4,4,4,4,4,5},
+      { 5,3,3,3,3,3,3,0},
+      { 0,7,7,0,0,7,7,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (chamo[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (chamo[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (chamo[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (chamo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::Yellow; cout << (char)219; }
+            if (chamo[f][c] == 7) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (chamo[f][c] == 5) { setTextColorRGB(186, 91, 0); cout << (char)219; }
+            if (chamo[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
+        }
+    }
+}
+
+void dibujar_enemigo_poli(int x, int y) {
+    int poli[6][8] = {
+       {0,4,4,4,4,4,4,0},
+       {4,6,5,8,8,6,5,4},
+       {0,8,8,8,8,8,8,0},
+       {2,2,2,2,3,3,2,2},
+       {8,2,2,2,2,2,2,8},
+       {0,1,1,0,0,1,1,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (poli[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (poli[f][c] == 2) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (poli[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkYellow; cout << (char)219; }
+            if (poli[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+            if (poli[f][c] == 5) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (poli[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (poli[f][c] == 8) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+        }
+    }
+}
+
+void dibujar_enemigo_choro(int x, int y) {
+    int choro[6][8] = {
+      { 0,4,4,4,4,4,4,0},
+      { 4,1,2,1,1,2,1,4},
+      { 0,4,4,4,4,4,4,0},
+      { 3,3,3,3,3,3,3,3},
+      { 4,3,3,3,3,3,3,4},
+      { 0,2,2,0,0,2,2,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (choro[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (choro[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (choro[f][c] == 3) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (choro[f][c] == 4) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+        }
+    }
+}
+void dibujar_policorrupto() {
+    int poli_c[15][35] = {
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+{4,0,0,0,0,0,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,0,0,0,0,0,4},
+{4,0,0,0,0,0,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,0,0,0,0,0,4},
+{4,0,0,0,0,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,4},
+{4,0,0,0,0,1,1,1,6,1,6,6,1,1,6,6,6,6,6,6,6,1,1,6,6,1,6,1,1,1,0,0,0,0,4},
+{4,0,0,0,0,0,1,1,1,6,6,6,6,6,6,7,7,7,7,7,6,6,6,6,6,7,1,1,1,0,0,0,0,0,4},
+{4,0,0,0,0,0,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,1,1,1,0,0,0,0,0,4},
+{4,0,0,0,0,0,0,1,1,1,6,6,6,7,7,7,7,7,7,7,7,7,6,6,6,1,1,1,0,0,0,0,0,0,4},
+{4,0,0,0,0,0,0,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,1,1,0,0,0,0,0,0,4},
+{4,0,0,0,0,0,1,1,1,1,1,7,6,6,6,6,6,6,6,6,6,6,6,7,1,1,1,1,1,0,0,0,0,0,4},
+{4,0,0,0,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,0,0,0,4},
+{4,0,0,1,1,1,1,5,1,1,1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,5,1,1,1,1,0,0,4},
+{4,0,1,1,2,1,1,1,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,4},
+{4,1,2,2,1,1,5,1,2,1,1,2,1,2,1,1,1,2,1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,4},
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
+    };
+
+    for (int f = 0; f < 15; f++) {
+        for (int c = 0; c < 35; c++) {
+            gotoxy(c + 155, f);
+            if (poli_c[f][c] == 0)Console::ForegroundColor = ConsoleColor::White;
+            if (poli_c[f][c] == 1 || poli_c[f][c] == 2)Console::ForegroundColor = ConsoleColor::Black;
+            if (poli_c[f][c] == 3)Console::ForegroundColor = ConsoleColor::Green;
+            if (poli_c[f][c] == 4)Console::ForegroundColor = ConsoleColor::Gray;
+            if (poli_c[f][c] == 5)Console::ForegroundColor = ConsoleColor::DarkGray;
+            if (poli_c[f][c] == 6)setTextColorRGB(255, 211, 186);
+            if (poli_c[f][c] == 7)Console::ForegroundColor = ConsoleColor::DarkYellow;
+            cout << (char)219;
+        }
+    }
+}
+void dibujar_chupetin() {
+    int chupetin[15][35] = {
+    {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+    {7,0,0,0,0,4,4,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,4,4,4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,0,0,0,0,7},
+    {7,0,0,0,0,4,4,4,2,2,6,6,6,2,2,2,2,2,6,6,6,6,2,2,2,4,4,4,4,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,4,0,0,0,7},
+    {7,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,1,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,1,2,2,2,2,2,2,3,3,3,2,2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,1,2,2,2,2,3,3,3,3,3,2,2,2,2,2,2,2,2,2,1,1,0,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,3,3,2,2,2,2,2,1,1,0,0,0,0,0,0,0,7},
+    {7,0,0,0,0,0,0,0,1,2,2,2,3,3,3,3,3,3,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,7},
+    {7,0,0,0,0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,5,1,1,1,1,0,0,0,0,7},
+    {7,0,0,0,1,1,4,4,4,6,1,1,2,2,2,2,2,2,2,2,2,1,1,5,5,5,5,5,5,5,1,0,0,0,7},
+    {7,0,0,1,4,4,4,6,6,5,5,5,1,2,2,2,2,2,2,2,1,6,6,6,5,5,4,4,4,4,4,1,0,0,7},
+    {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+    };
+    for (int f = 0; f < 15; f++) {
+        for (int c = 0; c < 35; c++) {
+            gotoxy(c + 155, f);
+            if (chupetin[f][c] == 0) Console::ForegroundColor = ConsoleColor::White;
+            if (chupetin[f][c] == 1) Console::ForegroundColor = ConsoleColor::Black;
+            if (chupetin[f][c] == 2) setTextColorRGB(255, 211, 186);
+            if (chupetin[f][c] == 3) Console::ForegroundColor = ConsoleColor::Red;
+            if (chupetin[f][c] == 4) setTextColorRGB(255, 170, 0);
+            if (chupetin[f][c] == 5) Console::ForegroundColor = ConsoleColor::Blue;
+            if (chupetin[f][c] == 6) Console::ForegroundColor = ConsoleColor::DarkBlue;
+            if (chupetin[f][c] == 7) Console::ForegroundColor = ConsoleColor::Gray;
+            cout << char(219);
+        }
+    }
+}
+void dibujar_cuervo() {
+    int cuervo[15][35] = {
+    {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,3,3,3,1,1,1,3,0,0,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,0,0,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,1,1,1,3,3,3,3,3,3,3,3,3,3,1,1,1,2,2,2,2,1,1,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,3,0,0,0,1,1,1,2,2,2,2,2,2,2,2,1,0,0,5},
+    {5,0,0,0,0,0,0,0,0,1,1,1,1,3,3,0,0,1,1,1,0,0,3,1,1,2,1,1,2,2,2,1,0,0,5},
+    {5,0,0,0,0,0,1,1,1,3,3,3,3,3,3,3,3,0,0,0,3,3,3,1,1,2,1,1,1,2,2,1,0,0,5},
+    {5,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,2,2,2,1,1,2,1,1,1,0,0,5},
+    {5,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,1,2,2,2,1,1,0,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,1,1,2,2,2,1,0,0,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,1,1,1,2,2,2,1,2,2,2,1,1,5},
+    {5,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,2,2,2,2,1,1,5},
+    {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5},
+    };
+    for (int f = 0; f < 15; f++) {
+        for (int c = 0; c < 35; c++) {
+            gotoxy(c + 155, f);
+            if (cuervo[f][c] == 0) Console::ForegroundColor = ConsoleColor::White;
+            if (cuervo[f][c] == 1) Console::ForegroundColor = ConsoleColor::Black;
+            if (cuervo[f][c] == 2) Console::ForegroundColor = ConsoleColor::DarkGray;
+            if (cuervo[f][c] == 3) Console::ForegroundColor = ConsoleColor::DarkGray;
+            if (cuervo[f][c] == 4) Console::ForegroundColor = ConsoleColor::DarkRed;
+            if (cuervo[f][c] == 5) Console::ForegroundColor = ConsoleColor::Gray;
+            cout << (char)219;
+        }
+    }
+}
+
+
+void barra(int x, int y) {
+    int barra[6][28] = {
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+    {0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+    {0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+    {0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+    {0,0,0,0,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,4,0,0,0,0,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 28; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 0) { Console::BackgroundColor = ConsoleColor::Black; cout << " "; }
+            if (barra[f][c] == 1) { Console::BackgroundColor = ConsoleColor::White; cout << " "; }
+            if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << "1"; }
+            if (barra[f][c] == 3) { Console::ForegroundColor = ConsoleColor::White; cout << "2"; }
+            if (barra[f][c] == 4) { Console::ForegroundColor = ConsoleColor::White; cout << "3"; }
+        }
+    }
+
+}
+
+void barra_vacia(int x, int y) {
+    int barra[4][8] = {
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1},
+    {1,1,1,1,1,1,1,1},
+    };
+
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 1) Console::BackgroundColor = ConsoleColor::DarkGray; cout << " ";
+        }
+    }
+
+}
+
+void barra_vecino1(int x, int y, bool seleccion_barra) {
+    int barra[4][8] = {
+    {1,1,2,2,2,2,1,1},
+    {1,1,3,3,3,3,1,1},
+    {1,4,4,4,4,4,4,1},
+    {1,1,5,1,1,5,1,1},
+    };
+
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 1) {
+                if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
+                else Console::BackgroundColor = ConsoleColor::White;
+                cout << " ";
+            }
+            if (barra[f][c] == 2) { setTextColorRGB(135, 65, 0); cout << (char)219; }
+            if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (barra[f][c] == 4) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (barra[f][c] == 5) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+
+        }
+    }
+
+}
+
+void barra_vecino2(int x, int y, bool seleccion_barra) {
+    int barra[4][8] = {
+    {1,6,6,6,6,6,6,1},
+    {1,6,3,3,3,3,6,1},
+    {1,3,7,7,7,7,3,1},
+    {1,1,8,1,1,8,1,1},
+    };
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 1) {
+                if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
+                else Console::BackgroundColor = ConsoleColor::White;
+                cout << " ";
+            }
+            if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (barra[f][c] == 6) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (barra[f][c] == 7) { Console::ForegroundColor = ConsoleColor::Red; cout << (char)219; }
+            if (barra[f][c] == 8) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+        }
+    }
+}
+
+void aliado_robotin(int x, int y, bool seleccion_barra) {
+    int barra[4][8] = {
+    {1,1,5,5,5,5,1,1},
+    {1,1,9,9,9,9,1,1},
+    {1,5,8,0,0,8,5,1},
+    {1,1,5,1,1,5,1,1},
+    };
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 0) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (barra[f][c] == 1) {
+                if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
+                else Console::BackgroundColor = ConsoleColor::White;
+                cout << " ";
+            }
+            if (barra[f][c] == 5) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+            if (barra[f][c] == 8) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (barra[f][c] == 9) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
+        }
+    }
+}
+
+void aliado_chica(int x, int y, bool seleccion_barra) {
+    int barra[4][8] = {
+    {1,0,0,0,0,0,0,1},
+    {1,0,3,3,3,3,0,1},
+    {1,3,2,2,2,2,3,1},
+    {1,1,7,1,1,7,1,1},
+    };
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 0) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (barra[f][c] == 1) {
+                if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
+                else Console::BackgroundColor = ConsoleColor::White;
+                cout << " ";
+            }
+            if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::Cyan; cout << (char)219; }
+            if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (barra[f][c] == 7) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+        }
+    }
+}
+
+void barra_nivelSurcoYCallao(bool seleccion_barra[]) {
+    barra(46, 0);
+    barra_vecino1(47, 1, seleccion_barra[0]);
+    barra_vecino2(56, 1, seleccion_barra[1]);
+    barra_vacia(65, 1);
+}
+
+void barra_nivelVES(bool seleccion_barra[]) {
+    barra(46, 0);
+    barra_vecino1(47, 1, seleccion_barra[0]);
+    barra_vecino2(56, 1, seleccion_barra[1]);
+    aliado_robotin(65, 1, seleccion_barra[2]);
+}
+
+void barra_nivelATE(bool seleccion_barra[]) {
+    barra(46, 0);
+    barra_vecino1(47, 1, seleccion_barra[0]);
+    barra_vecino2(56, 1, seleccion_barra[1]);
+    aliado_chica(65, 1, seleccion_barra[2]);
+}
