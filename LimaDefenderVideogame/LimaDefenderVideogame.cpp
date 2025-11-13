@@ -9,7 +9,7 @@ int main() {
 	//pingaza
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
-	bool inicio = true, juego = false, opciones = true, nivel[] = { 0, 0, 0, 0 };
+	bool inicio = true, juego = false, nivel[] = { 0, 0, 0, 0 };
 	while (true) {
 		int xopciones = 1, yopciones = 1;
 		inicio = true, juego = false;
