@@ -6,6 +6,15 @@
 #include "conio.h"
 #include "cctype"
 int main() {
+	//pingaza
+	//gabotevoyAMETERELPENE
+	//alvaro FULL PEDO A KITI PATITAS, Ese dia dijiste q era tu tipo
+	//gabotevoyAMETERELPENE
+	//alvaro FULL
+	//GaboGAYmer
+	//gabotevoyAMETERELPENE
+	//alvaro FULL
+	//sexolapelicula
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
 	bool inicio = true, juego = false, nivel[] = { 0, 0, 0, 0 };
