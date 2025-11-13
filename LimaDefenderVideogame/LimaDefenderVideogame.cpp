@@ -7,6 +7,7 @@
 #include "cctype"
 int main() {
 	//pingaza
+	//gabotevoyAMETERELPENE
 	Console::SetWindowSize(190, 50);
 	Console::CursorVisible = false;
 	bool inicio = true, juego = false, nivel[] = { 0, 0, 0, 0 };
