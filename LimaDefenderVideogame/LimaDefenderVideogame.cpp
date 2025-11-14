@@ -83,11 +83,8 @@ int main() {
 			}
 		}
 		while (juego) {
-			slod0();
-			_sleep(200);
-			while (_getch() != 13) {}
-			slod1();
-			_sleep(200);
+
+			_sleep(500);
 			while (_getch() != 13) {}
 			bool barra_seleccion[3] = { false,false,false };
 			nivel_surco();
@@ -227,3 +224,4 @@ int main() {
 	}
 	return 0;
 }
+	
