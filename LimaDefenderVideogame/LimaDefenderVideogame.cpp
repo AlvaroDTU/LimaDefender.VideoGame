@@ -91,7 +91,6 @@ int main() {
 			barra_nivelSurcoYCallao(barra_seleccion);
 			int xprota = 31, yprota = 16;
 			int xcasilla = 40, ycasilla = 15;
-			bool aparece_casilla = false;
 			bool MEA = false;
 
 			const int numLineas = 4;
@@ -112,13 +111,9 @@ int main() {
 					tipoEnemigo[i][j] = 0;
 				}
 			}
-
 			int enemigosActivos = 1;
 			int contadorTiempo = 0;
 			int spawnTimer = 0;
-
-
-
 			// Crea el primer enemigo
 			int lineaInicial = rand() % numLineas;
 			enemigoActivo[lineaInicial][0] = true;
