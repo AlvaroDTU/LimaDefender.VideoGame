@@ -82,6 +82,7 @@ int main() {
 				}
 			}
 		}
+		//LES SALE ALGO?
 		while (juego) {
 
 			_sleep(500);
