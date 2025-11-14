@@ -91,8 +91,6 @@ int main() {
 			barra_nivelSurcoYCallao(barra_seleccion);
 			int xprota = 31, yprota = 16;
 			int xcasilla = 40, ycasilla = 15;
-			bool MEA = false;
-
 			const int numLineas = 4;
 			const int maxEnemigos = 2; // máximo de enemigos por línea
 
@@ -123,8 +121,6 @@ int main() {
 
 			while (nivel[0])
 			{
-				MEA = true;
-				if (MEA == true) {
 					// Dibujar enemigos
 					for (int i = 0; i < numLineas; i++) {
 						if (!lineasActivas[i]) continue;
@@ -178,7 +174,6 @@ int main() {
 						}
 						spawnTimer = 0;
 					}
-				}
 				//dibujar
 				dibujar_prota(xprota, yprota);
 				casilla(xcasilla, ycasilla);
@@ -189,7 +184,6 @@ int main() {
 				borrarcasilla(xcasilla, ycasilla);
 				//cambiar posicion
 				if (kbhit()) {
-					MEA = true;
 					char tecla = _getch();
 					if (tolower(tecla) == 'w' && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 					if (tolower(tecla) == 's' && yprota < 41) { yprota += 9; ycasilla += 9; }
