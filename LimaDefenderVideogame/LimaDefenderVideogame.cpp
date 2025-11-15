@@ -82,11 +82,12 @@ int main() {
 				}
 			}
 		}
-		//LES SALE ALGO?
-
+		//REVISAR SLOTS DE JUEGO (PLAY)
+		
 		while (juego) {
 			_sleep(0);
 			while (_getch() != 13) {}
+			slod0();
 			slod1();
 			_sleep(500);
 			while (_getch() != 13) {}
