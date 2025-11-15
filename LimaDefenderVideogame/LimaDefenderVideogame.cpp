@@ -127,7 +127,7 @@ int main() {
 			enemigoActivo[lineaInicial][0] = true;
 			xEnemigo[lineaInicial][0] = 170;
 			tipoEnemigo[lineaInicial][0] = 1 + rand() % 3;
-			//INICIO NIVEL 1
+			//INICIO ANIMACIONES NIVEL 1
 			while (nivel[0])
 			{
 					// Dibujar enemigos
