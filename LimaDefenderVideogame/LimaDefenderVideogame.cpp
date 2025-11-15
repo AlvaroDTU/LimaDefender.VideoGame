@@ -89,8 +89,6 @@ int main() {
 				}
 			}
 		}
-		//REVISAR SLOTS DE JUEGO (PLAY)
-
 		while (juego) {
 			slod0();
 			_sleep(250);
@@ -216,8 +214,6 @@ int main() {
 					}
 					barra_nivelSurcoYCallao(barra_seleccion);
 					barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-
-
 				}
 			}
 		}
