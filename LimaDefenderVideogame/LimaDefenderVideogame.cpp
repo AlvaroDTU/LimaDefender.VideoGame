@@ -85,11 +85,11 @@ int main() {
 		//REVISAR SLOTS DE JUEGO (PLAY)
 		
 		while (juego) {
-			_sleep(0);
-			while (_getch() != 13) {}
 			slod0();
+			_sleep(250);
+			while (_getch() != 13) {}
 			slod1();
-			_sleep(500);
+			_sleep(250);
 			while (_getch() != 13) {}
 			bool barra_seleccion[3] = { false,false,false };
 			nivel_surco();
