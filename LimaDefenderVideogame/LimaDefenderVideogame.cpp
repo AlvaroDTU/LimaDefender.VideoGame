@@ -130,72 +130,17 @@ int main() {
 			//INICIO ANIMACIONES NIVEL 1
 			while (nivel[0])
 			{
-					// Dibujar enemigos
-					for (int i = 0; i < numLineas; i++) {
-						if (!lineasActivas[i]) continue;
-
-						for (int j = 0; j < maxEnemigos; j++) {
-							if (!enemigoActivo[i][j]) continue;
-
-							double& x = xEnemigo[i][j];
-							int tipo = tipoEnemigo[i][j];
-
-							switch (tipo) {
-							case 1: dibujar_enemigo_poli(x, yEnemigos[i]); break;
-							case 2: dibujar_enemigo_chamo(x, yEnemigos[i]); break;
-							case 3: dibujar_enemigo_choro(x, yEnemigos[i]); break;
-							}
-
-							_sleep(0);
-							borrar_enemigo(x, yEnemigos[i]);
-							x -= 2;
-
-							if (x <= 50) enemigoActivo[i][j] = false; // desaparece si sale del mapa
-						}
-					}
-
-					// Activa nuevas líneas poco a poco
-					contadorTiempo++;
-					if (contadorTiempo > 30 && enemigosActivos < numLineas) {
-						int nuevaLinea;
-						do {
-							nuevaLinea = rand() % numLineas;
-						} while (lineasActivas[nuevaLinea] == 1);
-						lineasActivas[nuevaLinea] = 1;
-						enemigosActivos++;
-						contadorTiempo = 0;
-					}
-
-					// Crea nuevos enemigos de forma aleatoria en líneas activas
-					spawnTimer++;
-					if (spawnTimer > 50) {
-						int linea = rand() % numLineas;
-						if (lineasActivas[linea]) {
-							// busca un espacio libre en esa línea
-							for (int j = 0; j < maxEnemigos; j++) {
-								if (!enemigoActivo[linea][j]) {
-									enemigoActivo[linea][j] = true;
-									xEnemigo[linea][j] = 165 + rand() % 15;
-									tipoEnemigo[linea][j] = 1 + rand() % 3;
-									break;
-								}
-							}
-						}
-						spawnTimer = 0;
-					}
-				//dibujar
-				dibujar_prota(xprota, yprota);
-				casilla(xcasilla, ycasilla);
-				//espacio
-				_sleep(100);
-				//borrar
-				borrar_prota(xprota, yprota);
-				borrarcasilla(xcasilla, ycasilla);
 				//cambiar posicion
 				if (kbhit()) {
 					char tecla = _getch();
 					if (tolower(tecla) == 'w' && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 					if (tolower(tecla) == 's' && yprota < 41) { yprota += 9; ycasilla += 9; }
+					if (tolower(tecla) == 'a' && xcasilla > 40) {
+						xcasilla -= 14;
+					}
+					if (tolower(tecla) == 'd' && xcasilla < 68) {
+						xcasilla += 14;
+					}
 					if (tolower(tecla) == '1') {
 						borrar_enemigo(xcasilla + 3, yprota);
 						dibujar_vecino1(xcasilla + 3, yprota);
@@ -206,14 +151,16 @@ int main() {
 						dibujar_vecino2(xcasilla + 3, yprota);
 						barra_seleccion[1] = true;
 					}
-					if (tolower(tecla) == 'a' && xcasilla > 40) {
-						xcasilla -= 14;
-					}
-					if (tolower(tecla) == 'd' && xcasilla < 68) {
-						xcasilla += 14;
-					}
-					barra_nivelSurcoYCallao(barra_seleccion);
-					barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
+				//dibujar
+				dibujar_prota(xprota, yprota);
+				casilla(xcasilla, ycasilla);
+				//espacio
+				_sleep(30);
+				//borrar
+				borrar_prota(xprota, yprota);
+				borrarcasilla(xcasilla, ycasilla);
+				barra_nivelSurcoYCallao(barra_seleccion);
+				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
 				}
 			}
 		}
