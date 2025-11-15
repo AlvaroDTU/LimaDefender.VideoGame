@@ -57,7 +57,7 @@ int main() {
 						inicio = false;
 						juego = false;
 						credits();
-						while (_getch() != 13) {}
+						while (_getch() != 13){}
 					}
 				}
 			}
@@ -129,8 +129,7 @@ int main() {
 			enemigoActivo[lineaInicial][0] = true;
 			xEnemigo[lineaInicial][0] = 170;
 			tipoEnemigo[lineaInicial][0] = 1 + rand() % 3;
-
-
+			//INICIO NIVEL 1
 			while (nivel[0])
 			{
 					// Dibujar enemigos
