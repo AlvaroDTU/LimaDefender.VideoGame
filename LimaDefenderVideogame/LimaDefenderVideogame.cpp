@@ -85,6 +85,7 @@ int main() {
 		//REVISAR SLOTS DE JUEGO (PLAY)
 		
 		while (juego) {
+			srand(time(nullptr));
 			slod0();
 			_sleep(250);
 			while (_getch() != 13) {}
