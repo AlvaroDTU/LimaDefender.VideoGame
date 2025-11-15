@@ -83,8 +83,11 @@ int main() {
 			}
 		}
 		//LES SALE ALGO?
-		while (juego) {
 
+		while (juego) {
+			_sleep(0);
+			while (_getch() != 13) {}
+			slod1();
 			_sleep(500);
 			while (_getch() != 13) {}
 			bool barra_seleccion[3] = { false,false,false };
