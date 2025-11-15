@@ -53,6 +53,12 @@ int main() {
 						instrucciones();
 						while(_getch()!=13){}
 					}
+					if (xopciones == 2 && yopciones == 2) {
+						inicio = false;
+						juego = false;
+						credits();
+						while (_getch() != 13) {}
+					}
 				}
 			}
 			if (inicio) {
@@ -84,7 +90,7 @@ int main() {
 			}
 		}
 		//REVISAR SLOTS DE JUEGO (PLAY)
-		
+
 		while (juego) {
 			slod0();
 			_sleep(250);
