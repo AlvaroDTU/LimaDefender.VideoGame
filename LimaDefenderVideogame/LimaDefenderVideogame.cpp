@@ -218,13 +218,50 @@ int main() {
                         if (!enemigos[l][s].activo) continue;
 
                         borrar_enemigo((int)enemigos[l][s].x, enemigos[l][s].y);
-
-                        switch (enemigos[l][s].tipo) {
-                            case 1: enemigos[l][s].x -= 0.2; break;
-                            case 2: enemigos[l][s].x -= 1.0; break;
-                            case 3: enemigos[l][s].x -= 0.5; break;
+                        bool colisionVecino = false;
+                        for (int c = 0; c < numColumnas; c++) {
+                            if (vecinos[l][c].activo) {
+                                if (enemigos[l][s].x >= vecinos[l][c].x && enemigos[l][s].x <= vecinos[l][c].x + 8) {
+                                    colisionVecino = true;
+                                    enemigos[l][s].atacando = true;
+                                    break;
+                                }
+                            }
                         }
+                        if (colisionVecino) {
+                            if (enemigos[l][s].cooldownataque > 0)
+                                enemigos[l][s].cooldownataque--;
+                            else {
+                                for (int c = 0; c < numColumnas; c++) {
+                                    if (vecinos[l][c].activo) {
+                                        if (enemigos[l][s].x >= vecinos[l][c].x && enemigos[l][s].x <= vecinos[l][c].x + 8) {
+                                            vecinos[l][c].vida--;
+                                            if (vecinos[l][c].vida <= 0) {
+                                                borrar_enemigo(vecinos[l][c].x, vecinos[l][c].y);
+                                                vecinos[l][c].activo = false;
+                                                enemigos[l][s].atacando = false;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
 
+                                enemigos[l][s].cooldownataque = 20;
+                            }
+                            switch (enemigos[l][s].tipo)
+                            {
+                            case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                            case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                            case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                            }
+                            continue;
+                        }
+                        enemigos[l][s].atacando = false;
+                        switch (enemigos[l][s].tipo) {
+                        case 1: enemigos[l][s].x -= 0.2; break;
+                        case 2: enemigos[l][s].x -= 1.0; break;
+                        case 3: enemigos[l][s].x -= 0.5; break;
+                        }
                         if (enemigos[l][s].x <= 42) {
                             enemigos[l][s].activo = false;
                             gameOver = true;
@@ -261,26 +298,31 @@ int main() {
                 //----------------------------------------------------------
                 if (_kbhit()) {
                     char tecla = tolower(_getch());
-
                     if (tecla == 'w' && yprota > 16) { yprota -= 9; ycasilla -= 9; }
                     if (tecla == 's' && yprota < 41) { yprota += 9; ycasilla += 9; }
                     if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
                     if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
-
                     if (tecla == '1')
                     {
                         if (puntosV >= 25) {
                             int lineaActual = (yprota - 16) / 9;
                             int columnaActual = (xcasilla - 40) / 14;
-
                             vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
                             vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
                             vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].vida = 5;
                             vecinos[lineaActual][columnaActual].activo = true;
                             puntosV -= 25;
                             barra_seleccion[0] = true;
                         }
                         
+                    }
+                    if (tecla == 13) {
+                        int lineaActual = (yprota - 16) / 9;
+                        int columnaActual = (xcasilla - 40) / 14;
+                        borrar_enemigo(xcasilla + 3, yprota);
+                        vecinos[lineaActual][columnaActual].activo = false;
+                        vecinos[lineaActual][columnaActual].vida = 5;
                     }
                 }
 
