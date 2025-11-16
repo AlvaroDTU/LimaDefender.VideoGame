@@ -107,11 +107,21 @@ int main() {
 			int maxEnemigosNivel = 14;
 			int yLineas[numLineas] = { 16, 25, 34, 43 };
 
+			bool activoBala[numLineas][3];
+			int balaX[numLineas][3];
+			int balaY[numLineas][3];
+
+			// Inicializar balas
+			for (int linea = 0; linea < numLineas; linea++) {
+				for (int b = 0; b < 3; b++) {
+					activoBala[linea][b] = false;
+				}
+			}
 			bool enemigoActivo[numLineas][maxEnemigos];
 			double enemigoX[numLineas][maxEnemigos];
 			int enemigoTipo[numLineas][maxEnemigos];
 			int spawnCooldown = 100;
-			bool activoBala[numLineas][3];
+			
 			// Inicialización
 			for (int linea = 0; linea < numLineas; linea++) {
 				for (int slot = 0; slot < maxEnemigos; slot++) {
@@ -172,15 +182,77 @@ int main() {
 					if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
 					if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
 
-					if (tecla == '1') {
+					if (tecla == '1' || tecla == '2') {
+
+						// DIBUJAR EL VECINO
 						borrar_enemigo(xcasilla + 3, yprota);
-						dibujar_vecino1(xcasilla + 3, yprota);
-						barra_seleccion[0] = true;
+
+						if (tecla == '1') dibujar_vecino1(xcasilla + 3, yprota);
+						if (tecla == '2') dibujar_vecino2(xcasilla + 3, yprota);
+
+						// MARCAR BARRA
+						barra_seleccion[(tecla == '1' ? 0 : 1)] = true;
+
+						// ---- DISPARO AUTOMÁTICO ----
+
+						int lineaActual = (yprota - 16) / 9;
+
+						for (int b = 0; b < 3; b++) {
+							if (!activoBala[lineaActual][b]) {
+
+								activoBala[lineaActual][b] = true;
+								balaX[lineaActual][b] = xcasilla + 8;
+								balaY[lineaActual][b] = yprota;
+
+								break;
+							}
+						}
 					}
-					if (tecla == '2') {
-						borrar_enemigo(xcasilla + 3, yprota);
-						dibujar_vecino2(xcasilla + 3, yprota);
-						barra_seleccion[1] = true;
+				}
+				// =======================================
+//   MOVIMIENTO DE BALAS + COLISIONES
+// =======================================
+				for (int linea = 0; linea < numLineas; linea++) {
+					for (int b = 0; b < 3; b++) {
+
+						if (!activoBala[linea][b]) continue;
+
+						// BORRAR FRAME ANTERIOR
+						borrar_bala(balaX[linea][b], balaY[linea][b]);
+
+						// AVANZAR
+						balaX[linea][b] += 1;
+
+						// SI SALE DEL MAPA
+						if (balaX[linea][b] > 185) {
+							activoBala[linea][b] = false;
+							continue;
+						}
+
+						// COLISION CON ENEMIGOS
+						for (int slot = 0; slot < maxEnemigos; slot++) {
+
+							if (!enemigoActivo[linea][slot]) continue;
+
+							int ex = (int)enemigoX[linea][slot];
+							int ey = yLineas[linea];
+
+							// DETECCIÓN SIMPLE (AABB)
+							if (balaX[linea][b] >= ex - 2 && balaX[linea][b] <= ex + 4) {
+
+								borrar_enemigo(ex, ey);
+								enemigoActivo[linea][slot] = false;
+
+								// matar bala
+								activoBala[linea][b] = false;
+
+								break;
+							}
+						}
+
+						if (activoBala[linea][b]) {
+							dibujar_bala(balaX[linea][b], balaY[linea][b]);
+						}
 					}
 				}
 

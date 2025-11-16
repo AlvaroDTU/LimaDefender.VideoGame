@@ -478,3 +478,20 @@ void barra_nivelATE(bool seleccion_barra[]) {
     barra_vecino2(56, 1, seleccion_barra[1]);
     aliado_chica(65, 1, seleccion_barra[2]);
 }
+// ===============================
+//  FUNCIONES NUEVAS – BALAS
+// ===============================
+
+void dibujar_bala(int x, int y) {
+    Console::ForegroundColor = ConsoleColor::Yellow;
+
+    gotoxy(x, y);     cout << "**";
+    gotoxy(x, y + 1); cout << "**";
+
+    Console::ForegroundColor = ConsoleColor::White;
+}
+
+void borrar_bala(int x, int y) {
+    gotoxy(x, y);     cout << "  ";
+    gotoxy(x, y + 1); cout << "  ";
+}
