@@ -99,194 +99,256 @@ int main() {
 			int xcasilla = 40, ycasilla = 15;
 			const int numLineas = 4;
 			const int maxEnemigos = 2;
+            const int numColumnas = 3;
 			int enemigosGenerados = 0;
 			int enemigosEliminados = 0;
 			int maxEnemigosNivel = 14;
 			int yLineas[numLineas] = { 16, 25, 34, 43 };
-
-			bool activoBala[numLineas][3];
-			int balaX[numLineas][3];
-			int balaY[numLineas][3];
-
-			// Inicializar balas
-			for (int linea = 0; linea < numLineas; linea++) {
-				for (int b = 0; b < 3; b++) {
-					activoBala[linea][b] = false;
-				}
-			}
-			bool enemigoActivo[numLineas][maxEnemigos];
+            bool vecinoActivo[numLineas][numColumnas];
+            const int MAX_BALAS = 20;
+            bool balaActiva[MAX_BALAS];
+            double balaX[MAX_BALAS];
+            int balaY[MAX_BALAS];
+            int balaLinea[MAX_BALAS];
+            int cooldownDisparo[numLineas][numColumnas] = { 0 };
+            const int TIEMPO_ENTRE_DISPAROS = 50;
+            bool enemigoActivo[numLineas][maxEnemigos] = { false };
 			double enemigoX[numLineas][maxEnemigos];
 			int enemigoTipo[numLineas][maxEnemigos];
 			int spawnCooldown = 100;
-			
-			// Inicialización
-			for (int linea = 0; linea < numLineas; linea++) {
-				for (int slot = 0; slot < maxEnemigos; slot++) {
-					enemigoActivo[linea][slot] = false;
-				}
-			}
+            for (int linea = 0; linea < numLineas; linea++) {
+                for (int slot = 0; slot < numColumnas; slot++) {
+                    vecinoActivo[linea][slot] = false;
+                }
+            }
+            for (int i = 0; i < MAX_BALAS; i++)
+                balaActiva[i] = false;
 			//INICIO ANIMACIONES NIVEL 1
-			while (nivel[0])
-			{
-				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-				if (enemigosGenerados < maxEnemigosNivel) {
-					if (spawnCooldown < 0) {
-						for (int slot = 0; slot < maxEnemigos; slot++) {
-							int lineaRandom = rand() % 4;
-							if (enemigoActivo[lineaRandom][slot] == false) {
-								enemigoActivo[lineaRandom][slot] = true;
-								enemigoX[lineaRandom][slot] = 181;
-								enemigoTipo[lineaRandom][slot] = 1 + rand() % 3;
-								spawnCooldown = 100;
-								enemigosGenerados++;
-								break;
-							}
-						}
-					}
-				}
-					for (int linea = 0; linea < numLineas; linea++) {
-						for (int slot = 0; slot < maxEnemigos; slot++) {
-							if (!enemigoActivo[linea][slot]) continue;
-							borrar_enemigo((int)enemigoX[linea][slot], yLineas[linea]);
-							enemigoX[linea][slot] -= 0.2;
-							if (enemigoX[linea][slot] <= 50) {
-								enemigoActivo[linea][slot] = false;
-								enemigosEliminados++;
-								continue;
-							}
-							switch (enemigoTipo[linea][slot]) {
-							case 1: dibujar_enemigo_poli((int)enemigoX[linea][slot], yLineas[linea]); break;
-							case 2: dibujar_enemigo_chamo((int)enemigoX[linea][slot], yLineas[linea]); break;
-							case 3: dibujar_enemigo_choro((int)enemigoX[linea][slot], yLineas[linea]); break;
-							}
-						}
-					}
-					spawnCooldown--;
-				
-				// ----------------------------------------------------
-				// 3. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
-				// ----------------------------------------------------
-				borrar_prota(xprota, yprota);
-				borrarcasilla(xcasilla, ycasilla);
-				// ----------------------------------------------------
-				// 4. PROCESAR INPUT DEL JUGADOR
-				// ----------------------------------------------------
-				if (_kbhit()) {
-					char tecla = tolower(_getch());
 
-					if (tecla == 'w' && yprota > 16) { yprota -= 9;  ycasilla -= 9; }
-					if (tecla == 's' && yprota < 41) { yprota += 9;  ycasilla += 9; }
-					if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
-					if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
+            while (nivel[0])
+            {
+                barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
 
-					if (tecla == '1' || tecla == '2') {
+                // ================================================================
+                // 1. SPAWN DE ENEMIGOS (hasta maxEnemigosNivel)
+                // ================================================================
+                if (enemigosGenerados < maxEnemigosNivel)
+                {
+                    if (spawnCooldown <= 0)
+                    {
+                        int lineaRandom = rand() % numLineas;
 
-						// DIBUJAR EL VECINO
-						borrar_enemigo(xcasilla + 3, yprota);
+                        for (int slot = 0; slot < maxEnemigos; slot++)
+                        {
+                            if (!enemigoActivo[lineaRandom][slot])
+                            {
+                                enemigoActivo[lineaRandom][slot] = true;
+                                enemigoX[lineaRandom][slot] = 181;
+                                enemigoTipo[lineaRandom][slot] = 1 + rand() % 3;
 
-						if (tecla == '1') dibujar_vecino1(xcasilla + 3, yprota);
-						if (tecla == '2') dibujar_vecino2(xcasilla + 3, yprota);
-
-						// MARCAR BARRA
-						barra_seleccion[(tecla == '1' ? 0 : 1)] = true;
-
-						// ---------------------------------------
-						// SOLO DISPARA SI HAY ENEMIGO EN LA LINEA
-						// ---------------------------------------
-
-						int lineaActual = (yprota - 16) / 9;
-
-						bool hayEnemigo = false;
-
-						for (int slot = 0; slot < maxEnemigos; slot++) {
-							if (enemigoActivo[lineaActual][slot]) {
-								hayEnemigo = true;
-								break;
-							}
-						}
-
-						// SI NO HAY ENEMIGO ? NO DISPARA
-						if (hayEnemigo) {
-							for (int b = 0; b < 3; b++) {
-								if (!activoBala[lineaActual][b]) {
-									activoBala[lineaActual][b] = true;
-									balaX[lineaActual][b] = xcasilla + 8;
-									balaY[lineaActual][b] = yprota;
-									break;
-								}
-							}
-						}
-					}
-
-				}
-				// =======================================
-				//   MOVIMIENTO DE BALAS + COLISIONES
-				// =======================================
-				for (int linea = 0; linea < numLineas; linea++) {
-					for (int b = 0; b < 3; b++) {
-
-						if (!activoBala[linea][b]) continue;
-
-						// BORRAR FRAME ANTERIOR
-						borrar_bala(balaX[linea][b], balaY[linea][b]);
-
-						// AVANZAR
-						balaX[linea][b] += 1;
-
-						// SI SALE DEL MAPA
-						if (balaX[linea][b] > 185) {
-							activoBala[linea][b] = false;
-							continue;
-						}
-
-						// COLISION CON ENEMIGOS
-						for (int slot = 0; slot < maxEnemigos; slot++) {
-
-							if (!enemigoActivo[linea][slot]) continue;
-
-							int ex = (int)enemigoX[linea][slot];
-							int ey = yLineas[linea];
-
-							// DETECCIÓN SIMPLE (AABB)
-							if (balaX[linea][b] >= ex - 2 && balaX[linea][b] <= ex + 4) {
-
-								borrar_enemigo(ex, ey);
-								enemigoActivo[linea][slot] = false;
-
-								// matar bala
-								activoBala[linea][b] = false;
-
-								break;
-							}
-						}
-
-						if (activoBala[linea][b]) {
-							dibujar_bala(balaX[linea][b], balaY[linea][b]);
-						}
-					}
-				}
+                                enemigosGenerados++;
+                                spawnCooldown = 80 + rand() % 40;
+                                break;
+                            }
+                        }
+                    }
+                    else spawnCooldown--;
+                }
 
 
-				// ----------------------------------------------------
-				// 5. DIBUJAR PROTAGONISTA Y CASILLA
-				// ----------------------------------------------------
-				dibujar_prota(xprota, yprota);
-				casilla(xcasilla, ycasilla);
+                // ================================================================
+                // 2. MOVER + DIBUJAR ENEMIGOS
+                // ================================================================
+                for (int linea = 0; linea < numLineas; linea++)
+                {
+                    for (int slot = 0; slot < maxEnemigos; slot++)
+                    {
+                        if (!enemigoActivo[linea][slot]) continue;
+
+                        borrar_enemigo((int)enemigoX[linea][slot], yLineas[linea]);
+
+                        enemigoX[linea][slot] -= 0.2;
+
+                        if (enemigoX[linea][slot] <= 50)
+                        {
+                            enemigoActivo[linea][slot] = false;
+                            enemigosEliminados++;
+                            continue;
+                        }
+
+                        switch (enemigoTipo[linea][slot]) {
+                        case 1: dibujar_enemigo_poli((int)enemigoX[linea][slot], yLineas[linea]); break;
+                        case 2: dibujar_enemigo_chamo((int)enemigoX[linea][slot], yLineas[linea]); break;
+                        case 3: dibujar_enemigo_choro((int)enemigoX[linea][slot], yLineas[linea]); break;
+                        }
+                    }
+                }
 
 
-				// ----------------------------------------------------
-				// 6. BARRA / HUD
-				// ----------------------------------------------------
-				barra_nivelSurcoYCallao(barra_seleccion);
+                // ================================================================
+                // 3. DETECTAR ENEMIGOS POR LÍNEA
+                // ================================================================
+                bool enemigoEnLinea[numLineas] = { false,false,false,false };
+
+                for (int linea = 0; linea < numLineas; linea++)
+                {
+                    for (int slot = 0; slot < maxEnemigos; slot++)
+                    {
+                        if (enemigoActivo[linea][slot])
+                        {
+                            enemigoEnLinea[linea] = true;
+                            break;
+                        }
+                    }
+                }
 
 
-				// ----------------------------------------------------
-				// 7. PAUSA (FPS)
-				// ----------------------------------------------------
-				_sleep(30);
-			}
+                // ================================================================
+                // 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+                // ================================================================
+                borrar_prota(xprota, yprota);
+                borrarcasilla(xcasilla, ycasilla);
+
+
+                // ================================================================
+                // 5. INPUT DEL JUGADOR (MOVIMIENTO + COLOCAR VECINOS)
+                // ================================================================
+                if (_kbhit()) {
+                    char tecla = tolower(_getch());
+
+                    if (tecla == 'w' && yprota > 16) { yprota -= 9;  ycasilla -= 9; }
+                    if (tecla == 's' && yprota < 41) { yprota += 9;  ycasilla += 9; }
+                    if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
+                    if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
+
+                    if (tecla == '1' || tecla == '2')
+                    {
+                        borrar_enemigo(xcasilla + 3, yprota);
+
+                        if (tecla == '1') dibujar_vecino1(xcasilla + 3, yprota);
+                        if (tecla == '2') dibujar_vecino2(xcasilla + 3, yprota);
+
+                        barra_seleccion[(tecla == '1' ? 0 : 1)] = true;
+
+                        int lineaActual = (yprota - 16) / 9;
+                        int columnaActual = (xcasilla - 40) / 14;
+
+                        vecinoActivo[lineaActual][columnaActual] = true;
+                    }
+                }
+
+
+                // ================================================================
+                // 6. DISPARO CONTINUO TIPO LANZAGUISANTES
+                // ================================================================
+                for (int linea = 0; linea < numLineas; linea++)
+                {
+                    for (int col = 0; col < numColumnas; col++)
+                    {
+                        if (!vecinoActivo[linea][col]) continue;
+
+                        // NO hay enemigos, resetear cooldown y no disparar
+                        if (!enemigoEnLinea[linea])
+                        {
+                            cooldownDisparo[linea][col] = 0;
+                            continue;
+                        }
+
+                        // Hay enemigos,  bajar cooldown
+                        if (cooldownDisparo[linea][col] > 0)
+                        {
+                            cooldownDisparo[linea][col]--;
+                            continue;
+                        }
+
+                        // Disparar (crear una nueva bala)
+                        for (int i = 0; i < MAX_BALAS; i++) {
+                            if (!balaActiva[i]) {
+                                balaActiva[i] = true;
+
+                                balaX[i] = 41 + col * 14 + 8;
+                                balaY[i] = yLineas[linea] + 2;
+                                balaLinea[i] = linea;
+                                break;
+                            }
+                        }
+
+                        // Reiniciar cooldown
+                        cooldownDisparo[linea][col] = TIEMPO_ENTRE_DISPAROS;
+                    }
+                }
+
+
+                // ================================================================
+                // 7. MOVER + DIBUJAR BALAS + COLISIONES
+                // ================================================================
+                for (int i = 0; i < MAX_BALAS; i++)
+                {
+                    if (!balaActiva[i]) continue;
+
+                    borrar_bala((int)balaX[i], balaY[i]);
+
+                    balaX[i] += 1.4;
+
+                    int linea = balaLinea[i];
+
+                    if (balaX[i] > 185)
+                    {
+                        balaActiva[i] = false;
+                        continue;
+                    }
+
+                    for (int slot = 0; slot < maxEnemigos; slot++)
+                    {
+                        if (!enemigoActivo[linea][slot]) continue;
+
+                        int ex = (int)enemigoX[linea][slot];
+
+                        if (balaX[i] >= ex - 2 && balaX[i] <= ex + 6)
+                        {
+                            borrar_enemigo(ex, yLineas[linea]);
+                            enemigoActivo[linea][slot] = false;
+                            enemigosEliminados++;
+
+                            balaActiva[i] = false;
+                            break;
+                        }
+                    }
+
+                    if (balaActiva[i])
+                        dibujar_bala((int)balaX[i], balaY[i]);
+                }
+
+
+                // ================================================================
+                // 8. DIBUJAR PROTA + CASILLA
+                // ================================================================
+                dibujar_prota(xprota, yprota);
+                casilla(xcasilla, ycasilla);
+
+
+                // ================================================================
+                // 9. HUD
+                // ================================================================
+                barra_nivelSurcoYCallao(barra_seleccion);
+
+
+                // ================================================================
+                // 10. FIN DEL NIVEL
+                // ================================================================
+                if (enemigosGenerados == maxEnemigosNivel &&
+                    enemigosEliminados == maxEnemigosNivel)
+                {
+                    nivel[0] = false;
+                    break;
+                }
+                // ================================================================
+                // 11. FPS
+                // ================================================================
+                _sleep(30);
+            }
 		}
 	}
-	return 0;
+    return 0;
 }
 	

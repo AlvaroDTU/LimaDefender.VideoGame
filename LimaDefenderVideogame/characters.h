@@ -484,14 +484,12 @@ void barra_nivelATE(bool seleccion_barra[]) {
 
 void dibujar_bala(int x, int y) {
     Console::ForegroundColor = ConsoleColor::Yellow;
-
-    gotoxy(x, y);     cout << "**";
-    gotoxy(x, y + 1); cout << "**";
-
-    Console::ForegroundColor = ConsoleColor::White;
+    gotoxy(x, y);
+    cout << (char)254;
 }
 
 void borrar_bala(int x, int y) {
-    gotoxy(x, y);     cout << "  ";
-    gotoxy(x, y + 1); cout << "  ";
+    Console::BackgroundColor = ConsoleColor::Black; // o el color del piso
+    gotoxy(x, y);
+    cout << " ";
 }
