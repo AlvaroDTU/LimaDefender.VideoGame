@@ -98,118 +98,133 @@ int main() {
 			while (_getch() != 13) {}
 			bool barra_seleccion[3] = { false,false,false };
 			nivel_surco();
-			barra_nivelSurcoYCallao(barra_seleccion);
 			int xprota = 31, yprota = 16;
 			int xcasilla = 40, ycasilla = 15;
 			const int numLineas = 4;
-			const int maxEnemigos = 2; // máximo de enemigos por línea
+			const int maxEnemigos = 2;
 
-			int yEnemigos[] = { 16, 25, 34, 43 };
-			int lineasActivas[numLineas] = { 0,0,0,0 };
-			lineasActivas[rand() % numLineas] = 1; // activa una al azar
+			int yLineas[numLineas] = { 16, 25, 34, 43 };
 
-			double xEnemigo[numLineas][maxEnemigos];
-			int tipoEnemigo[numLineas][maxEnemigos];
 			bool enemigoActivo[numLineas][maxEnemigos];
-			// Inicializa todo vacío
+			double enemigoX[numLineas][maxEnemigos];
+			int enemigoTipo[numLineas][maxEnemigos];
+			int spawnCooldown[numLineas];
+
+			// Inicialización
 			for (int i = 0; i < numLineas; i++) {
+				spawnCooldown[i] = 0;
 				for (int j = 0; j < maxEnemigos; j++) {
 					enemigoActivo[i][j] = false;
-					xEnemigo[i][j] = 0;
-					tipoEnemigo[i][j] = 0;
 				}
 			}
-			int enemigosActivos = 1;
-			int contadorTiempo = 0;
-			int spawnTimer = 0;
-			// Crea el primer enemigo
-			int lineaInicial = rand() % numLineas;
-			enemigoActivo[lineaInicial][0] = true;
-			xEnemigo[lineaInicial][0] = 170;
-			tipoEnemigo[lineaInicial][0] = 1 + rand() % 3;
 			//INICIO ANIMACIONES NIVEL 1
 			while (nivel[0])
 			{
-				// Dibujar enemigos
-				for (int i = 0; i < numLineas; i++) {
-					if (!lineasActivas[i]) continue;
+				// ----------------------------------------------------
+				// 1. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
+				// ----------------------------------------------------
+				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
+				borrar_prota(xprota, yprota);
+				borrarcasilla(xcasilla, ycasilla);
 
-					for (int j = 0; j < maxEnemigos; j++) {
-						if (!enemigoActivo[i][j]) continue;
 
-						double& x = xEnemigo[i][j];
-						int tipo = tipoEnemigo[i][j];
-
-						switch (tipo) {
-						case 1: dibujar_enemigo_poli(x, yEnemigos[i]); break;
-						case 2: dibujar_enemigo_chamo(x, yEnemigos[i]); break;
-						case 3: dibujar_enemigo_choro(x, yEnemigos[i]); break;
-						}
-
-						_sleep(30);
-						borrar_enemigo(x, yEnemigos[i]);
-						x --;
-
-						if (x <= 50) enemigoActivo[i][j] = false; // desaparece si sale del mapa
+				// ----------------------------------------------------
+				// 2. SPAWN ALEATORIO DE ENEMIGOS
+				// ----------------------------------------------------
+				for (int linea = 0; linea < numLineas; linea++)
+				{
+					if (spawnCooldown[linea] > 0) {
+						spawnCooldown[linea]--;
 					}
-				}
+					else {
+						// buscar espacio para un nuevo enemigo
+						for (int slot = 0; slot < maxEnemigos; slot++)
+						{
+							if (!enemigoActivo[linea][slot])
+							{
+								enemigoActivo[linea][slot] = true;
+								enemigoX[linea][slot] = 165 + rand() % 15;
+								enemigoTipo[linea][slot] = 1 + rand() % 3;
 
-				// Activa nuevas líneas poco a poco
-				contadorTiempo++;
-				if (contadorTiempo > 30 && enemigosActivos < numLineas) {
-					int nuevaLinea;
-					do {
-						nuevaLinea = rand() % numLineas;
-					} while (lineasActivas[nuevaLinea] == 1);
-					lineasActivas[nuevaLinea] = 1;
-					enemigosActivos++;
-					contadorTiempo = 0;
-				}
-
-				// Crea nuevos enemigos de forma aleatoria en líneas activas
-				spawnTimer++;
-				if (spawnTimer > 50) {
-					int linea = rand() % numLineas;
-					if (lineasActivas[linea]) {
-						// busca un espacio libre en esa línea
-						for (int j = 0; j < maxEnemigos; j++) {
-							if (!enemigoActivo[linea][j]) {
-								enemigoActivo[linea][j] = true;
-								xEnemigo[linea][j] = 165 + rand() % 15;
-								tipoEnemigo[linea][j] = 1 + rand() % 3;
+								spawnCooldown[linea] = 30 + rand() % 40;
 								break;
 							}
 						}
 					}
-					spawnTimer = 0;
 				}
-				//borrar
-				borrar_prota(xprota, yprota);
-				borrarcasilla(xcasilla, ycasilla);
-				//cambiar posicion
+
+
+				// ----------------------------------------------------
+				// 3. MOVER + BORRAR + DIBUJAR ENEMIGOS
+				// ----------------------------------------------------
+				for (int linea = 0; linea < numLineas; linea++)
+				{
+					for (int slot = 0; slot < maxEnemigos; slot++)
+					{
+						if (!enemigoActivo[linea][slot]) continue;
+
+						// borrar posición anterior
+						borrar_enemigo(enemigoX[linea][slot], yLineas[linea]);
+
+						// mover enemigo hacia la izquierda
+						enemigoX[linea][slot] -= 1;
+
+						// si sale del mapa, eliminarlo
+						if (enemigoX[linea][slot] <= 50) {
+							enemigoActivo[linea][slot] = false;
+							continue;
+						}
+
+						// dibujar según tipo
+						switch (enemigoTipo[linea][slot]) {
+						case 1: dibujar_enemigo_poli(enemigoX[linea][slot], yLineas[linea]); break;
+						case 2: dibujar_enemigo_chamo(enemigoX[linea][slot], yLineas[linea]); break;
+						case 3: dibujar_enemigo_choro(enemigoX[linea][slot], yLineas[linea]); break;
+						}
+					}
+				}
+
+
+				// ----------------------------------------------------
+				// 4. PROCESAR INPUT DEL JUGADOR
+				// ----------------------------------------------------
 				if (kbhit()) {
-					char tecla = _getch();
-					if (tolower(tecla) == 'w' && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-					if (tolower(tecla) == 's' && yprota < 41) { yprota += 9; ycasilla += 9; }
-					if (tolower(tecla) == 'a' && xcasilla > 40) { xcasilla -= 14; }
-					if (tolower(tecla) == 'd' && xcasilla < 68) { xcasilla += 14; }
-					if (tolower(tecla) == '1') {
+					char tecla = tolower(_getch());
+
+					if (tecla == 'w' && yprota > 16) { yprota -= 9;  ycasilla -= 9; }
+					if (tecla == 's' && yprota < 41) { yprota += 9;  ycasilla += 9; }
+					if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
+					if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
+
+					if (tecla == '1') {
 						borrar_enemigo(xcasilla + 3, yprota);
 						dibujar_vecino1(xcasilla + 3, yprota);
 						barra_seleccion[0] = true;
 					}
-					if (tolower(tecla) == '2') {
+					if (tecla == '2') {
 						borrar_enemigo(xcasilla + 3, yprota);
 						dibujar_vecino2(xcasilla + 3, yprota);
 						barra_seleccion[1] = true;
 					}
 				}
-				//dibujar
+
+
+				// ----------------------------------------------------
+				// 5. DIBUJAR PROTAGONISTA Y CASILLA
+				// ----------------------------------------------------
 				dibujar_prota(xprota, yprota);
 				casilla(xcasilla, ycasilla);
+
+
+				// ----------------------------------------------------
+				// 6. BARRA / HUD
+				// ----------------------------------------------------
 				barra_nivelSurcoYCallao(barra_seleccion);
-				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-				//espacio
+
+
+				// ----------------------------------------------------
+				// 7. PAUSA (FPS)
+				// ----------------------------------------------------
 				_sleep(30);
 			}
 		}
