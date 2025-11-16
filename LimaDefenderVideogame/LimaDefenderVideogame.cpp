@@ -90,10 +90,7 @@ int main() {
 			}
 		}
 		while (juego) {
-			slod0();
-			_sleep(250);
-			while (_getch() != 13) {}
-			slod1();
+		
 			_sleep(250);
 			while (_getch() != 13) {}
 			bool barra_seleccion[3] = { false,false,false };
@@ -193,25 +190,38 @@ int main() {
 						// MARCAR BARRA
 						barra_seleccion[(tecla == '1' ? 0 : 1)] = true;
 
-						// ---- DISPARO AUTOMÁTICO ----
+						// ---------------------------------------
+						// SOLO DISPARA SI HAY ENEMIGO EN LA LINEA
+						// ---------------------------------------
 
 						int lineaActual = (yprota - 16) / 9;
 
-						for (int b = 0; b < 3; b++) {
-							if (!activoBala[lineaActual][b]) {
+						bool hayEnemigo = false;
 
-								activoBala[lineaActual][b] = true;
-								balaX[lineaActual][b] = xcasilla + 8;
-								balaY[lineaActual][b] = yprota;
-
+						for (int slot = 0; slot < maxEnemigos; slot++) {
+							if (enemigoActivo[lineaActual][slot]) {
+								hayEnemigo = true;
 								break;
 							}
 						}
+
+						// SI NO HAY ENEMIGO ? NO DISPARA
+						if (hayEnemigo) {
+							for (int b = 0; b < 3; b++) {
+								if (!activoBala[lineaActual][b]) {
+									activoBala[lineaActual][b] = true;
+									balaX[lineaActual][b] = xcasilla + 8;
+									balaY[lineaActual][b] = yprota;
+									break;
+								}
+							}
+						}
 					}
+
 				}
 				// =======================================
-//   MOVIMIENTO DE BALAS + COLISIONES
-// =======================================
+				//   MOVIMIENTO DE BALAS + COLISIONES
+				// =======================================
 				for (int linea = 0; linea < numLineas; linea++) {
 					for (int b = 0; b < 3; b++) {
 
