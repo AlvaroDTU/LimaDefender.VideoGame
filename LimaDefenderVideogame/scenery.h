@@ -2,6 +2,25 @@
 #include "essentials.h"
 using namespace System;
 using namespace std;
+void puntosVecinales() {
+	int soles[4][12] = {
+	{1,1,2,1,1,1,1,1,1,1,1,0},
+	{1,2,2,2,1,1,1,1,1,1,1,0},
+	{1,1,2,1,1,1,1,1,1,1,1,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0}
+	};
+
+	for (int f = 0; f < 4; f++) {
+		for (int c = 0; c < 12; c++) {
+			gotoxy(c, f);
+			if (soles[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
+			if (soles[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
+			if (soles[f][c] == 2) Console::BackgroundColor = ConsoleColor::DarkYellow;
+			cout << " ";
+		}
+	}
+
+}
 //PANTALLA DE INICIO por armas:V
 void imprime_mapa() {
 	int fondo[50][190] = {
