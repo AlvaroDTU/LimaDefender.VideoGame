@@ -102,7 +102,9 @@ int main() {
 			int xcasilla = 40, ycasilla = 15;
 			const int numLineas = 4;
 			const int maxEnemigos = 2;
-
+			int enemigosGenerados = 0;
+			int enemigosEliminados = 0;
+			int maxEnemigosNivel = 14;
 			int yLineas[numLineas] = { 16, 25, 34, 43 };
 
 			bool enemigoActivo[numLineas][maxEnemigos];
@@ -120,35 +122,40 @@ int main() {
 			while (nivel[0])
 			{
 				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-				if (spawnCooldown < 0) {
+				if (enemigosGenerados < maxEnemigosNivel) {
+					if (spawnCooldown < 0) {
 						for (int slot = 0; slot < maxEnemigos; slot++) {
 							int lineaRandom = rand() % 4;
 							if (enemigoActivo[lineaRandom][slot] == false) {
 								enemigoActivo[lineaRandom][slot] = true;
-								enemigoX[lineaRandom][slot] = 171;
+								enemigoX[lineaRandom][slot] = 181;
 								enemigoTipo[lineaRandom][slot] = 1 + rand() % 3;
 								spawnCooldown = 100;
+								enemigosGenerados++;
 								break;
 							}
 						}
-				}
-				for (int linea = 0; linea < numLineas; linea++) {
-					for (int slot = 0; slot < maxEnemigos; slot++) {
-						if (!enemigoActivo[linea][slot]) continue;
-						borrar_enemigo((int)enemigoX[linea][slot], yLineas[linea]);
-						enemigoX[linea][slot] -= 0.2;
-						if (enemigoX[linea][slot] <= 50) {
-							enemigoActivo[linea][slot] = false;
-							continue;
-						}
-						switch (enemigoTipo[linea][slot]) {
-						case 1: dibujar_enemigo_poli((int)enemigoX[linea][slot], yLineas[linea]); break;
-						case 2: dibujar_enemigo_chamo((int)enemigoX[linea][slot], yLineas[linea]); break;
-						case 3: dibujar_enemigo_choro((int)enemigoX[linea][slot], yLineas[linea]); break;
-						}
 					}
 				}
-				spawnCooldown--;
+					for (int linea = 0; linea < numLineas; linea++) {
+						for (int slot = 0; slot < maxEnemigos; slot++) {
+							if (!enemigoActivo[linea][slot]) continue;
+							borrar_enemigo((int)enemigoX[linea][slot], yLineas[linea]);
+							enemigoX[linea][slot] -= 0.2;
+							if (enemigoX[linea][slot] <= 50) {
+								enemigoActivo[linea][slot] = false;
+								enemigosEliminados++;
+								continue;
+							}
+							switch (enemigoTipo[linea][slot]) {
+							case 1: dibujar_enemigo_poli((int)enemigoX[linea][slot], yLineas[linea]); break;
+							case 2: dibujar_enemigo_chamo((int)enemigoX[linea][slot], yLineas[linea]); break;
+							case 3: dibujar_enemigo_choro((int)enemigoX[linea][slot], yLineas[linea]); break;
+							}
+						}
+					}
+					spawnCooldown--;
+				
 				// ----------------------------------------------------
 				// 3. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
 				// ----------------------------------------------------
