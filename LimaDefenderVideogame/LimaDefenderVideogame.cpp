@@ -108,74 +108,47 @@ int main() {
 			bool enemigoActivo[numLineas][maxEnemigos];
 			double enemigoX[numLineas][maxEnemigos];
 			int enemigoTipo[numLineas][maxEnemigos];
-			int spawnCooldown[numLineas];
+			int spawnCooldown = 100;
 			bool activoBala[numLineas][3];
 			// Inicialización
-			for (int i = 0; i < numLineas; i++) {
-				spawnCooldown[i] = 30 + rand() % 40;
-				for (int j = 0; j < maxEnemigos; j++) {
-					enemigoActivo[i][j] = false;
+			for (int linea = 0; linea < numLineas; linea++) {
+				for (int slot = 0; slot < maxEnemigos; slot++) {
+					enemigoActivo[linea][slot] = false;
 				}
 			}
 			//INICIO ANIMACIONES NIVEL 1
 			while (nivel[0])
 			{
 				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-				// ----------------------------------------------------
-				// 1. SPAWN ALEATORIO DE ENEMIGOS
-				// ----------------------------------------------------
-				for (int linea = 0; linea < numLineas; linea++)
-				{
-					if (spawnCooldown[linea] > 0) {
-						spawnCooldown[linea]--;
-					}
-					else {
-						// buscar espacio para un nuevo enemigo
-						for (int slot = 0; slot < maxEnemigos; slot++)
-						{
-							if (!enemigoActivo[linea][slot])
-							{
-								enemigoActivo[linea][slot] = true;
-								enemigoX[linea][slot] = 170;
-								enemigoTipo[linea][slot] = 1 + rand() % 3;
-
-								spawnCooldown[linea] = 30 + rand() % 40;
+				if (spawnCooldown < 0) {
+						for (int slot = 0; slot < maxEnemigos; slot++) {
+							int lineaRandom = rand() % 4;
+							if (enemigoActivo[lineaRandom][slot] == false) {
+								enemigoActivo[lineaRandom][slot] = true;
+								enemigoX[lineaRandom][slot] = 171;
+								enemigoTipo[lineaRandom][slot] = 1 + rand() % 3;
+								spawnCooldown = 100;
 								break;
 							}
 						}
-					}
 				}
-
-
-				// ----------------------------------------------------
-				// 2. MOVER + BORRAR + DIBUJAR ENEMIGOS
-				// ----------------------------------------------------
-				for (int linea = 0; linea < numLineas; linea++)
-				{
-					for (int slot = 0; slot < maxEnemigos; slot++)
-					{
+				for (int linea = 0; linea < numLineas; linea++) {
+					for (int slot = 0; slot < maxEnemigos; slot++) {
 						if (!enemigoActivo[linea][slot]) continue;
-
-						// borrar posición anterior
-						borrar_enemigo(enemigoX[linea][slot], yLineas[linea]);
-
-						// mover enemigo hacia la izquierda
-						enemigoX[linea][slot] -= 1;
-
-						// si sale del mapa, eliminarlo
+						borrar_enemigo((int)enemigoX[linea][slot], yLineas[linea]);
+						enemigoX[linea][slot] -= 0.2;
 						if (enemigoX[linea][slot] <= 50) {
 							enemigoActivo[linea][slot] = false;
 							continue;
 						}
-
-						// dibujar según tipo
 						switch (enemigoTipo[linea][slot]) {
-						case 1: dibujar_enemigo_poli(enemigoX[linea][slot], yLineas[linea]); break;
-						case 2: dibujar_enemigo_chamo(enemigoX[linea][slot], yLineas[linea]); break;
-						case 3: dibujar_enemigo_choro(enemigoX[linea][slot], yLineas[linea]); break;
+						case 1: dibujar_enemigo_poli((int)enemigoX[linea][slot], yLineas[linea]); break;
+						case 2: dibujar_enemigo_chamo((int)enemigoX[linea][slot], yLineas[linea]); break;
+						case 3: dibujar_enemigo_choro((int)enemigoX[linea][slot], yLineas[linea]); break;
 						}
 					}
 				}
+				spawnCooldown--;
 				// ----------------------------------------------------
 				// 3. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
 				// ----------------------------------------------------
