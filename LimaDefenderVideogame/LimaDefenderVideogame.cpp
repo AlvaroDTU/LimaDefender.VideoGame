@@ -22,8 +22,8 @@ int main() {
 		system("pause>nul");
 		while (inicio) {
 			if (_kbhit()) {
-				char tecla = getch();
-				switch (tolower(tecla)) {
+				char tecla = tolower(_getch());
+				switch (tecla) {
 				case 'w':
 					if (yopciones == 2) yopciones--;
 					break;
@@ -109,10 +109,10 @@ int main() {
 			double enemigoX[numLineas][maxEnemigos];
 			int enemigoTipo[numLineas][maxEnemigos];
 			int spawnCooldown[numLineas];
-
+			bool activoBala[numLineas][3];
 			// Inicialización
 			for (int i = 0; i < numLineas; i++) {
-				spawnCooldown[i] = 0;
+				spawnCooldown[i] = 30 + rand() % 40;
 				for (int j = 0; j < maxEnemigos; j++) {
 					enemigoActivo[i][j] = false;
 				}
@@ -120,16 +120,9 @@ int main() {
 			//INICIO ANIMACIONES NIVEL 1
 			while (nivel[0])
 			{
-				// ----------------------------------------------------
-				// 1. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
-				// ----------------------------------------------------
 				barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-				borrar_prota(xprota, yprota);
-				borrarcasilla(xcasilla, ycasilla);
-
-
 				// ----------------------------------------------------
-				// 2. SPAWN ALEATORIO DE ENEMIGOS
+				// 1. SPAWN ALEATORIO DE ENEMIGOS
 				// ----------------------------------------------------
 				for (int linea = 0; linea < numLineas; linea++)
 				{
@@ -143,7 +136,7 @@ int main() {
 							if (!enemigoActivo[linea][slot])
 							{
 								enemigoActivo[linea][slot] = true;
-								enemigoX[linea][slot] = 165 + rand() % 15;
+								enemigoX[linea][slot] = 170;
 								enemigoTipo[linea][slot] = 1 + rand() % 3;
 
 								spawnCooldown[linea] = 30 + rand() % 40;
@@ -155,7 +148,7 @@ int main() {
 
 
 				// ----------------------------------------------------
-				// 3. MOVER + BORRAR + DIBUJAR ENEMIGOS
+				// 2. MOVER + BORRAR + DIBUJAR ENEMIGOS
 				// ----------------------------------------------------
 				for (int linea = 0; linea < numLineas; linea++)
 				{
@@ -183,12 +176,15 @@ int main() {
 						}
 					}
 				}
-
-
+				// ----------------------------------------------------
+				// 3. BORRAR PROTAGONISTA DEL FRAME ANTERIOR
+				// ----------------------------------------------------
+				borrar_prota(xprota, yprota);
+				borrarcasilla(xcasilla, ycasilla);
 				// ----------------------------------------------------
 				// 4. PROCESAR INPUT DEL JUGADOR
 				// ----------------------------------------------------
-				if (kbhit()) {
+				if (_kbhit()) {
 					char tecla = tolower(_getch());
 
 					if (tecla == 'w' && yprota > 16) { yprota -= 9;  ycasilla -= 9; }
