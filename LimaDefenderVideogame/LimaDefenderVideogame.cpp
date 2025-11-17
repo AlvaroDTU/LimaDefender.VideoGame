@@ -5,6 +5,10 @@
 #include "scenery.h"
 #include "conio.h"
 #include "cctype"
+#define upkey 72
+#define downkey 80
+#define rightkey 77
+#define leftkey 75
 struct Enemigo {
     bool activo;
     double x;
@@ -44,25 +48,24 @@ int main() {
 		system("pause>nul");
 		while (inicio) {
 			if (_kbhit()) {
-				char tecla = tolower(_getch());
+                char tecla = _getch();
 				switch (tecla) {
-				case 'w':
+				case upkey:
 					if (yopciones == 2) yopciones--;
 					break;
-				case 'a':
+				case leftkey:
 					if (xopciones == 2) xopciones--;
 					break;
-				case 's':
+				case downkey:
 					if (yopciones == 1) yopciones++;
 					break;
-				case 'd':
+				case rightkey:
 					if (xopciones == 1) xopciones++;
 					break;
 				case 13:
 					if (xopciones == 1 && yopciones == 1) {
 						inicio = false;
 						juego = true;
-						nivel[0] = true;
 					}
 					if (xopciones == 1 && yopciones == 2) {
 						system("color 0F");
@@ -112,6 +115,7 @@ int main() {
 			}
 		}
 		while (juego) {
+            nivel[0] = true;
             slod0();
 			while (_getch() != 13) {}
             slod1();
@@ -125,7 +129,7 @@ int main() {
 			const int numLineas = 4;
             const int numColumnas = 3;
 			const int maxEnemigosLinea = 2;
-            const int MAX_BALAS = 20;
+            const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
             int yLineas[numLineas] = { 16, 25, 34, 43 };
             
 			int enemigosGenerados = 0;
@@ -169,15 +173,12 @@ int main() {
 			//INICIO ANIMACIONES NIVEL 1
             while (nivel[0])
             {
+                barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
                 // SISTEMA DE PUNTOS VECINALES
                 gotoxy(6, 1);
                 Console::BackgroundColor = ConsoleColor::White;
                 Console::ForegroundColor = ConsoleColor::Black;
                 cout << puntosV<<" ";
-
-                barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
-
-
                 //----------------------------------------------------------
                 // 1. SPAWN DE ENEMIGOS
                 //----------------------------------------------------------
@@ -297,11 +298,11 @@ int main() {
                 // 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
                 //----------------------------------------------------------
                 if (_kbhit()) {
-                    char tecla = tolower(_getch());
-                    if (tecla == 'w' && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-                    if (tecla == 's' && yprota < 41) { yprota += 9; ycasilla += 9; }
-                    if (tecla == 'a' && xcasilla > 40) { xcasilla -= 14; }
-                    if (tecla == 'd' && xcasilla < 68) { xcasilla += 14; }
+                    char tecla = _getch();
+                    if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+                    if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+                    if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
+                    if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
                     if (tecla == '1')
                     {
                         if (puntosV >= 25) {
