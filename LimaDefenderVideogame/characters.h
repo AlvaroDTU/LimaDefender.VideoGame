@@ -2,8 +2,29 @@
 #include "essentials.h"
 using namespace std;
 using namespace System;
-//EDSON KCHAME PARA MI 20, TE DEJO LIBRE MI CULITO VIRGEN
 
+struct Enemigo {
+    bool activo;
+    double x;
+    int y;
+    int tipo;
+    int vida;
+    bool atacando;
+    int cooldownataque;
+};
+struct Vecino {
+    bool activo;
+    int x;
+    int y;
+    int cooldown;
+    int vida;
+};
+struct Bala {
+    bool activa;
+    double x;
+    int y;
+    int linea;
+};
 void borrar_prota(int x, int y) {
     int borrar[6][8] = {
        {0,0,0,0,0,0,0,0},

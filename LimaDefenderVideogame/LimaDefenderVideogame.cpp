@@ -9,28 +9,7 @@
 #define downkey 80
 #define rightkey 77
 #define leftkey 75
-struct Enemigo {
-    bool activo;
-    double x;
-    int y;
-    int tipo;
-    int vida;
-    bool atacando;
-    int cooldownataque;
-};
-struct Vecino {
-    bool activo;
-    int x;
-    int y;
-    int cooldown;
-    int vida;
-};
-struct Bala {
-    bool activa;
-    double x;
-    int y;
-    int linea;
-};
+
 bool Nivel1();
 
 int main() {
