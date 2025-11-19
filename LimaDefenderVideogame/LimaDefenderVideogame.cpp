@@ -288,47 +288,6 @@ bool Nivel1() {
 
 
         //----------------------------------------------------------
-        // 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
-        //----------------------------------------------------------
-        borrar_prota(xprota, yprota);
-        borrarcasilla(xcasilla, ycasilla);
-
-
-        //----------------------------------------------------------
-        // 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
-        //----------------------------------------------------------
-        if (_kbhit()) {
-            char tecla = _getch();
-            if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-            if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-            if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
-            if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1')
-            {
-                if (puntosV >= 25) {
-                    int lineaActual = (yprota - 16) / 9;
-                    int columnaActual = (xcasilla - 40) / 14;
-                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
-                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
-                    vecinos[lineaActual][columnaActual].cooldown = 0;
-                    vecinos[lineaActual][columnaActual].vida = 5;
-                    vecinos[lineaActual][columnaActual].activo = true;
-                    puntosV -= 25;
-                    barra_seleccion[0] = true;
-                }
-
-            }
-            if (tecla == 13) {
-                int lineaActual = (yprota - 16) / 9;
-                int columnaActual = (xcasilla - 40) / 14;
-                borrar_enemigo(xcasilla + 3, yprota);
-                vecinos[lineaActual][columnaActual].activo = false;
-                vecinos[lineaActual][columnaActual].vida = 5;
-            }
-        }
-
-
-        //----------------------------------------------------------
         // 6. DISPARO AUTOMÁTICO
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
@@ -397,7 +356,45 @@ bool Nivel1() {
             if (balas[i].activa)
                 dibujar_bala((int)balas[i].x, balas[i].y);
         }
+        //----------------------------------------------------------
+       // 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+       //----------------------------------------------------------
+        borrar_prota(xprota, yprota);
+        borrarcasilla(xcasilla, ycasilla);
 
+
+        //----------------------------------------------------------
+        // 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
+        //----------------------------------------------------------
+        if (_kbhit()) {
+            char tecla = _getch();
+            if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+            if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+            if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
+            if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
+            if (tecla == '1')
+            {
+                if (puntosV >= 25) {
+                    int lineaActual = (yprota - 16) / 9;
+                    int columnaActual = (xcasilla - 40) / 14;
+                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                    vecinos[lineaActual][columnaActual].cooldown = 0;
+                    vecinos[lineaActual][columnaActual].vida = 5;
+                    vecinos[lineaActual][columnaActual].activo = true;
+                    puntosV -= 25;
+                    barra_seleccion[0] = true;
+                }
+
+            }
+            if (tecla == 13) {
+                int lineaActual = (yprota - 16) / 9;
+                int columnaActual = (xcasilla - 40) / 14;
+                borrar_enemigo(xcasilla + 3, yprota);
+                vecinos[lineaActual][columnaActual].activo = false;
+                vecinos[lineaActual][columnaActual].vida = 5;
+            }
+        }
 
         //----------------------------------------------------------
         // 8. REDIBUJAR VECINOS + PROTA + CASILLA
