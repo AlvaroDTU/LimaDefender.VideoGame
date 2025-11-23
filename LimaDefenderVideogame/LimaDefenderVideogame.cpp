@@ -103,78 +103,23 @@ int main() {
 		while (juego) {
             if (nivel[0]) {
                 bool ganaste = Nivel1();
-                if (ganaste) {
+                if (ganaste) 
                     nivel[1] = true;
-                    if (nivel[1] == true) {
-                        bool ganaste2 = Nivel2();
-                        if (ganaste2) {
-                        nivel[2] = true;
-                        if (nivel[2] == true) {
-                            bool ganaste3 = Nivel3();
-                            if (ganaste3) {
-                                nivel[3] = true;
-                                //
-                                if (nivel[3] == true) {
-                                    bool ganaste4 = Nivel4();
-                                    if (ganaste4) {
-                                        nivel[4] = true;
-                                       if (nivel[4] == true) {
-
-                                            slod5();
-                                            while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
-                                            slod6();
-                                            while (_getch() != 13) {}
-                                            inicio = true;
-                                            juego = false;
-                                            break;
-                                        }
-                                        
-                                    else {
-                                        inicio = true;
-                                        juego = false;
-                                        break;
-                                    }
-                                    }
-                                    else {
-                                        inicio = true;
-                                        juego = false;
-                                        break;
-                                    }
-                                }
-                                else {
-                                    inicio = true;
-                                    juego = false;
-                                    break;
-                                }
-                                //
-                            }
-                        }
-                        else {
-                            inicio = true;
-                            juego = false;
-                            break;
-                        }
-                    }
-                        else {
-                            inicio = true;
-                            juego = false;
-                            break;
-                        }
-                    }
-                    else {
-                        inicio = true;
-                        juego = false;
-                        break;
-                    }
-                }
-                else{
-                    inicio = true;
-                    juego = false;
-                    break;
-                }
             }
             if (nivel[1]) {
-
+                bool ganaste = Nivel2();
+                if (ganaste) 
+                    nivel[2] = true;
+            }
+            if (nivel[2]) {
+                bool ganaste = Nivel3();
+                if (ganaste)
+                    nivel[3] = true;
+            }
+            if (nivel[3]) {
+                slod5();
+                slod6();
+                juego = false;
             }
 		}
 	}
