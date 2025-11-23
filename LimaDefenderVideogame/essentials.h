@@ -1,5 +1,7 @@
 #pragma once
-#include <windows.h>
+#include "windows.h"
+#include "cctype"
+#include "conio.h"
 using namespace System;
 using namespace std;
 void gotoxy(int x, int y) {

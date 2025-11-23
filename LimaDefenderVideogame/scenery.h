@@ -22,7 +22,7 @@ void puntosVecinales() {
 
 }
 //PANTALLA DE INICIO por armas:V
-void imprime_mapa() {
+void mapa() {
 	int fondo[50][190] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -95,7 +95,7 @@ void imprime_mapa() {
 	}
 }
 //OPCIONES (GABRIEL)
-void imprime_play(int x, int y) {
+void imprime_play(int x, int y, int i) {
 	int play[9][18] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -112,37 +112,17 @@ void imprime_play(int x, int y) {
 			gotoxy(x + c, y + f);
 			if (play[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
 			if (play[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (play[f][c] == 2) Console::BackgroundColor = ConsoleColor::Red;
-			cout << " ";
-
-		}
-	}
-}
-void imprime_selectedplay(int x, int y) {
-	int play[9][18] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,1,2,2,2,1,2,1,1,2,2,2,1,2,1,2,1,0},
-	{0,1,2,1,2,1,2,1,1,2,1,2,1,2,1,2,1,0},
-	{0,1,2,2,2,1,2,1,1,2,2,2,1,1,2,1,1,0},
-	{0,1,2,1,1,1,2,1,1,2,1,2,1,1,2,1,1,0},
-	{0,1,2,1,1,1,2,2,1,2,1,2,1,1,2,1,1,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 18; c++) {
-			gotoxy(x + c, y + f);
-			if (play[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
-			if (play[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (play[f][c] == 2) Console::BackgroundColor = ConsoleColor::Black;
+			if (play[f][c] == 2) {
+				if (i == 0) Console::BackgroundColor = ConsoleColor::Red;
+				if (i == 1) Console::BackgroundColor = ConsoleColor::Black;
+			}
 			cout << " ";
 
 		}
 	}
 }
 
-void imprime_credits(int x, int y) {
+void imprime_credits(int x, int y, int i) {
 	int cred[9][27] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -159,36 +139,16 @@ void imprime_credits(int x, int y) {
 			gotoxy(x + c, y + f);
 			if (cred[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
 			if (cred[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (cred[f][c] == 2) Console::BackgroundColor = ConsoleColor::Red;
+			if (cred[f][c] == 2) {
+				if (i == 0) Console::BackgroundColor = ConsoleColor::Red;
+				if (i == 1) Console::BackgroundColor = ConsoleColor::Black;
+			}
 			cout << " ";
 
 		}
 	}
 }
-void imprime_selectedcredits(int x, int y) {
-	int cred[9][27] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,1,2,2,1,2,2,2,1,1,2,2,1,2,2,1,1,2,1,2,2,2,1,2,2,1,0},
-	{0,1,2,1,1,2,1,1,2,1,2,1,1,2,1,2,1,2,1,1,2,1,1,2,1,1,0},
-	{0,1,2,1,1,2,2,2,1,1,2,2,1,2,1,2,1,2,1,1,2,1,1,2,2,1,0},
-	{0,1,2,1,1,2,1,1,2,1,2,1,1,2,1,2,1,2,1,1,2,1,1,1,2,1,0},
-	{0,1,2,2,1,2,1,1,2,1,2,2,1,2,2,1,1,2,1,1,2,1,1,2,2,1,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 27; c++) {
-			gotoxy(x + c, y + f);
-			if (cred[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
-			if (cred[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (cred[f][c] == 2) Console::BackgroundColor = ConsoleColor::Black;
-			cout << " ";
-
-		}
-	}
-}
-void imprime_instructions(int x, int y) {
+void imprime_instructions(int x, int y, int i) {
 	int ins[9][51] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
@@ -205,36 +165,16 @@ void imprime_instructions(int x, int y) {
 			gotoxy(x + c, y + f);
 			if (ins[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
 			if (ins[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (ins[f][c] == 2) Console::BackgroundColor = ConsoleColor::Red;
+			if (ins[f][c] == 2) {
+				if (i == 0) Console::BackgroundColor = ConsoleColor::Red;
+				if (i == 1) Console::BackgroundColor = ConsoleColor::Black;
+			}
 			cout << " ";
 
 		}
 	}
 }
-void imprime_selectedinstructions(int x, int y) {
-	int ins[9][51] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-	{0,1,2,1,2,2,1,1,2,1,2,2,1,2,2,2,1,2,2,2,1,1,2,1,2,1,2,2,1,2,2,2,1,2,1,1,2,2,2,1,2,2,1,1,2,1,1,2,2,1 },
-	{0,1,2,1,2,2,1,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,2,2,1,1,2,1,1,2,1,1 },
-	{0,1,2,1,2,1,2,1,2,1,2,2,1,1,2,1,1,2,2,2,1,1,2,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,2,1,2,1,2,1,1,2,2,1 },
-	{0,1,2,1,2,1,1,2,2,1,1,2,1,1,2,1,1,2,1,1,2,1,2,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,2,1,1,2,2,1,1,1,2,1 },
-	{0,1,2,1,2,1,1,2,2,1,2,2,1,1,2,1,1,2,1,1,2,1,2,2,2,1,2,2,1,1,2,1,1,2,1,1,2,2,2,1,2,1,1,2,2,1,1,2,2,1 },
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 51; c++) {
-			gotoxy(x + c, y + f);
-			if (ins[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
-			if (ins[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (ins[f][c] == 2) Console::BackgroundColor = ConsoleColor::Black;
-			cout << " ";
-
-		}
-	}
-}
-void imprime_exit(int x, int y) {
+void imprime_exit(int x, int y, int i) {
 	int exit[9][18] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -251,36 +191,17 @@ void imprime_exit(int x, int y) {
 			gotoxy(x + c, y + f);
 			if (exit[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
 			if (exit[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (exit[f][c] == 2) Console::BackgroundColor = ConsoleColor::Red;
+			if (exit[f][c] == 2) {
+				if (i == 0) Console::BackgroundColor = ConsoleColor::Red;
+				if (i == 1) Console::BackgroundColor = ConsoleColor::Black;
+			}
 			cout << " ";
 
 		}
 	}
 }
-void imprime_selectedexit(int x, int y) {
-	int exit[9][18] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,1,2,2,1,2,1,2,1,2,1,2,2,2,2,2,1,0},
-	{0,1,2,1,1,2,1,2,1,2,1,1,1,2,1,1,1,0},
-	{0,1,2,2,1,1,2,1,1,2,1,1,1,2,1,1,1,0},
-	{0,1,2,1,1,2,1,2,1,2,1,1,1,2,1,1,1,0},
-	{0,1,2,2,1,2,1,2,1,2,1,1,1,2,1,1,1,0},
-	{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-	};
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 18; c++) {
-			gotoxy(x + c, y + f);
-			if (exit[f][c] == 0) Console::BackgroundColor = ConsoleColor::Black;
-			if (exit[f][c] == 1) Console::BackgroundColor = ConsoleColor::White;
-			if (exit[f][c] == 2) Console::BackgroundColor = ConsoleColor::Black;
-			cout << " ";
 
-		}
-	}
-}
-void imprime_titulo(int x, int y) {
+void titulo(int x, int y) {
 	int titulo[25][80] = {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
 	{1,1,1,2,2,2,2,2,2,2,2,1,1,1,0,0,0,0,0,1,1,1,2,2,2,2,2,2,2,2,1,1,1,1,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1},
@@ -381,6 +302,7 @@ void instrucciones() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::Black; gotoxy(163, 48); cout << "ENTER para salir al menu";
 }
 //NIVELES
 void nivel_surco() {
@@ -782,6 +704,7 @@ void slod0() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 
 void slod1() {
@@ -852,6 +775,7 @@ void slod1() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 
 void slod2() {
@@ -926,6 +850,7 @@ void slod2() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 void slod3() {
 	int slod3[50][190] = {
@@ -999,6 +924,7 @@ void slod3() {
 
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 void slod4() {
 	int slot4[50][190] = {
@@ -1067,6 +993,7 @@ void slod4() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 void slod5() {
 	int slod5[50][190] = {
@@ -1135,6 +1062,7 @@ void slod5() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 void slod6() {
 	int slod6[50][190] = {
@@ -1206,6 +1134,7 @@ void slod6() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 2); cout << "ENTER para continuar";
 }
 
 void ending() {
@@ -1270,9 +1199,10 @@ void ending() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 46); cout << "ENTER para continuar";
 }
 
-void credits() {
+void creditos() {
 	int credits[50][190] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0       },
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 3, 0, 0, 3, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0, 3, 3, 3, 0, 3, 3, 0, 0, 0, 3, 0, 0, 3, 0, 0, 3, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0		},
@@ -1347,9 +1277,10 @@ void credits() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 48); cout << "ENTER para salir al menu";
 }
 
-void Perdiste() {
+void perdiste() {
 	int perdiste[50][190] = {
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -1410,4 +1341,5 @@ void Perdiste() {
 			cout << " ";
 		}
 	}
+	Console::ForegroundColor = ConsoleColor::White; gotoxy(160, 47); cout << "ENTER para regresar al menu";
 }

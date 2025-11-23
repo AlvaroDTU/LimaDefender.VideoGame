@@ -35,6 +35,9 @@
     <ClInclude Include="essentials.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="levels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LimaDefenderVideogame.cpp">
