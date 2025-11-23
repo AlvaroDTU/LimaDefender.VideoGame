@@ -300,7 +300,7 @@ bool Nivel1() {
 
 
         //----------------------------------------------------------
-        // 6. DISPARO AUTOMÁTICO
+        // 6. CREACION DE BALA
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
         {
@@ -315,7 +315,6 @@ bool Nivel1() {
                     vecinos[l][c].cooldown--;
                     continue;
                 }
-                // Crear bala
                 for (int i = 0; i < MAX_BALAS; i++) {
                     if (!balas[i].activa) {
                         balas[i].activa = true;
@@ -384,27 +383,42 @@ bool Nivel1() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1')
+            if (tecla == '1' || tecla == '2' || tecla == 13)
             {
-                if (puntosV >= 25) {
-                    int lineaActual = (yprota - 16) / 9;
-                    int columnaActual = (xcasilla - 40) / 14;
-                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
-                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
-                    vecinos[lineaActual][columnaActual].cooldown = 0;
-                    vecinos[lineaActual][columnaActual].vida = 5;
-                    vecinos[lineaActual][columnaActual].activo = true;
-                    puntosV -= 25;
-                    barra_seleccion[0] = true;
-                }
-
-            }
-            if (tecla == 13) {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
-                borrar_enemigo(xcasilla + 3, yprota);
-                vecinos[lineaActual][columnaActual].activo = false;
-                vecinos[lineaActual][columnaActual].vida = 5;
+                if (!vecinos[lineaActual][columnaActual].activo) {
+                    if (tecla == '1') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 1;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                    if (tecla == '2') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 2;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                }
+                    if (tecla == 13) {
+                        borrar_enemigo(xcasilla + 3, yprota);
+                        vecinos[lineaActual][columnaActual].activo = false;
+                        vecinos[lineaActual][columnaActual].vida = 5;
+                    }
+                
             }
         }
 
@@ -413,8 +427,12 @@ bool Nivel1() {
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
             for (int c = 0; c < numColumnas; c++)
-                if (vecinos[l][c].activo)
-                    dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y);
+                if (vecinos[l][c].activo) {
+                    switch (vecinos[l][c].tipo) {
+                    case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    }
+                }
 
         dibujar_prota(xprota, yprota);
         casilla(xcasilla, ycasilla);
@@ -695,27 +713,42 @@ bool Nivel2() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1')
+            if (tecla == '1' || tecla == '2' || tecla == 13)
             {
-                if (puntosV >= 25) {
-                    int lineaActual = (yprota - 16) / 9;
-                    int columnaActual = (xcasilla - 40) / 14;
-                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
-                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
-                    vecinos[lineaActual][columnaActual].cooldown = 0;
-                    vecinos[lineaActual][columnaActual].vida = 5;
-                    vecinos[lineaActual][columnaActual].activo = true;
-                    puntosV -= 25;
-                    barra_seleccion[0] = true;
-                }
-
-            }
-            if (tecla == 13) {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
-                borrar_enemigo(xcasilla + 3, yprota);
-                vecinos[lineaActual][columnaActual].activo = false;
-                vecinos[lineaActual][columnaActual].vida = 5;
+                if (!vecinos[lineaActual][columnaActual].activo) {
+                    if (tecla == '1') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 1;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                    if (tecla == '2') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 2;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                }
+                if (tecla == 13) {
+                    borrar_enemigo(xcasilla + 3, yprota);
+                    vecinos[lineaActual][columnaActual].activo = false;
+                    vecinos[lineaActual][columnaActual].vida = 5;
+                }
+
             }
         }
 
@@ -724,8 +757,12 @@ bool Nivel2() {
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
             for (int c = 0; c < numColumnas; c++)
-                if (vecinos[l][c].activo)
-                    dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y);
+                if (vecinos[l][c].activo) {
+                    switch (vecinos[l][c].tipo) {
+                    case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    }
+                }
 
         dibujar_prota(xprota, yprota);
         casilla(xcasilla, ycasilla);
@@ -754,7 +791,6 @@ bool Nivel2() {
 
 }
 bool Nivel3() {
-
     slod3();
     while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
     bool barra_seleccion[3] = { false,false,false };
@@ -1008,27 +1044,42 @@ bool Nivel3() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1')
+            if (tecla == '1' || tecla == '2' || tecla == 13)
             {
-                if (puntosV >= 25) {
-                    int lineaActual = (yprota - 16) / 9;
-                    int columnaActual = (xcasilla - 40) / 14;
-                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
-                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
-                    vecinos[lineaActual][columnaActual].cooldown = 0;
-                    vecinos[lineaActual][columnaActual].vida = 5;
-                    vecinos[lineaActual][columnaActual].activo = true;
-                    puntosV -= 25;
-                    barra_seleccion[0] = true;
-                }
-
-            }
-            if (tecla == 13) {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
-                borrar_enemigo(xcasilla + 3, yprota);
-                vecinos[lineaActual][columnaActual].activo = false;
-                vecinos[lineaActual][columnaActual].vida = 5;
+                if (!vecinos[lineaActual][columnaActual].activo) {
+                    if (tecla == '1') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 1;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                    if (tecla == '2') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 2;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                }
+                if (tecla == 13) {
+                    borrar_enemigo(xcasilla + 3, yprota);
+                    vecinos[lineaActual][columnaActual].activo = false;
+                    vecinos[lineaActual][columnaActual].vida = 5;
+                }
+
             }
         }
 
@@ -1037,8 +1088,12 @@ bool Nivel3() {
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
             for (int c = 0; c < numColumnas; c++)
-                if (vecinos[l][c].activo)
-                    dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y);
+                if (vecinos[l][c].activo) {
+                    switch (vecinos[l][c].tipo) {
+                    case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    }
+                }
 
         dibujar_prota(xprota, yprota);
         casilla(xcasilla, ycasilla);
@@ -1066,7 +1121,6 @@ bool Nivel3() {
     }
 }
 bool Nivel4() {
-
     slod4();
     while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
     bool barra_seleccion[3] = { false,false,false };
@@ -1320,27 +1374,42 @@ bool Nivel4() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1')
+            if (tecla == '1' || tecla == '2' || tecla == 13)
             {
-                if (puntosV >= 25) {
-                    int lineaActual = (yprota - 16) / 9;
-                    int columnaActual = (xcasilla - 40) / 14;
-                    vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
-                    vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
-                    vecinos[lineaActual][columnaActual].cooldown = 0;
-                    vecinos[lineaActual][columnaActual].vida = 5;
-                    vecinos[lineaActual][columnaActual].activo = true;
-                    puntosV -= 25;
-                    barra_seleccion[0] = true;
-                }
-
-            }
-            if (tecla == 13) {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
-                borrar_enemigo(xcasilla + 3, yprota);
-                vecinos[lineaActual][columnaActual].activo = false;
-                vecinos[lineaActual][columnaActual].vida = 5;
+                if (!vecinos[lineaActual][columnaActual].activo) {
+                    if (tecla == '1') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 1;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                    if (tecla == '2') {
+                        if (puntosV >= 25) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 2;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 25;
+                            barra_seleccion[0] = true;
+                        }
+                    }
+                }
+                if (tecla == 13) {
+                    borrar_enemigo(xcasilla + 3, yprota);
+                    vecinos[lineaActual][columnaActual].activo = false;
+                    vecinos[lineaActual][columnaActual].vida = 5;
+                }
+
             }
         }
 
@@ -1349,8 +1418,12 @@ bool Nivel4() {
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
             for (int c = 0; c < numColumnas; c++)
-                if (vecinos[l][c].activo)
-                    dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y);
+                if (vecinos[l][c].activo) {
+                    switch (vecinos[l][c].tipo) {
+                    case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    }
+                }
 
         dibujar_prota(xprota, yprota);
         casilla(xcasilla, ycasilla);
