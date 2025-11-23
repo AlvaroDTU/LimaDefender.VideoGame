@@ -126,14 +126,12 @@ int main() {
     return 0;
 }
 
-
-
 bool Nivel1() {
     slod0();
     while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
     slod1();
     while (_getch() != 13) {} 
-    bool barra_seleccion[3] = { false,false,false };
+    bool barra_seleccion[3] = { false };
     nivel_surco();
     puntosVecinales();
     int xprota = 31, yprota = 16;
@@ -141,7 +139,7 @@ bool Nivel1() {
     //Constantes por nivel
     const int numLineas = 4;
     const int numColumnas = 3;
-    const int maxEnemigosLinea = 2;
+    const int maxEnemigosLinea = 3;
     const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
     int yLineas[numLineas] = { 16, 25, 34, 43 };
 
@@ -173,7 +171,9 @@ bool Nivel1() {
             vecinos[l][c].cooldown = 0;
             vecinos[l][c].x = 0;
             vecinos[l][c].y = 0;
+            vecinos[l][c].tipo = 0;
             vecinos[l][c].vida = 5;
+            
         }
 
     //Inicializar balas
@@ -440,11 +440,10 @@ bool Nivel1() {
         _sleep(30);
     }
 }
-
 bool Nivel2() {
     slod2();
     while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
-    bool barra_seleccion[3] = { false,false,false };
+    bool barra_seleccion[3] = { false };
     nivel_ves();
     puntosVecinales();
     int xprota = 31, yprota = 16;
@@ -753,8 +752,6 @@ bool Nivel2() {
     }
 
 }
-
-
 bool Nivel3() {
 
     slod3();

@@ -18,6 +18,7 @@ struct Vecino {
     int y;
     int cooldown;
     int vida;
+    int tipo;
 };
 struct Bala {
     bool activa;
