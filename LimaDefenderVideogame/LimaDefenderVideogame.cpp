@@ -17,7 +17,8 @@ bool Nivel4();
 
 int main() {
 	srand(time(nullptr));
-	Console::SetWindowSize(190, 50);
+    changeWindowSize(190, 50);
+    lockNoScroll(190, 50);
 	Console::CursorVisible = false;
     bool inicio = true, juego = false, gameOver = false, nivel[] = { 0, 0, 0, 0 };
 	while (true) {
@@ -140,7 +141,7 @@ bool Nivel1() {
     const int numLineas = 4;
     const int numColumnas = 3;
     const int maxEnemigosLinea = 3;
-    const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
+    const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
     int yLineas[numLineas] = { 16, 25, 34, 43 };
 
     int enemigosGenerados = 0;
@@ -183,7 +184,7 @@ bool Nivel1() {
         balas[i].y = 0;
         balas[i].linea = 0;
     }
-    //INICIO ANIMACIONES NIVEL 1
+    //INICIO
     while (true)
     {
         barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
@@ -428,8 +429,8 @@ bool Nivel1() {
         //----------------------------------------------------------
         if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
             system("cls");
-            printTextCenter(190, "GANASTE NIVEL ONE :V", 25);
             Console::BackgroundColor = ConsoleColor::Black;
+            printTextCenter(190, "GANASTE NIVEL ONE :V", 25);
             while(_getch()!=13){}
             return true;
         }
@@ -452,7 +453,7 @@ bool Nivel2() {
     const int numLineas = 4;
     const int numColumnas = 3;
     const int maxEnemigosLinea = 3;// modifique de 2 a 3
-    const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
+    const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
     int yLineas[numLineas] = { 16, 25, 34, 43 };
 
     int enemigosGenerados = 0;
@@ -739,8 +740,8 @@ bool Nivel2() {
         //----------------------------------------------------------
         if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
             system("cls");
-            printTextCenter(190, "GANASTE NIVEL TWO :V", 25);
             Console::BackgroundColor = ConsoleColor::Black;
+            printTextCenter(190, "GANASTE NIVEL TWO :V", 25);
             while (_getch() != 13) {}
             return true;
         }
@@ -765,7 +766,7 @@ bool Nivel3() {
     const int numLineas = 4;
     const int numColumnas = 3;
     const int maxEnemigosLinea = 4;// modifique de 2 a 4
-    const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
+    const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
     int yLineas[numLineas] = { 16, 25, 34, 43 };
 
     int enemigosGenerados = 0;
@@ -1052,8 +1053,8 @@ bool Nivel3() {
         //----------------------------------------------------------
         if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
             system("cls");
-            printTextCenter(190, "GANASTE NIVEL THREE :V", 25);
             Console::BackgroundColor = ConsoleColor::Black;
+            printTextCenter(190, "GANASTE NIVEL THREE :V", 25);
             while (_getch() != 13) {}
             return true;
         }
@@ -1077,7 +1078,7 @@ bool Nivel4() {
     const int numLineas = 4;
     const int numColumnas = 3;
     const int maxEnemigosLinea = 4;// modifique de 2 a 4
-    const int MAX_BALAS = 36; //max balas en pantalla dentro del nivel
+    const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
     int yLineas[numLineas] = { 16, 25, 34, 43 };
 
     int enemigosGenerados = 0;
@@ -1364,8 +1365,8 @@ bool Nivel4() {
         //----------------------------------------------------------
         if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
             system("cls");
-            printTextCenter(190, "GANASTE NIVEL FOUR :V", 25);
             Console::BackgroundColor = ConsoleColor::Black;
+            printTextCenter(190, "GANASTE NIVEL FOUR :V", 25);
             while (_getch() != 13) {}
             return true;
         }
