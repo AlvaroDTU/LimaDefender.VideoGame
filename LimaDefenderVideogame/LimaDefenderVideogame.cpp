@@ -33,7 +33,7 @@ int main() {
 				}
 				if (nivel[3]) {
 					bool ganaste = Nivel4();
-					if (ganaste) { slod5(); while (_getch() != 13) {} slod6(); while (_getch() != 13) {} }
+					if (ganaste) { slod5(); while (_getch() != 13) {} slod6(); while (_getch() != 13) {} ending(); while (_getch() != 13) {} }
 					else { perdiste(); while (_getch() != 13) {} }
 				}
 			break;

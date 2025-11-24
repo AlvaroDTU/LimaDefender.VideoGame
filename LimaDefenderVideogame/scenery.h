@@ -1199,7 +1199,7 @@ void ending() {
 			cout << " ";
 		}
 	}
-	Console::ForegroundColor = ConsoleColor::White; gotoxy(163, 46); cout << "ENTER para continuar";
+	Console::ForegroundColor = ConsoleColor::White; printTextCenter(190, "La unión vecinal hace la fuerza!", 40); printTextCenter(190, "Pulsa ENTER volver al menu", 40);
 }
 
 void creditos() {
