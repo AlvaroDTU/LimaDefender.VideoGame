@@ -1041,8 +1041,8 @@ bool Nivel3() {
                             vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
                             vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
                             vecinos[lineaActual][columnaActual].cooldown = 0;
-                            vecinos[lineaActual][columnaActual].tipo = 2;
-                            vecinos[lineaActual][columnaActual].vida = 10;
+                            vecinos[lineaActual][columnaActual].tipo = 3;
+                            vecinos[lineaActual][columnaActual].vida = 15;
                             vecinos[lineaActual][columnaActual].activo = true;
                             puntosV -= 50;
                             barra_seleccion[0] = true;

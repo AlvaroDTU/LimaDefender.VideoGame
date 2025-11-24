@@ -17,12 +17,12 @@ int main() {
 		case 1:
 			nivel[0] = true;
 				if (nivel[0]) {
-					bool ganaste = Nivel1();
+					bool ganaste = true;
 					if (ganaste) nivel[1] = true;
 					else { perdiste(); while (_getch() != 13) {} }
 				}
 				if (nivel[1]) {
-					bool ganaste = Nivel2();
+					bool ganaste = true;
 					if (ganaste) nivel[2] = true;
 					else { perdiste(); while (_getch() != 13) {} }
 				}
