@@ -7,7 +7,58 @@
 #define downkey 80
 #define rightkey 77
 #define leftkey 75
+int Menu() {
+    mapa();
+    titulo(55, 3);
+    imprime_play(60, 29, 0);
+    imprime_credits(90, 39, 0);
+    imprime_exit(60, 39, 0);
+    imprime_instructions(79, 29, 0);
+    system("pause>nul");
+    int xopciones = 1, yopciones = 1;
+    while (true) {
+        if (xopciones == 1 && yopciones == 1) {
+            imprime_play(60, 29, 1);
+            imprime_credits(90, 39, 0);
+            imprime_exit(60, 39, 0);
+            imprime_instructions(79, 29, 0);
 
+        }
+        if (xopciones == 2 && yopciones == 1) {
+            imprime_play(60, 29, 0);
+            imprime_credits(90, 39, 0);
+            imprime_exit(60, 39, 0);
+            imprime_instructions(79, 29, 1);
+        }
+        if (xopciones == 1 && yopciones == 2) {
+            imprime_play(60, 29, 0);
+            imprime_credits(90, 39, 0);
+            imprime_exit(60, 39, 1);
+            imprime_instructions(79, 29, 0);
+        }
+        if (xopciones == 2 && yopciones == 2) {
+            imprime_play(60, 29, 0);
+            imprime_credits(90, 39, 1);
+            imprime_exit(60, 39, 0);
+            imprime_instructions(79, 29, 0);
+        }
+        if (_kbhit()) {
+            char tecla = _getch();
+            switch (tecla) {
+            case upkey: if (yopciones == 2) yopciones--; break;
+            case leftkey: if (xopciones == 2) xopciones--; break;
+            case downkey: if (yopciones == 1) yopciones++; break;
+            case rightkey: if (xopciones == 1) xopciones++; break;
+            case 13:
+                if (xopciones == 1 && yopciones == 1) return 1;
+                if (xopciones == 1 && yopciones == 2) return 2;
+                if (xopciones == 2 && yopciones == 1) return 3;
+                if (xopciones == 2 && yopciones == 2) return 4;
+                break;
+            }
+        }
+    }
+}
 bool Nivel1() {
     slod0();
     while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
