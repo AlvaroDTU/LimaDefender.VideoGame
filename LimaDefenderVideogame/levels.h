@@ -142,7 +142,11 @@ bool Nivel1() {
                         enemigos[lineaRandom][s].x = 181;
                         enemigos[lineaRandom][s].y = yLineas[lineaRandom];
                         enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
-                        enemigos[lineaRandom][s].vida = 3;
+                        switch (enemigos[lineaRandom][s].tipo) {
+                        case 1: enemigos[lineaRandom][s].vida = 6; break;
+                        case 2: enemigos[lineaRandom][s].vida = 3; break;
+                        case 3: enemigos[lineaRandom][s].vida = 4; break;
+                        }
                         enemigos[lineaRandom][s].atacando = false;
                         enemigos[lineaRandom][s].cooldownataque = 0;
                         enemigosGenerados++;
@@ -239,6 +243,7 @@ bool Nivel1() {
             for (int c = 0; c < numColumnas; c++)
             {
                 if (!vecinos[l][c].activo) continue;
+                if (vecinos[l][c].tipo == 3) continue;
                 if (!enemigoEnLinea[l]) {
                     vecinos[l][c].cooldown = 0;
                     continue;
@@ -349,6 +354,7 @@ bool Nivel1() {
                     borrar_enemigo(xcasilla + 3, yprota);
                     vecinos[lineaActual][columnaActual].activo = false;
                     vecinos[lineaActual][columnaActual].vida = 5;
+                    vecinos[lineaActual][columnaActual].tipo = 0;
                 }
 
             }
@@ -434,6 +440,7 @@ bool Nivel2() {
             vecinos[l][c].cooldown = 0;
             vecinos[l][c].x = 0;
             vecinos[l][c].y = 0;
+            vecinos[l][c].tipo = 0;
             vecinos[l][c].vida = 5;
         }
 
@@ -470,7 +477,11 @@ bool Nivel2() {
                         enemigos[lineaRandom][s].x = 181;
                         enemigos[lineaRandom][s].y = yLineas[lineaRandom];
                         enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
-                        enemigos[lineaRandom][s].vida = 3;
+                        switch (enemigos[lineaRandom][s].tipo) {
+                        case 1: enemigos[lineaRandom][s].vida = 6; break;
+                        case 2: enemigos[lineaRandom][s].vida = 3; break;
+                        case 3: enemigos[lineaRandom][s].vida = 4; break;
+                        }
                         enemigos[lineaRandom][s].atacando = false;
                         enemigos[lineaRandom][s].cooldownataque = 0;
                         enemigosGenerados++;
@@ -568,6 +579,7 @@ bool Nivel2() {
             for (int c = 0; c < numColumnas; c++)
             {
                 if (!vecinos[l][c].activo) continue;
+                if (vecinos[l][c].tipo == 3) continue;
                 if (!enemigoEnLinea[l]) {
                     vecinos[l][c].cooldown = 0;
                     continue;
@@ -576,6 +588,7 @@ bool Nivel2() {
                     vecinos[l][c].cooldown--;
                     continue;
                 }
+                
                 // Crear bala
                 for (int i = 0; i < MAX_BALAS; i++) {
                     if (!balas[i].activa) {
@@ -645,8 +658,7 @@ bool Nivel2() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1' || tecla == '2' || tecla == 13)
-            {
+            if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13) {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
                 if (!vecinos[lineaActual][columnaActual].activo) {
@@ -671,7 +683,19 @@ bool Nivel2() {
                             vecinos[lineaActual][columnaActual].vida = 5;
                             vecinos[lineaActual][columnaActual].activo = true;
                             puntosV -= 25;
-                            barra_seleccion[0] = true;
+                            barra_seleccion[1] = true;
+                        }
+                    }
+                    if (tecla == '3') {
+                        if (puntosV >= 75) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 3;
+                            vecinos[lineaActual][columnaActual].vida = 5;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 75;
+                            barra_seleccion[2] = true;
                         }
                     }
                 }
@@ -679,6 +703,7 @@ bool Nivel2() {
                     borrar_enemigo(xcasilla + 3, yprota);
                     vecinos[lineaActual][columnaActual].activo = false;
                     vecinos[lineaActual][columnaActual].vida = 5;
+                    vecinos[lineaActual][columnaActual].tipo = 0;
                 }
 
             }
@@ -693,6 +718,7 @@ bool Nivel2() {
                     switch (vecinos[l][c].tipo) {
                     case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
                     case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 3: dibujar_aliado_uchu(vecinos[l][c].x, vecinos[l][c].y); break;
                     }
                 }
 
@@ -765,6 +791,7 @@ bool Nivel3() {
             vecinos[l][c].cooldown = 0;
             vecinos[l][c].x = 0;
             vecinos[l][c].y = 0;
+            vecinos[l][c].tipo = 0;
             vecinos[l][c].vida = 5;
         }
 
@@ -775,7 +802,7 @@ bool Nivel3() {
         balas[i].y = 0;
         balas[i].linea = 0;
     }
-    //INICIO ANIMACIONES NIVEL 1
+    //INICIO ANIMACIONES NIVEL 3
     while (true)
     {
         barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
@@ -801,7 +828,11 @@ bool Nivel3() {
                         enemigos[lineaRandom][s].x = 181;
                         enemigos[lineaRandom][s].y = yLineas[lineaRandom];
                         enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
-                        enemigos[lineaRandom][s].vida = 3;
+                        switch (enemigos[lineaRandom][s].tipo) {
+                        case 1: enemigos[lineaRandom][s].vida = 6; break;
+                        case 2: enemigos[lineaRandom][s].vida = 3; break;
+                        case 3: enemigos[lineaRandom][s].vida = 4; break;
+                        }
                         enemigos[lineaRandom][s].atacando = false;
                         enemigos[lineaRandom][s].cooldownataque = 0;
                         enemigosGenerados++;
@@ -892,13 +923,14 @@ bool Nivel3() {
 
 
         //----------------------------------------------------------
-        // 6. DISPARO AUTOMÁTICO
+        // 6. CREACION DE BALAS
         //----------------------------------------------------------
         for (int l = 0; l < numLineas; l++)
         {
             for (int c = 0; c < numColumnas; c++)
             {
                 if (!vecinos[l][c].activo) continue;
+                if (vecinos[l][c].tipo == 3) continue;
                 if (!enemigoEnLinea[l]) {
                     vecinos[l][c].cooldown = 0;
                     continue;
@@ -907,7 +939,6 @@ bool Nivel3() {
                     vecinos[l][c].cooldown--;
                     continue;
                 }
-                // Crear bala
                 for (int i = 0; i < MAX_BALAS; i++) {
                     if (!balas[i].activa) {
                         balas[i].activa = true;
@@ -976,7 +1007,7 @@ bool Nivel3() {
             if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
             if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
             if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-            if (tecla == '1' || tecla == '2' || tecla == 13)
+            if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13)
             {
                 int lineaActual = (yprota - 16) / 9;
                 int columnaActual = (xcasilla - 40) / 14;
@@ -1005,11 +1036,24 @@ bool Nivel3() {
                             barra_seleccion[0] = true;
                         }
                     }
+                    if (tecla == '3') {
+                        if (puntosV >= 50) {
+                            vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+                            vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+                            vecinos[lineaActual][columnaActual].cooldown = 0;
+                            vecinos[lineaActual][columnaActual].tipo = 2;
+                            vecinos[lineaActual][columnaActual].vida = 10;
+                            vecinos[lineaActual][columnaActual].activo = true;
+                            puntosV -= 50;
+                            barra_seleccion[0] = true;
+                        }
+                    }
                 }
                 if (tecla == 13) {
                     borrar_enemigo(xcasilla + 3, yprota);
                     vecinos[lineaActual][columnaActual].activo = false;
                     vecinos[lineaActual][columnaActual].vida = 5;
+                    vecinos[lineaActual][columnaActual].tipo = 0;
                 }
 
             }
@@ -1024,6 +1068,7 @@ bool Nivel3() {
                     switch (vecinos[l][c].tipo) {
                     case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
                     case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+                    case 3: dibujar_aliado_robotin(vecinos[l][c].x, vecinos[l][c].y); break;
                     }
                 }
 
@@ -1095,6 +1140,7 @@ bool Nivel4() {
             vecinos[l][c].cooldown = 0;
             vecinos[l][c].x = 0;
             vecinos[l][c].y = 0;
+            vecinos[l][c].tipo = 0;
             vecinos[l][c].vida = 5;
         }
 
@@ -1131,7 +1177,11 @@ bool Nivel4() {
                         enemigos[lineaRandom][s].x = 181;
                         enemigos[lineaRandom][s].y = yLineas[lineaRandom];
                         enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
-                        enemigos[lineaRandom][s].vida = 3;
+                        switch (enemigos[lineaRandom][s].tipo) {
+                        case 1: enemigos[lineaRandom][s].vida = 6; break;
+                        case 2: enemigos[lineaRandom][s].vida = 3; break;
+                        case 3: enemigos[lineaRandom][s].vida = 4; break;
+                        }
                         enemigos[lineaRandom][s].atacando = false;
                         enemigos[lineaRandom][s].cooldownataque = 0;
                         enemigosGenerados++;
@@ -1229,6 +1279,7 @@ bool Nivel4() {
             for (int c = 0; c < numColumnas; c++)
             {
                 if (!vecinos[l][c].activo) continue;
+                if (vecinos[l][c].tipo == 3) continue;
                 if (!enemigoEnLinea[l]) {
                     vecinos[l][c].cooldown = 0;
                     continue;
@@ -1237,7 +1288,7 @@ bool Nivel4() {
                     vecinos[l][c].cooldown--;
                     continue;
                 }
-                // Crear bala
+                
                 for (int i = 0; i < MAX_BALAS; i++) {
                     if (!balas[i].activa) {
                         balas[i].activa = true;
