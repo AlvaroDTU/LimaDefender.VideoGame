@@ -40,6 +40,7 @@ int main() {
 		case 2:
 			system("color 0F");
 			system("cls");
+			exit(0);
 			break;
 		case 3:
 			instrucciones();
