@@ -94,6 +94,7 @@ bool Nivel1() {
 			enemigos[l][s].x = 0;
 			enemigos[l][s].y = 0;
 			enemigos[l][s].tipo = 0;
+			enemigos[l][s].vel = 0;
 			enemigos[l][s].vida = 3;
 		}
 	}
@@ -392,6 +393,7 @@ bool Nivel2() {
 			enemigos[l][s].x = 0;
 			enemigos[l][s].y = 0;
 			enemigos[l][s].tipo = 0;
+			enemigos[l][s].vel = 0;
 			enemigos[l][s].vida = 3;
 		}
 	}
@@ -559,7 +561,7 @@ bool Nivel2() {
 			if (!balas[i].activa) continue;
 
 			borrar_bala((int)balas[i].x, balas[i].y);
-			balas[i].x += 1.0;
+			balas[i].x += 1.5;
 			//COLISION MAPA
 			if (balas[i].x > 185) {
 				balas[i].activa = false;
@@ -868,7 +870,7 @@ bool Nivel3() {
 			if (!balas[i].activa) continue;
 
 			borrar_bala((int)balas[i].x, balas[i].y);
-			balas[i].x += 1.0;
+			balas[i].x += 1.5;
 			//COLISION MAPA
 			if (balas[i].x > 185) {
 				balas[i].activa = false;
@@ -1177,7 +1179,7 @@ bool Nivel4() {
 			if (!balas[i].activa) continue;
 
 			borrar_bala((int)balas[i].x, balas[i].y);
-			balas[i].x += 1.0;
+			balas[i].x += 1.5;
 			//COLISION MAPA
 			if (balas[i].x > 185) {
 				balas[i].activa = false;

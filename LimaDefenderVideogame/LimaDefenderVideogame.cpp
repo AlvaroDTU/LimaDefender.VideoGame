@@ -20,7 +20,7 @@ int main() {
 			PlaySound(NULL, 0, 0);
 			if (nivel[0]) {
 				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
-				bool ganaste = Nivel1();
+				bool ganaste = true;
 				PlaySound(NULL, 0, 0);
 				if (ganaste) { ganastes(); while (_getch() != 13) {} nivel[1] = true; }
 				else { perdiste(); while (_getch() != 13) {} }
