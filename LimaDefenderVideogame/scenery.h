@@ -1401,5 +1401,5 @@ void ganastes() {
 	}
 	Console::ForegroundColor = ConsoleColor::White;
 	Console::BackgroundColor = ConsoleColor::Black;
-	gotoxy(160, 47); cout << "ENTER para regresar al menu";
+	gotoxy(160, 47); cout << "ENTER para continuar";
 }
