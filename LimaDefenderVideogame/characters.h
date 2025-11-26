@@ -8,6 +8,7 @@ struct Enemigo {
     double x;
     int y;
     int tipo;
+    double vel;
     int vida;
     bool atacando;
     int cooldownataque;
@@ -178,32 +179,7 @@ void dibujar_vecino2(int x, int y) {
     }
 }
 //enemigos
-//chamo
 void dibujar_enemigo1(int x, int y) {
-    int chamo[6][8] = {
-      { 7,7,7,3,3,4,4,0},
-      { 0,2,1,5,2,1,5,7},
-      { 0,5,5,5,5,5,5,5},
-      { 5,4,4,4,4,4,4,5},
-      { 5,3,3,3,3,3,3,0},
-      { 0,7,7,0,0,7,7,0},
-    };
-
-    for (int f = 0; f < 6; f++) {
-        for (int c = 0; c < 8; c++) {
-            gotoxy(x + c, y + f);
-            if (chamo[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
-            if (chamo[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
-            if (chamo[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
-            if (chamo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::Yellow; cout << (char)219; }
-            if (chamo[f][c] == 7) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
-            if (chamo[f][c] == 5) { setTextColorRGB(186, 91, 0); cout << (char)219; }
-            if (chamo[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
-        }
-    }
-}
-//policia
-void dibujar_enemigo2(int x, int y) {
     int poli[6][8] = {
        {0,4,4,4,4,4,4,0},
        {4,6,5,8,8,6,5,4},
@@ -226,7 +202,29 @@ void dibujar_enemigo2(int x, int y) {
         }
     }
 }
-//choro
+void dibujar_enemigo2(int x, int y) {
+    int chamo[6][8] = {
+      { 7,7,7,3,3,4,4,0},
+      { 0,2,1,5,2,1,5,7},
+      { 0,5,5,5,5,5,5,5},
+      { 5,4,4,4,4,4,4,5},
+      { 5,3,3,3,3,3,3,0},
+      { 0,7,7,0,0,7,7,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (chamo[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (chamo[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (chamo[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (chamo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::Yellow; cout << (char)219; }
+            if (chamo[f][c] == 7) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (chamo[f][c] == 5) { setTextColorRGB(186, 91, 0); cout << (char)219; }
+            if (chamo[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
+        }
+    }
+}
 void dibujar_enemigo3(int x, int y) {
     int choro[6][8] = {
       { 0,4,4,4,4,4,4,0},
@@ -249,7 +247,7 @@ void dibujar_enemigo3(int x, int y) {
 }
 
 //enemios pegando
-void dibujar_enemigo1_pegando(int x, int y) {
+void dibujar_enemigo2_pegando(int x, int y) {
     int chamo[6][8] = {
       {1,1,1,3,3,4,4,0},
       {0,5,6,2,5,6,2,1},
@@ -272,7 +270,7 @@ void dibujar_enemigo1_pegando(int x, int y) {
     }
 }
 
-void dibujar_enemigo2_pegando(int x, int y) {
+void dibujar_enemigo1_pegando(int x, int y) {
     int poli[6][8] = {
        {0,4,4,4,4,4,4,0},
        {4,5,6,3,5,6,3,4},

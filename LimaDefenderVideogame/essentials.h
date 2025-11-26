@@ -2,6 +2,8 @@
 #include "windows.h"
 #include "cctype"
 #include "conio.h"
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 using namespace System;
 using namespace std;
 void gotoxy(int x, int y) {
