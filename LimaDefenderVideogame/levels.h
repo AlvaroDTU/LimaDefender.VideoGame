@@ -8,6 +8,7 @@
 #define rightkey 77
 #define leftkey 75
 int Menu() {
+	PlaySound(TEXT("menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	mapa();
 	titulo(55, 3);
 	imprime_play(60, 29, 0);
@@ -43,13 +44,17 @@ int Menu() {
 			imprime_instructions(79, 29, 0);
 		}
 		if (_kbhit()) {
-			char tecla = _getch();
-			switch (tecla) {
-			case upkey: if (yopciones == 2) yopciones--; break;
-			case leftkey: if (xopciones == 2) xopciones--; break;
-			case downkey: if (yopciones == 1) yopciones++; break;
-			case rightkey: if (xopciones == 1) xopciones++; break;
-			case 13:
+			int tecla = _getch();
+			if (tecla == 224) {
+				int flecha = _getch();
+				switch (flecha) {
+				case upkey: if (yopciones == 2) yopciones--; break;
+				case leftkey: if (xopciones == 2) xopciones--; break;
+				case downkey: if (yopciones == 1) yopciones++; break;
+				case rightkey: if (xopciones == 1) xopciones++; break;
+				}
+			}
+			if (tecla == 13) {
 				if (xopciones == 1 && yopciones == 1) return 1;
 				if (xopciones == 1 && yopciones == 2) return 2;
 				if (xopciones == 2 && yopciones == 1) return 3;
@@ -295,13 +300,15 @@ bool Nivel1() {
 		borrarcasilla(xcasilla, ycasilla);
 		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
 		if (_kbhit()) {
-			char tecla = _getch();
-			if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
-			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == 13)
-			{
+			int tecla = _getch();
+			if (tecla == 224) {
+				int flecha = _getch();
+				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+			}
+			if (tecla == '1' || tecla == '2' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -336,7 +343,6 @@ bool Nivel1() {
 					vecinos[lineaActual][columnaActual].vida = 5;
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
-
 			}
 		}
 		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
@@ -603,12 +609,15 @@ bool Nivel2() {
 		borrarcasilla(xcasilla, ycasilla);
 		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
 		if (_kbhit()) {
-			char tecla = _getch();
-			if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
-			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13) {
+			int tecla = _getch();
+			if (tecla == 224) {
+				int flecha = _getch();
+				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+			}
+			if (tecla == '1' || tecla == '2' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -633,7 +642,7 @@ bool Nivel2() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 25;
-							barra_seleccion[1] = true;
+							barra_seleccion[0] = true;
 						}
 					}
 					if (tecla == '3') {
@@ -645,7 +654,7 @@ bool Nivel2() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[2] = true;
+							barra_seleccion[0] = true;
 						}
 					}
 				}
@@ -655,7 +664,6 @@ bool Nivel2() {
 					vecinos[lineaActual][columnaActual].vida = 5;
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
-
 			}
 		}
 		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
@@ -927,13 +935,15 @@ bool Nivel3() {
 		borrarcasilla(xcasilla, ycasilla);
 		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
 		if (_kbhit()) {
-			char tecla = _getch();
-			if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
-			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13)
-			{
+			int tecla = _getch();
+			if (tecla == 224) {
+				int flecha = _getch();
+				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+			}
+			if (tecla == '1' || tecla == '2' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -962,14 +972,14 @@ bool Nivel3() {
 						}
 					}
 					if (tecla == '3') {
-						if (puntosV >= 75) {
+						if (puntosV >= 50) {
 							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
 							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
 							vecinos[lineaActual][columnaActual].cooldown = 0;
 							vecinos[lineaActual][columnaActual].tipo = 3;
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
-							puntosV -= 75;
+							puntosV -= 50;
 							barra_seleccion[0] = true;
 						}
 					}
@@ -992,7 +1002,6 @@ bool Nivel3() {
 					vecinos[lineaActual][columnaActual].vida = 5;
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
-
 			}
 		}
 		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
@@ -1010,13 +1019,15 @@ bool Nivel3() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
-		// 9. HUD
 		barra_nivel3(barra_seleccion);
-		// 10. FIN DEL NIVEL
+		if (enemigosEliminados >= 3) {
+			dibujar_chupetin();
+			barraVida_chupetin(maxEnemigosNivel - enemigosEliminados);
+		}
+		//FIN DE NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
-		// 11. FPS
 		_sleep(30);
 	}
 }
@@ -1259,13 +1270,15 @@ bool Nivel4() {
 		borrarcasilla(xcasilla, ycasilla);
 		// 5. DETECTAR TECLAS
 		if (_kbhit()) {
-			char tecla = _getch();
-			if (tecla == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
-			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13)
-			{
+			int tecla = _getch();
+			if (tecla == 224) {
+				int flecha = _getch();
+				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+			}
+			if (tecla == '1' || tecla == '2' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -1294,14 +1307,14 @@ bool Nivel4() {
 						}
 					}
 					if (tecla == '3') {
-						if (puntosV >= 75) {
+						if (puntosV >= 50) {
 							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
 							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
 							vecinos[lineaActual][columnaActual].cooldown = 0;
 							vecinos[lineaActual][columnaActual].tipo = 3;
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
-							puntosV -= 75;
+							puntosV -= 50;
 							barra_seleccion[0] = true;
 						}
 					}
@@ -1322,8 +1335,8 @@ bool Nivel4() {
 					borrar_enemigo(xcasilla + 3, yprota);
 					vecinos[lineaActual][columnaActual].activo = false;
 					vecinos[lineaActual][columnaActual].vida = 5;
+					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
-
 			}
 		}
 		// 8. REDIBUJAR VECINOS + PROTA + CASILLA

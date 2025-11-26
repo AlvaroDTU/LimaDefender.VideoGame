@@ -350,7 +350,7 @@ void dibujar_policorrupto() {
 		}
 	}
 }
-void dibujar_chupetin(int x, int y) {
+void dibujar_chupetin() {
 	int chupetin[15][35] = {
 	{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
 	{7,0,0,0,0,4,4,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,7},
@@ -645,6 +645,28 @@ void barraVida_policorrupto(int estado) {
 	for (int f = 0; f < 3; f++) {
 		for (int c = 0; c < 43; c++) {
 			gotoxy(110 + c, 11 + f);
+			if (barravida[f][c] == 0) setTextColorRGB(22, 22, 22);
+			if (barravida[f][c] == 1) setTextColorRGB(255, 0, 0);
+			if (barravida[f][c] == 2) setTextColorRGB(255, 255, 255);
+			cout << char(219);
+		}
+	}
+}
+void barraVida_chupetin(int estado) {
+	int barravida[3][55] = {
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	};
+	//9: estado lleno, 0: estado vacio
+	for (int e = 8; e >= estado; e--) {
+		for (int i = 0; i <= 4; i++) {
+			barravida[1][1 + 6 * e + i] = 2;
+		}
+	}
+	for (int f = 0; f < 3; f++) {
+		for (int c = 0; c < 55; c++) {
+			gotoxy(98 + c, 11 + f);
 			if (barravida[f][c] == 0) setTextColorRGB(22, 22, 22);
 			if (barravida[f][c] == 1) setTextColorRGB(255, 0, 0);
 			if (barravida[f][c] == 2) setTextColorRGB(255, 255, 255);
