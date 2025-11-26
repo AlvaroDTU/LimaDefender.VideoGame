@@ -10,9 +10,9 @@ int main() {
 	changeWindowSize(190, 50);
 	lockNoScroll(190, 50);
 	Console::CursorVisible = false;
-	PlaySound(TEXT("menu.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	bool nivel[] = { false, false, false, false };
 	while (true) {
+		PlaySound(TEXT("menu.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		int seleccion = Menu();
 		switch (seleccion) {
 		case 1:
@@ -27,7 +27,7 @@ int main() {
 			}
 			if (nivel[1]) {
 				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
-				bool ganaste = Nivel2();
+				bool ganaste = true;
 				PlaySound(NULL, 0, 0);
 				if (ganaste) { ganastes(); while (_getch() != 13) {} nivel[2] = true; }
 				else { perdiste(); while (_getch() != 13) {} }

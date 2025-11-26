@@ -246,6 +246,7 @@ bool Nivel1() {
 						balas[i].activa = true;
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
+						balas[i].tipo = 1;
 						balas[i].linea = l;
 						break;
 					}
@@ -287,7 +288,7 @@ bool Nivel1() {
 			}
 
 			if (balas[i].activa)
-				dibujar_bala((int)balas[i].x, balas[i].y);
+				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
@@ -440,9 +441,9 @@ bool Nivel2() {
 						enemigos[lineaRandom][s].y = yLineas[lineaRandom];
 						enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
 						switch (enemigos[lineaRandom][s].tipo) {
-						case 1: enemigos[lineaRandom][s].vida = 6; break;
-						case 2: enemigos[lineaRandom][s].vida = 3; break;
-						case 3: enemigos[lineaRandom][s].vida = 4; break;
+						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; break;
+						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; break;
+						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; break;
 						}
 						enemigos[lineaRandom][s].atacando = false;
 						enemigos[lineaRandom][s].cooldownataque = 0;
@@ -502,11 +503,7 @@ bool Nivel2() {
 					continue;
 				}
 				enemigos[l][s].atacando = false;
-				switch (enemigos[l][s].tipo) {
-				case 1: enemigos[l][s].x -= 0.2; break;
-				case 2: enemigos[l][s].x -= 1.0; break;
-				case 3: enemigos[l][s].x -= 0.5; break;
-				}
+				enemigos[l][s].x -= enemigos[l][s].vel;
 				if (enemigos[l][s].x <= 42) {
 					enemigos[l][s].activo = false;
 					return false;
@@ -532,7 +529,6 @@ bool Nivel2() {
 			for (int c = 0; c < numColumnas; c++)
 			{
 				if (!vecinos[l][c].activo) continue;
-				if (vecinos[l][c].tipo == 3) continue;
 				if (!enemigoEnLinea[l]) {
 					vecinos[l][c].cooldown = 0;
 					continue;
@@ -548,6 +544,11 @@ bool Nivel2() {
 						balas[i].activa = true;
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
+						switch (vecinos[l][c].tipo) {
+						case 1: balas[i].tipo = 1; break;
+						case 2: balas[i].tipo = 1; break;
+						case 3: balas[i].tipo = 2; break;
+						}
 						balas[i].linea = l;
 						break;
 					}
@@ -589,7 +590,7 @@ bool Nivel2() {
 			}
 
 			if (balas[i].activa)
-				dibujar_bala((int)balas[i].x, balas[i].y);
+				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
@@ -727,6 +728,7 @@ bool Nivel3() {
 		balas[i].activa = false;
 		balas[i].x = 0;
 		balas[i].y = 0;
+		balas[i].tipo = 0;
 		balas[i].linea = 0;
 	}
 	//INICIO ANIMACIONES NIVEL 3
@@ -843,7 +845,7 @@ bool Nivel3() {
 			for (int c = 0; c < numColumnas; c++)
 			{
 				if (!vecinos[l][c].activo) continue;
-				if (vecinos[l][c].tipo == 3) continue;
+				if (!vecinos[l][c].tipo==4) continue;
 				if (!enemigoEnLinea[l]) {
 					vecinos[l][c].cooldown = 0;
 					continue;
@@ -857,6 +859,11 @@ bool Nivel3() {
 						balas[i].activa = true;
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
+						switch (vecinos[l][c].tipo) {
+						case 1: balas[i].tipo == 1; break;
+						case 2: balas[i].tipo == 1; break;
+						case 3: balas[i].tipo == 2; break;
+						}
 						balas[i].linea = l;
 						break;
 					}
@@ -897,7 +904,7 @@ bool Nivel3() {
 				}
 			}
 			if (balas[i].activa)
-				dibujar_bala((int)balas[i].x, balas[i].y);
+				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
@@ -939,11 +946,23 @@ bool Nivel3() {
 						}
 					}
 					if (tecla == '3') {
-						if (puntosV >= 50) {
+						if (puntosV >= 75) {
 							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
 							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
 							vecinos[lineaActual][columnaActual].cooldown = 0;
 							vecinos[lineaActual][columnaActual].tipo = 3;
+							vecinos[lineaActual][columnaActual].vida = 5;
+							vecinos[lineaActual][columnaActual].activo = true;
+							puntosV -= 75;
+							barra_seleccion[0] = true;
+						}
+					}
+					if (tecla == '4') {
+						if (puntosV >= 50) {
+							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+							vecinos[lineaActual][columnaActual].cooldown = 0;
+							vecinos[lineaActual][columnaActual].tipo = 4;
 							vecinos[lineaActual][columnaActual].vida = 15;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
@@ -967,7 +986,8 @@ bool Nivel3() {
 					switch (vecinos[l][c].tipo) {
 					case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
 					case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
-					case 3: dibujar_aliado_robotin(vecinos[l][c].x, vecinos[l][c].y); break;
+					case 3: dibujar_aliado_uchu(vecinos[l][c].x, vecinos[l][c].y); break;
+					case 4: dibujar_aliado_robotin(vecinos[l][c].x, vecinos[l][c].y); break;
 					}
 				}
 			}
@@ -1166,6 +1186,11 @@ bool Nivel4() {
 						balas[i].activa = true;
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
+						switch (vecinos[l][c].tipo == 1) {
+						case 1: balas[i].tipo == 1; break;
+						case 2: balas[i].tipo == 1; break;
+						case 3: balas[i].tipo == 2; break;
+						}
 						balas[i].linea = l;
 						break;
 					}
@@ -1207,7 +1232,7 @@ bool Nivel4() {
 			}
 
 			if (balas[i].activa)
-				dibujar_bala((int)balas[i].x, balas[i].y);
+				dibujar_bala((int)balas[i].x, balas[i].y, 1);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);

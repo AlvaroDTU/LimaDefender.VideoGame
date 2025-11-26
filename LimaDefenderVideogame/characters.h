@@ -26,6 +26,7 @@ struct Bala {
     double x;
     int y;
     int linea;
+    int tipo;
 };
 void borrar_prota(int x, int y) {
     int borrar[6][8] = {
@@ -609,8 +610,17 @@ void barra_nivel4(bool seleccion_barra[]) {
     barra_vacia(65, 1);
 }
 
-void dibujar_bala(int x, int y) {
-    Console::ForegroundColor = ConsoleColor::Gray;
+void dibujar_bala(int x, int y, int tipo) {
+    if (tipo==1) Console::ForegroundColor = ConsoleColor::Gray;
+    if (tipo == 2) {
+        int random = 1 + rand() % 4;
+        switch (random) {
+        case 1: setTextColorRGB(239, 228, 176); break;
+        case 2: setTextColorRGB(237, 28, 36); break;
+        case 3: setTextColorRGB(63, 72, 204); break;
+        case 4: setTextColorRGB(255, 128, 0); break;
+        }
+    }
     gotoxy(x, y);
     cout << (char)254;
 }
