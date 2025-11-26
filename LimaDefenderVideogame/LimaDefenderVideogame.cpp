@@ -19,32 +19,31 @@ int main() {
 			nivel[0] = true;
 			PlaySound(NULL, 0, 0);
 			if (nivel[0]) {
-				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 				bool ganaste = true;
-				PlaySound(NULL, 0, 0);
-				if (ganaste) { ganastes(); while (_getch() != 13) {} nivel[1] = true; }
-				else { perdiste(); while (_getch() != 13) {} }
+				if (ganaste) { PlaySound(TEXT("victorianormal.wav"), NULL, SND_FILENAME | SND_ASYNC); ganastes(); while (_getch() != 13) {} nivel[1] = true; }
+				else { PlaySound(TEXT("gameover.wav"), NULL, SND_FILENAME | SND_ASYNC); perdiste(); while (_getch() != 13) {} }
 			}
 			if (nivel[1]) {
-				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 				bool ganaste = true;
-				PlaySound(NULL, 0, 0);
-				if (ganaste) { ganastes(); while (_getch() != 13) {} nivel[2] = true; }
-				else { perdiste(); while (_getch() != 13) {} }
+				PlaySound(TEXT("victoria.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (ganaste) { PlaySound(TEXT("victorianormal.wav"), NULL, SND_FILENAME | SND_ASYNC); ganastes(); while (_getch() != 13) {} nivel[2] = true; }
+				else { PlaySound(TEXT("gameover.wav"), NULL, SND_FILENAME | SND_ASYNC); perdiste(); while (_getch() != 13) {} }
 			}
 			if (nivel[2]) {
-				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
-				bool ganaste = Nivel3();
-				PlaySound(NULL, 0, 0);
+				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+				bool ganaste = true;
+				PlaySound(TEXT("victorianormal.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (ganaste) { ganastes(); while (_getch() != 13) {} nivel[3] = true; }
-				else { perdiste(); while (_getch() != 13) {} }
+				else { PlaySound(TEXT("gameover.wav"), NULL, SND_FILENAME | SND_ASYNC); perdiste(); while (_getch() != 13) {} }
 			}
 			if (nivel[3]) {
-				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				PlaySound(TEXT("final.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 				bool ganaste = Nivel4();
-				PlaySound(NULL, 0, 0);
-				if (ganaste) { ganastes(); while (_getch() != 13) {} slod5(); while (_getch() != 13) {} slod6(); while (_getch() != 13) {} ending(); while (_getch() != 13) {} }
-				else { perdiste(); while (_getch() != 13) {} }
+				PlaySound(TEXT("victorianormal.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (ganaste) { ganastes(); while (_getch() != 13) {} PlaySound(TEXT("victoriafinal.wav"), NULL, SND_FILENAME | SND_ASYNC); slod5(); while (_getch() != 13) {} slod6(); while (_getch() != 13) {} ending(); while (_getch() != 13) {} }
+				else { PlaySound(TEXT("gameover.wav"), NULL, SND_FILENAME | SND_ASYNC); perdiste(); while (_getch() != 13) {} }
 			}
 			break;
 		case 2:

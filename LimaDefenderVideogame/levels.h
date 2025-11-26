@@ -378,7 +378,7 @@ bool Nivel2() {
 
 	int enemigosGenerados = 0;
 	int enemigosEliminados = 0;
-	int maxEnemigosNivel = 8;// modifique de 5 a 8
+	int maxEnemigosNivel = 9;// modifique de 5 a 8
 
 	int spawnCooldown = 80;// modifique de 100 a 80
 	const int TIEMPO_ENTRE_DISPAROS = 50;
@@ -395,7 +395,9 @@ bool Nivel2() {
 			enemigos[l][s].y = 0;
 			enemigos[l][s].tipo = 0;
 			enemigos[l][s].vel = 0;
-			enemigos[l][s].vida = 3;
+			enemigos[l][s].velLenta = 0;
+			enemigos[l][s].tiempoEfecto = 0;
+			enemigos[l][s].vida = 0;
 		}
 	}
 	//Inicializar vecinos
@@ -441,12 +443,13 @@ bool Nivel2() {
 						enemigos[lineaRandom][s].y = yLineas[lineaRandom];
 						enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
 						switch (enemigos[lineaRandom][s].tipo) {
-						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; break;
-						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; break;
-						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; break;
+						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; enemigos[lineaRandom][s].velLenta = 0.5 * 0.3; break; //-50% cuando se ralentizan
+						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; enemigos[lineaRandom][s].velLenta = 0.5 * 1.5; break; //-50% cuando se ralentizan
+						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; enemigos[lineaRandom][s].velLenta = 0.5 * 0.75; break; //-50% cuando se ralentizan
 						}
 						enemigos[lineaRandom][s].atacando = false;
 						enemigos[lineaRandom][s].cooldownataque = 0;
+						enemigos[lineaRandom][s].tiempoEfecto = 0;
 						enemigosGenerados++;
 						spawnCooldown = 80;
 						// modifique de 100 a 80
@@ -503,7 +506,8 @@ bool Nivel2() {
 					continue;
 				}
 				enemigos[l][s].atacando = false;
-				enemigos[l][s].x -= enemigos[l][s].vel;
+				if (enemigos[l][s].tiempoEfecto > 0) { enemigos[l][s].tiempoEfecto--; enemigos[l][s].x -= enemigos[l][s].velLenta; }
+				else enemigos[l][s].x-= enemigos[l][s].vel;
 				if (enemigos[l][s].x <= 42) {
 					enemigos[l][s].activo = false;
 					return false;
@@ -547,7 +551,7 @@ bool Nivel2() {
 						switch (vecinos[l][c].tipo) {
 						case 1: balas[i].tipo = 1; break;
 						case 2: balas[i].tipo = 1; break;
-						case 3: balas[i].tipo = 2; break;
+						case 3: balas[i].tipo = 2 + rand() % 4; break; //puede ser de 2 a 5
 						}
 						balas[i].linea = l;
 						break;
@@ -578,12 +582,14 @@ bool Nivel2() {
 				{
 					balas[i].activa = false;
 					enemigos[balas[i].linea][s].vida--;
+					if (balas[i].tipo >= 2) enemigos[balas[i].linea][s].tiempoEfecto = 100;
 					if (enemigos[balas[i].linea][s].vida == 0) {
 						borrar_enemigo((int)enemigos[balas[i].linea][s].x, enemigos[balas[i].linea][s].y);
 						enemigos[balas[i].linea][s].activo = false;
 						puntosV += 20;
 						enemigosEliminados++;
 						enemigos[balas[i].linea][s].vida = 3;
+						enemigos[balas[i].linea][s].tiempoEfecto = 0;
 					}
 					break;
 				}
@@ -631,14 +637,14 @@ bool Nivel2() {
 						}
 					}
 					if (tecla == '3') {
-						if (puntosV >= 75) {
+						if (puntosV >= 50) {
 							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
 							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
 							vecinos[lineaActual][columnaActual].cooldown = 0;
 							vecinos[lineaActual][columnaActual].tipo = 3;
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
-							puntosV -= 75;
+							puntosV -= 50;
 							barra_seleccion[2] = true;
 						}
 					}
@@ -668,7 +674,12 @@ bool Nivel2() {
 		casilla(xcasilla, ycasilla);
 		// 9. HUD
 		barra_nivel2(barra_seleccion);
-		// 10. FIN DEL NIVEL
+		// 10. APARICION BOSS
+		if (enemigosEliminados >= 2) {
+			dibujar_policorrupto();
+			barraVida_policorrupto(maxEnemigosNivel-enemigosEliminados);
+		}
+		// 11. FIN DEL NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
@@ -696,7 +707,7 @@ bool Nivel3() {
 
 	int spawnCooldown = 70;// modifique de 100 a 70
 	const int TIEMPO_ENTRE_DISPAROS = 50;
-	int puntosV = 100;// modifique de 100 a 80
+	int puntosV = 125;
 
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
@@ -709,6 +720,7 @@ bool Nivel3() {
 			enemigos[l][s].y = 0;
 			enemigos[l][s].tipo = 0;
 			enemigos[l][s].vel = 0;
+			enemigos[l][s].velLenta = 0;
 			enemigos[l][s].vida = 3;
 		}
 	}
@@ -756,12 +768,13 @@ bool Nivel3() {
 						enemigos[lineaRandom][s].y = yLineas[lineaRandom];
 						enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
 						switch (enemigos[lineaRandom][s].tipo) {
-						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; break;
-						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; break;
-						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; break;
+						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; enemigos[lineaRandom][s].velLenta = 0.5 * 0.3; break; //-50% cuando se ralentizan
+						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; enemigos[lineaRandom][s].velLenta = 0.5 * 1.5; break; //-50% cuando se ralentizan
+						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; enemigos[lineaRandom][s].velLenta = 0.5 * 0.75; break; //-50% cuando se ralentizan
 						}
 						enemigos[lineaRandom][s].atacando = false;
 						enemigos[lineaRandom][s].cooldownataque = 0;
+						enemigos[lineaRandom][s].tiempoEfecto = 0;
 						enemigosGenerados++;
 						spawnCooldown = 70;
 						// modifique de 100 a 70
@@ -818,9 +831,10 @@ bool Nivel3() {
 					continue;
 				}
 				enemigos[l][s].atacando = false;
-				enemigos[l][s].x -= enemigos[l][s].vel;
+				if (enemigos[l][s].tiempoEfecto > 0) { enemigos[l][s].tiempoEfecto--; enemigos[l][s].x -= enemigos[l][s].velLenta; }
+				else enemigos[l][s].x -= enemigos[l][s].vel;
 
-				if (enemigos[l][s].x <= 42) {
+				if (enemigos[l][s].x <= 40) {
 					enemigos[l][s].activo = false;
 					return false;
 				}
@@ -845,7 +859,7 @@ bool Nivel3() {
 			for (int c = 0; c < numColumnas; c++)
 			{
 				if (!vecinos[l][c].activo) continue;
-				if (!vecinos[l][c].tipo==4) continue;
+				if (vecinos[l][c].tipo == 4) continue;
 				if (!enemigoEnLinea[l]) {
 					vecinos[l][c].cooldown = 0;
 					continue;
@@ -860,9 +874,9 @@ bool Nivel3() {
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
 						switch (vecinos[l][c].tipo) {
-						case 1: balas[i].tipo == 1; break;
-						case 2: balas[i].tipo == 1; break;
-						case 3: balas[i].tipo == 2; break;
+						case 1: balas[i].tipo = 1; break;
+						case 2: balas[i].tipo = 1; break;
+						case 3: balas[i].tipo = 2 + rand() % 4; break; //puede ser de 2 a 5
 						}
 						balas[i].linea = l;
 						break;
@@ -893,12 +907,14 @@ bool Nivel3() {
 				{
 					balas[i].activa = false;
 					enemigos[balas[i].linea][s].vida--;
+					if (balas[i].tipo >= 2) enemigos[balas[i].linea][s].tiempoEfecto = 100;
 					if (enemigos[balas[i].linea][s].vida == 0) {
 						borrar_enemigo((int)enemigos[balas[i].linea][s].x, enemigos[balas[i].linea][s].y);
 						enemigos[balas[i].linea][s].activo = false;
 						puntosV += 20;
 						enemigosEliminados++;
 						enemigos[balas[i].linea][s].vida = 3;
+						enemigos[balas[i].linea][s].tiempoEfecto = 0;
 					}
 					break;
 				}
@@ -916,7 +932,7 @@ bool Nivel3() {
 			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
 			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13)
+			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13)
 			{
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
@@ -1024,8 +1040,8 @@ bool Nivel4() {
 	int maxEnemigosNivel = 18;// modifique de 5 a 18
 
 	int spawnCooldown = 60;// modifique de 100 a 60
-	const int TIEMPO_ENTRE_DISPAROS = 40;
-	int puntosV = 100;// modifique de 100 a 80
+	const int TIEMPO_ENTRE_DISPAROS = 50;
+	int puntosV = 125;// modifique de 100 a 80
 
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
@@ -1038,6 +1054,7 @@ bool Nivel4() {
 			enemigos[l][s].y = 0;
 			enemigos[l][s].tipo = 0;
 			enemigos[l][s].vel = 0;
+			enemigos[l][s].tiempoEfecto = 0;
 			enemigos[l][s].vida = 3;
 		}
 	}
@@ -1083,15 +1100,15 @@ bool Nivel4() {
 						enemigos[lineaRandom][s].y = yLineas[lineaRandom];
 						enemigos[lineaRandom][s].tipo = 1 + rand() % 3;
 						switch (enemigos[lineaRandom][s].tipo) {
-						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; break;
-						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; break;
-						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; break;
+						case 1: enemigos[lineaRandom][s].vida = 6; enemigos[lineaRandom][s].vel = 0.3; enemigos[lineaRandom][s].velLenta = 0.5 * 0.3; break; //-50% cuando se ralentizan
+						case 2: enemigos[lineaRandom][s].vida = 3; enemigos[lineaRandom][s].vel = 1.5; enemigos[lineaRandom][s].velLenta = 0.5 * 1.5; break; //-50% cuando se ralentizan
+						case 3: enemigos[lineaRandom][s].vida = 4; enemigos[lineaRandom][s].vel = 0.75; enemigos[lineaRandom][s].velLenta = 0.5 * 0.75; break; //-50% cuando se ralentizan
 						}
 						enemigos[lineaRandom][s].atacando = false;
 						enemigos[lineaRandom][s].cooldownataque = 0;
+						enemigos[lineaRandom][s].tiempoEfecto = 0;
 						enemigosGenerados++;
-						spawnCooldown = 70;
-						// modifique de 100 a 70
+						spawnCooldown = 60; // modifique de 100 a 70
 						break;
 					}
 				}
@@ -1144,7 +1161,8 @@ bool Nivel4() {
 					continue;
 				}
 				enemigos[l][s].atacando = false;
-				enemigos[l][s].x -= enemigos[l][s].vel;
+				if (enemigos[l][s].tiempoEfecto > 0) { enemigos[l][s].tiempoEfecto--; enemigos[l][s].x -= enemigos[l][s].velLenta; }
+				else enemigos[l][s].x -= enemigos[l][s].vel;
 				if (enemigos[l][s].x <= 42) {
 					enemigos[l][s].activo = false;
 					return false;
@@ -1171,7 +1189,7 @@ bool Nivel4() {
 			for (int c = 0; c < numColumnas; c++)
 			{
 				if (!vecinos[l][c].activo) continue;
-				if (vecinos[l][c].tipo == 3) continue;
+				if (vecinos[l][c].tipo == 4) continue;
 				if (!enemigoEnLinea[l]) {
 					vecinos[l][c].cooldown = 0;
 					continue;
@@ -1186,10 +1204,10 @@ bool Nivel4() {
 						balas[i].activa = true;
 						balas[i].x = vecinos[l][c].x + 8;
 						balas[i].y = vecinos[l][c].y + 2;
-						switch (vecinos[l][c].tipo == 1) {
-						case 1: balas[i].tipo == 1; break;
-						case 2: balas[i].tipo == 1; break;
-						case 3: balas[i].tipo == 2; break;
+						switch (vecinos[l][c].tipo) {
+						case 1: balas[i].tipo = 1; break;
+						case 2: balas[i].tipo = 1; break;
+						case 3: balas[i].tipo = 2 + rand() % 4; break; //puede ser de 2 a 5
 						}
 						balas[i].linea = l;
 						break;
@@ -1206,7 +1224,7 @@ bool Nivel4() {
 			borrar_bala((int)balas[i].x, balas[i].y);
 			balas[i].x += 1.5;
 			//COLISION MAPA
-			if (balas[i].x > 185) {
+			if (balas[i].x > 188) {
 				balas[i].activa = false;
 				continue;
 			}
@@ -1220,19 +1238,21 @@ bool Nivel4() {
 				{
 					balas[i].activa = false;
 					enemigos[balas[i].linea][s].vida--;
+					if (balas[i].tipo >= 2) enemigos[balas[i].linea][s].tiempoEfecto = 100;
 					if (enemigos[balas[i].linea][s].vida == 0) {
 						borrar_enemigo((int)enemigos[balas[i].linea][s].x, enemigos[balas[i].linea][s].y);
 						enemigos[balas[i].linea][s].activo = false;
 						puntosV += 20;
 						enemigosEliminados++;
 						enemigos[balas[i].linea][s].vida = 3;
+						enemigos[balas[i].linea][s].tiempoEfecto = 0;
 					}
 					break;
 				}
 			}
 
 			if (balas[i].activa)
-				dibujar_bala((int)balas[i].x, balas[i].y, 1);
+				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
@@ -1244,7 +1264,7 @@ bool Nivel4() {
 			if (tecla == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 			if (tecla == leftkey && xcasilla > 40) { xcasilla -= 14; }
 			if (tecla == rightkey && xcasilla < 68) { xcasilla += 14; }
-			if (tecla == '1' || tecla == '2' || tecla == 13)
+			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13)
 			{
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
@@ -1273,6 +1293,30 @@ bool Nivel4() {
 							barra_seleccion[0] = true;
 						}
 					}
+					if (tecla == '3') {
+						if (puntosV >= 75) {
+							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+							vecinos[lineaActual][columnaActual].cooldown = 0;
+							vecinos[lineaActual][columnaActual].tipo = 3;
+							vecinos[lineaActual][columnaActual].vida = 5;
+							vecinos[lineaActual][columnaActual].activo = true;
+							puntosV -= 75;
+							barra_seleccion[0] = true;
+						}
+					}
+					if (tecla == '4') {
+						if (puntosV >= 50) {
+							vecinos[lineaActual][columnaActual].x = 43 + columnaActual * 14;
+							vecinos[lineaActual][columnaActual].y = yLineas[lineaActual];
+							vecinos[lineaActual][columnaActual].cooldown = 0;
+							vecinos[lineaActual][columnaActual].tipo = 4;
+							vecinos[lineaActual][columnaActual].vida = 15;
+							vecinos[lineaActual][columnaActual].activo = true;
+							puntosV -= 50;
+							barra_seleccion[0] = true;
+						}
+					}
 				}
 				if (tecla == 13) {
 					borrar_enemigo(xcasilla + 3, yprota);
@@ -1289,6 +1333,8 @@ bool Nivel4() {
 					switch (vecinos[l][c].tipo) {
 					case 1: dibujar_vecino1(vecinos[l][c].x, vecinos[l][c].y); break;
 					case 2: dibujar_vecino2(vecinos[l][c].x, vecinos[l][c].y); break;
+					case 3: dibujar_aliado_uchu(vecinos[l][c].x, vecinos[l][c].y); break;
+					case 4: dibujar_aliado_robotin(vecinos[l][c].x, vecinos[l][c].y); break;
 					}
 				}
 			}

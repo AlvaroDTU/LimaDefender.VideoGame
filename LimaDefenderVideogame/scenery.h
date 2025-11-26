@@ -1198,7 +1198,7 @@ void ending() {
 			cout << " ";
 		}
 	}
-	Console::ForegroundColor = ConsoleColor::White; printTextCenter(190, "La unión vecinal hace la fuerza!", 40); printTextCenter(190, "Pulsa ENTER volver al menu", 40);
+	Console::ForegroundColor = ConsoleColor::White; printTextCenter(190, "La unión vecinal hace la fuerza!", 40); printTextCenter(190, "Pulsa ENTER volver al menu", 45);
 }
 
 void creditos() {
