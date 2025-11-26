@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClInclude Include="characters.h" />
     <ClInclude Include="essentials.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="levels.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />

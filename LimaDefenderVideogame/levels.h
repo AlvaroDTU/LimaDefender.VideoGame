@@ -201,9 +201,9 @@ bool Nivel1() {
                     }
                     switch (enemigos[l][s].tipo)
                     {
-                    case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 1: dibujar_enemigo2_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 2: dibujar_enemigo1_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 3: dibujar_enemigo3_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
                     }
                     continue;
                 }
@@ -219,9 +219,9 @@ bool Nivel1() {
                 }
 
                 switch (enemigos[l][s].tipo) {
-                case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 1: dibujar_enemigo2((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 2: dibujar_enemigo1((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 3: dibujar_enemigo3((int)enemigos[l][s].x, enemigos[l][s].y); break;
                 }
             }
         }
@@ -377,7 +377,7 @@ bool Nivel1() {
         //----------------------------------------------------------
         // 9. HUD
         //----------------------------------------------------------
-        barra_nivelSurcoYCallao(barra_seleccion);
+        barra_nivel1(barra_seleccion);
 
 
         //----------------------------------------------------------
@@ -537,9 +537,9 @@ bool Nivel2() {
                     }
                     switch (enemigos[l][s].tipo)
                     {
-                    case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 1: dibujar_enemigo2_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 2: dibujar_enemigo1_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 3: dibujar_enemigo3_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
                     }
                     continue;
                 }
@@ -555,9 +555,9 @@ bool Nivel2() {
                 }
 
                 switch (enemigos[l][s].tipo) {
-                case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 1: dibujar_enemigo2((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 2: dibujar_enemigo1((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 3: dibujar_enemigo3((int)enemigos[l][s].x, enemigos[l][s].y); break;
                 }
             }
         }
@@ -727,7 +727,7 @@ bool Nivel2() {
         //----------------------------------------------------------
         // 9. HUD
         //----------------------------------------------------------
-        barra_nivelSurcoYCallao(barra_seleccion);
+        barra_nivel2(barra_seleccion);
 
 
         //----------------------------------------------------------
@@ -888,9 +888,9 @@ bool Nivel3() {
                     }
                     switch (enemigos[l][s].tipo)
                     {
-                    case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 1: dibujar_enemigo2_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 2: dibujar_enemigo1_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 3: dibujar_enemigo3_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
                     }
                     continue;
                 }
@@ -906,9 +906,9 @@ bool Nivel3() {
                 }
 
                 switch (enemigos[l][s].tipo) {
-                case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 1: dibujar_enemigo2((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 2: dibujar_enemigo1((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 3: dibujar_enemigo3((int)enemigos[l][s].x, enemigos[l][s].y); break;
                 }
             }
         }
@@ -1077,7 +1077,7 @@ bool Nivel3() {
         //----------------------------------------------------------
         // 9. HUD
         //----------------------------------------------------------
-        barra_nivelSurcoYCallao(barra_seleccion);
+        barra_nivel3(barra_seleccion);
 
 
         //----------------------------------------------------------
@@ -1237,9 +1237,9 @@ bool Nivel4() {
                     }
                     switch (enemigos[l][s].tipo)
                     {
-                    case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                    case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 1: dibujar_enemigo2_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 2: dibujar_enemigo1_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                    case 3: dibujar_enemigo3_pegando((int)enemigos[l][s].x, enemigos[l][s].y); break;
                     }
                     continue;
                 }
@@ -1255,9 +1255,9 @@ bool Nivel4() {
                 }
 
                 switch (enemigos[l][s].tipo) {
-                case 1: dibujar_enemigo_poli((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 2: dibujar_enemigo_chamo((int)enemigos[l][s].x, enemigos[l][s].y); break;
-                case 3: dibujar_enemigo_choro((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 1: dibujar_enemigo2((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 2: dibujar_enemigo1((int)enemigos[l][s].x, enemigos[l][s].y); break;
+                case 3: dibujar_enemigo3((int)enemigos[l][s].x, enemigos[l][s].y); break;
                 }
             }
         }
@@ -1413,7 +1413,7 @@ bool Nivel4() {
         //----------------------------------------------------------
         // 9. HUD
         //----------------------------------------------------------
-        barra_nivelSurcoYCallao(barra_seleccion);
+        barra_nivel4(barra_seleccion);
 
 
         //----------------------------------------------------------

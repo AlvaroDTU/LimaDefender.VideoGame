@@ -178,7 +178,8 @@ void dibujar_vecino2(int x, int y) {
     }
 }
 //enemigos
-void dibujar_enemigo_chamo(int x, int y) {
+//chamo
+void dibujar_enemigo1(int x, int y) {
     int chamo[6][8] = {
       { 7,7,7,3,3,4,4,0},
       { 0,2,1,5,2,1,5,7},
@@ -201,8 +202,8 @@ void dibujar_enemigo_chamo(int x, int y) {
         }
     }
 }
-
-void dibujar_enemigo_poli(int x, int y) {
+//policia
+void dibujar_enemigo2(int x, int y) {
     int poli[6][8] = {
        {0,4,4,4,4,4,4,0},
        {4,6,5,8,8,6,5,4},
@@ -225,8 +226,8 @@ void dibujar_enemigo_poli(int x, int y) {
         }
     }
 }
-
-void dibujar_enemigo_choro(int x, int y) {
+//choro
+void dibujar_enemigo3(int x, int y) {
     int choro[6][8] = {
       { 0,4,4,4,4,4,4,0},
       { 4,1,2,1,1,2,1,4},
@@ -246,6 +247,75 @@ void dibujar_enemigo_choro(int x, int y) {
         }
     }
 }
+
+//enemios pegando
+void dibujar_enemigo1_pegando(int x, int y) {
+    int chamo[6][8] = {
+      {1,1,1,3,3,4,4,0},
+      {0,5,6,2,5,6,2,1},
+      {0,2,2,2,2,2,2,0},
+      {2,4,4,4,2,2,2,2},
+      {0,3,3,3,3,3,3,0},
+      {0,1,1,0,0,1,1,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (chamo[f][c] == 5) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (chamo[f][c] == 6) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (chamo[f][c] == 3) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (chamo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::Yellow; cout << (char)219; }
+            if (chamo[f][c] == 1) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+            if (chamo[f][c] == 2) { setTextColorRGB(186, 91, 0); cout << (char)219; }
+        }
+    }
+}
+
+void dibujar_enemigo2_pegando(int x, int y) {
+    int poli[6][8] = {
+       {0,4,4,4,4,4,4,0},
+       {4,5,6,3,5,6,3,4},
+       {0,3,3,3,3,3,3,0},
+       {3,2,2,3,2,2,2,2},
+       {0,2,2,2,2,2,2,0},
+       {0,1,1,0,0,1,1,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (poli[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (poli[f][c] == 2) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (poli[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
+            if (poli[f][c] == 6) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (poli[f][c] == 5) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (poli[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+        }
+    }
+}
+
+void dibujar_enemigo3_pegando(int x, int y) {
+    int choro[6][8] = {
+     {0,3,3,3,3,3,3,0},
+     {3,5,6,5,5,6,5,3},
+     {0,3,3,3,3,3,3,0},
+     {3,1,1,3,1,1,1,1},
+     {0,1,1,1,1,1,1,0},
+     {0,6,6,0,0,6,6,0},
+    };
+
+    for (int f = 0; f < 6; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (choro[f][c] == 5) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (choro[f][c] == 6) { Console::ForegroundColor = ConsoleColor::White; cout << (char)219; }
+            if (choro[f][c] == 1) { Console::ForegroundColor = ConsoleColor::Blue; cout << (char)219; }
+            if (choro[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+        }
+    }
+}
+
 void dibujar_policorrupto() {
     int poli_c[15][35] = {
 {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
@@ -279,7 +349,7 @@ void dibujar_policorrupto() {
         }
     }
 }
-void dibujar_chupetin() {
+void dibujar_chupetin(int x, int y) {
     int chupetin[15][35] = {
     {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
     {7,0,0,0,0,4,4,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,7},
@@ -480,25 +550,65 @@ void aliado_chica(int x, int y, bool seleccion_barra) {
     }
 }
 
-void barra_nivelSurcoYCallao(bool seleccion_barra[]) {
+void aliado_uchulu(int x, int y, bool seleccion_barra) {
+    int barra[4][8] = {
+    {1,0,0,0,0,0,0,1},
+    {1,0,3,3,3,3,0,1},
+    {1,3,2,2,2,2,3,1},
+    {1,1,7,1,1,7,1,1},
+    };
+    for (int f = 0; f < 4; f++) {
+        for (int c = 0; c < 8; c++) {
+            gotoxy(x + c, y + f);
+            if (barra[f][c] == 0) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
+            if (barra[f][c] == 1) {
+                if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
+                else Console::BackgroundColor = ConsoleColor::White;
+                cout << " ";
+            }
+            if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+            if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+            if (barra[f][c] == 7) { Console::ForegroundColor = ConsoleColor::Green; cout << (char)219; }
+        }
+    }
+}
+
+void barra_nivel1(bool seleccion_barra[]) {
     barra(46, 0);
+    gotoxy(48,0); cout<<"25 PV";
+    gotoxy(57, 0); cout << "25 PV";
     barra_vecino1(47, 1, seleccion_barra[0]);
     barra_vecino2(56, 1, seleccion_barra[1]);
     barra_vacia(65, 1);
 }
 
-void barra_nivelVES(bool seleccion_barra[]) {
+void barra_nivel2(bool seleccion_barra[]) {
     barra(46, 0);
+    gotoxy(48, 0); cout << "25 PV";
+    gotoxy(57, 0); cout << "25 PV";
+    gotoxy(66, 0); cout << "75 PV";
+    barra_vecino1(47, 1, seleccion_barra[0]);
+    barra_vecino2(56, 1, seleccion_barra[1]);
+    aliado_uchulu(65, 1, seleccion_barra[2]);
+}
+
+void barra_nivel3(bool seleccion_barra[]) {
+    barra(46, 0);
+    gotoxy(48, 0); cout << "25 PV";
+    gotoxy(57, 0); cout << "25 PV";
+    gotoxy(66, 0); cout << "50 PV";
     barra_vecino1(47, 1, seleccion_barra[0]);
     barra_vecino2(56, 1, seleccion_barra[1]);
     aliado_robotin(65, 1, seleccion_barra[2]);
 }
 
-void barra_nivelATE(bool seleccion_barra[]) {
+void barra_nivel4(bool seleccion_barra[]) {
     barra(46, 0);
+    gotoxy(48, 0); cout << "25 PV";
+    gotoxy(57, 0); cout << "25 PV";
     barra_vecino1(47, 1, seleccion_barra[0]);
     barra_vecino2(56, 1, seleccion_barra[1]);
-    aliado_chica(65, 1, seleccion_barra[2]);
+    barra_vacia(65, 1);
 }
 
 void dibujar_bala(int x, int y) {
