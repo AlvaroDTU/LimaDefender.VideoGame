@@ -617,7 +617,7 @@ bool Nivel2() {
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
 				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
 			}
-			if (tecla == '1' || tecla == '2' || tecla == 13) {
+			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -943,7 +943,7 @@ bool Nivel3() {
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
 				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
 			}
-			if (tecla == '1' || tecla == '2' || tecla == 13) {
+			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
@@ -1282,7 +1282,7 @@ bool Nivel4() {
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
 				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
 			}
-			if (tecla == '1' || tecla == '2' || tecla == 13) {
+			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
 				int columnaActual = (xcasilla - 40) / 14;
 				if (!vecinos[lineaActual][columnaActual].activo) {
