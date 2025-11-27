@@ -3,6 +3,14 @@
 using namespace std;
 using namespace System;
 
+struct jefe {
+int x;
+int y;
+bool activo;
+bool ataque;
+int vida;
+int countdown_ataque;
+};
 struct Enemigo {
 	bool activo;
 	double x;
