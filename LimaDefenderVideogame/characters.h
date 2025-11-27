@@ -3,13 +3,13 @@
 using namespace std;
 using namespace System;
 
-struct jefe {
+struct Jefe {
 int x;
 int y;
 bool activo;
 bool ataque;
 int vida;
-int countdown_ataque;
+int cooldownataque;
 };
 struct Enemigo {
 	bool activo;
