@@ -426,7 +426,7 @@ void dibujar_cuervo_apuntando(int x, int y) {
 	}
 }
 
-void dibujar_cuervo_apuntando(int x, int y) {
+void borrar_cuervo_apuntando(int x, int y) {
 	int cuervo[18][19] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
