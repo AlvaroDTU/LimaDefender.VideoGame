@@ -1059,8 +1059,8 @@ bool Nivel4() {
 	Bala balas[MAX_BALAS];
 	Jefe cuervo;
 	cuervo.cooldown_mov=60+rand()%100-60+1;
-	cuervo.x=0;
-	cuervo.y=0;
+	cuervo.x=159;
+	cuervo.y=24;
 	//Inicializar enemigos
 	for (int l = 0; l < numLineas; l++) {
 		for (int s = 0; s < maxEnemigosLinea; s++) {
@@ -1272,6 +1272,10 @@ bool Nivel4() {
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
+		if (cuervo.activo) {
+			if (cuervo.ataque) borrar_cuervo_apuntando(cuervo.x - 3, cuervo.y);
+			else borrar_cuervo(cuervo.x, cuervo.y);
+		}
 		// 5. DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch(); 
@@ -1358,6 +1362,10 @@ bool Nivel4() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
+		if (cuervo.activo) {
+			if (cuervo.ataque) dibujar_cuervo_apuntando(cuervo.x - 3, cuervo.y);
+			else dibujar_cuervo(cuervo.x, cuervo.y);
+		}
 		// 9. HUD
 		barra_nivel4(barra_seleccion);
 		// 10. FIN DEL NIVEL

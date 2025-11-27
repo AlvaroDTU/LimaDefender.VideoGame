@@ -329,7 +329,7 @@ void dibujar_enemigo3_pegando(int x, int y) {
 //JEFE
 void dibujar_cuervo(int x, int y) {
 
-	int prota[18][16] = {
+	int prota[17][16] = {
 	{0,0,0,0,0,1,1,1,2,2,5,0,0,0,0,0},
 	{0,0,0,0,0,1,1,1,2,2,2,2,5,0,0,0},
 	{0,0,1,1,1,1,1,1,1,1,2,2,2,2,5,5},
@@ -348,7 +348,7 @@ void dibujar_cuervo(int x, int y) {
 	{0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0},
 	{0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0},
 	};
-	for (int f = 0; f < 18; f++) {
+	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 16; c++) {
 			gotoxy(x + c, y + f);
 			if (prota[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
@@ -361,9 +361,7 @@ void dibujar_cuervo(int x, int y) {
 }
 void borrar_cuervo(int x, int y) {
 
-	int cuervo[18][16] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	int cuervo[17][16] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -382,7 +380,7 @@ void borrar_cuervo(int x, int y) {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	};
-	for (int f = 0; f < 18; f++) {
+	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 16; c++) {
 			gotoxy(x + c, y + f);
 			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
@@ -395,7 +393,7 @@ void borrar_cuervo(int x, int y) {
 }
 void dibujar_cuervo_apuntando(int x, int y) {
 
-	int cuervo[18][19] = {
+	int cuervo[17][19] = {
 	{0,0,0,0,0,0,0,0,1,1,1,2,2,5,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,1,1,1,2,2,2,2,5,0,0,0},
 	{0,0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,2,5,5},
@@ -414,7 +412,7 @@ void dibujar_cuervo_apuntando(int x, int y) {
 	{0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0},
 	{0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0},
 	};
-	for (int f = 0; f < 18; f++) {
+	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 19; c++) {
 			gotoxy(x + c, y + f);
 			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
@@ -427,9 +425,7 @@ void dibujar_cuervo_apuntando(int x, int y) {
 }
 
 void borrar_cuervo_apuntando(int x, int y) {
-	int cuervo[18][19] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	int cuervo[17][19] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -448,7 +444,7 @@ void borrar_cuervo_apuntando(int x, int y) {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	};
-	for (int f = 0; f < 18; f++) {
+	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 19; c++) {
 			gotoxy(x + c, y + f);
 			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
