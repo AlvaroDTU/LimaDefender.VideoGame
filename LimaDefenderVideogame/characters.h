@@ -596,6 +596,10 @@ void barra_nivel1(bool seleccion_barra[]) {
 
 void barra_nivel2(bool seleccion_barra[]) {
 	barra(46, 0);
+	gotoxy(50, 5); cout << "1";
+	gotoxy(59, 5); cout << "2";
+	gotoxy(68, 5); cout << "3";
+	gotoxy(77, 5); cout << "4";
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
 	gotoxy(66, 0); cout << "50 PV";
@@ -607,6 +611,10 @@ void barra_nivel2(bool seleccion_barra[]) {
 
 void barra_nivel3(bool seleccion_barra[]) {
 	barra(46, 0);
+	gotoxy(50, 5); cout << "1";
+	gotoxy(59, 5); cout << "2";
+	gotoxy(68, 5); cout << "3";
+	gotoxy(77, 5); cout << "4";
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
 	gotoxy(66, 0); cout << "50 PV";
@@ -619,6 +627,10 @@ void barra_nivel3(bool seleccion_barra[]) {
 
 void barra_nivel4(bool seleccion_barra[]) {
 	barra(46, 0);
+	gotoxy(50, 5); cout << "1";
+	gotoxy(59, 5); cout << "2";
+	gotoxy(68, 5); cout << "3";
+	gotoxy(77, 5); cout << "4";
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
 	gotoxy(66, 0); cout << "50 PV";
