@@ -1052,11 +1052,15 @@ bool Nivel4() {
 
 	int spawnCooldown = 60;// modifique de 100 a 60
 	const int TIEMPO_ENTRE_DISPAROS = 50;
-	int puntosV = 125;// modifique de 100 a 80
-
+	int puntosV = 150;// modifique de 100 a 80
+	
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
 	Bala balas[MAX_BALAS];
+	Jefe cuervo;
+	cuervo.cooldown_mov=60+rand()%100-60+1;
+	cuervo.x=0;
+	cuervo.y=0;
 	//Inicializar enemigos
 	for (int l = 0; l < numLineas; l++) {
 		for (int s = 0; s < maxEnemigosLinea; s++) {
@@ -1359,6 +1363,9 @@ bool Nivel4() {
 		// 10. FIN DEL NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
+		}
+		if (enemigosGenerados == 2) {
+			cuervo.activo=true;
 		}
 		_sleep(30);
 	}
