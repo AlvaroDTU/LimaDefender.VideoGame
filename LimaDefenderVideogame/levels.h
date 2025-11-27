@@ -513,7 +513,7 @@ bool Nivel2() {
 				}
 				enemigos[l][s].atacando = false;
 				if (enemigos[l][s].tiempoEfecto > 0) { enemigos[l][s].tiempoEfecto--; enemigos[l][s].x -= enemigos[l][s].velLenta; }
-				else enemigos[l][s].x-= enemigos[l][s].vel;
+				else enemigos[l][s].x -= enemigos[l][s].vel;
 				if (enemigos[l][s].x <= 42) {
 					enemigos[l][s].activo = false;
 					return false;
@@ -685,7 +685,7 @@ bool Nivel2() {
 		// 10. APARICION BOSS
 		if (enemigosEliminados >= 2) {
 			dibujar_policorrupto();
-			barraVida_policorrupto(maxEnemigosNivel-enemigosEliminados);
+			barraVida_policorrupto(maxEnemigosNivel - enemigosEliminados);
 		}
 		// 11. FIN DEL NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
@@ -1053,14 +1053,20 @@ bool Nivel4() {
 	int spawnCooldown = 60;// modifique de 100 a 60
 	const int TIEMPO_ENTRE_DISPAROS = 50;
 	int puntosV = 150;// modifique de 100 a 80
-	
+
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
 	Bala balas[MAX_BALAS];
 	Jefe cuervo;
-	cuervo.cooldown_mov=60+rand()%100-60+1;
-	cuervo.x=159;
-	cuervo.y=24;
+	//Inicializar cuervo
+	cuervo.x = 159;
+	cuervo.y = 24;
+	cuervo.activo = false;
+	cuervo.ataque = false;
+	cuervo.vida = 200;
+	cuervo.cooldownataque = 200;
+	cuervo.cooldown_mov = 60 + rand() % 100 - 60 + 1;
+
 	//Inicializar enemigos
 	for (int l = 0; l < numLineas; l++) {
 		for (int s = 0; s < maxEnemigosLinea; s++) {
@@ -1278,7 +1284,7 @@ bool Nivel4() {
 		}
 		// 5. DETECTAR TECLAS
 		if (_kbhit()) {
-			int tecla = _getch(); 
+			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
