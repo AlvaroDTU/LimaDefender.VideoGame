@@ -1274,7 +1274,7 @@ bool Nivel4() {
 		borrarcasilla(xcasilla, ycasilla);
 		// 5. DETECTAR TECLAS
 		if (_kbhit()) {
-			int tecla = _getch();
+			int tecla = _getch(); 
 			if (tecla == 224) {
 				int flecha = _getch();
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
@@ -1361,11 +1361,11 @@ bool Nivel4() {
 		// 9. HUD
 		barra_nivel4(barra_seleccion);
 		// 10. FIN DEL NIVEL
+		if (enemigosGenerados == 2) {
+			cuervo.activo = true;
+		}
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
-		}
-		if (enemigosGenerados == 2) {
-			cuervo.activo=true;
 		}
 		_sleep(30);
 	}
