@@ -425,23 +425,20 @@ void dibujar_cuervo() {
 
 
 void barra(int x, int y) {
-	int barra[6][28] = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
-	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
-	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
-	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
-	{0,0,0,0,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,4,0,0,0,0,0},
+	int barra[6][37] = {
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+	{0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0},
+	{0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0},
 	};
 
 	for (int f = 0; f < 6; f++) {
-		for (int c = 0; c < 28; c++) {
+		for (int c = 0; c < 37; c++) {
 			gotoxy(x + c, y + f);
 			if (barra[f][c] == 0) { Console::BackgroundColor = ConsoleColor::Black; cout << " "; }
 			if (barra[f][c] == 1) { Console::BackgroundColor = ConsoleColor::White; cout << " "; }
-			if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::White; cout << "1"; }
-			if (barra[f][c] == 3) { Console::ForegroundColor = ConsoleColor::White; cout << "2"; }
-			if (barra[f][c] == 4) { Console::ForegroundColor = ConsoleColor::White; cout << "3"; }
 		}
 	}
 
@@ -561,10 +558,10 @@ void aliado_chica(int x, int y, bool seleccion_barra) {
 
 void aliado_uchulu(int x, int y, bool seleccion_barra) {
 	int barra[4][8] = {
-	{1,0,0,0,0,0,0,1},
-	{1,0,3,3,3,3,0,1},
-	{1,3,2,2,2,2,3,1},
-	{1,1,7,1,1,7,1,1},
+	{1,6,6,6,6,6,6,1},
+	{1,6,3,3,3,3,6,1},
+	{1,3,7,7,7,7,3,1},
+	{1,1,8,1,1,8,1,1},
 	};
 	for (int f = 0; f < 4; f++) {
 		for (int c = 0; c < 8; c++) {
@@ -575,8 +572,9 @@ void aliado_uchulu(int x, int y, bool seleccion_barra) {
 				else Console::BackgroundColor = ConsoleColor::White;
 				cout << " ";
 			}
-			if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
+			if (barra[f][c] == 8) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
 			if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
+			if (barra[f][c] == 6) { Console::ForegroundColor = ConsoleColor::Red; cout << (char)219; }
 			if (barra[f][c] == 7) { Console::ForegroundColor = ConsoleColor::Green; cout << (char)219; }
 		}
 	}
@@ -584,11 +582,16 @@ void aliado_uchulu(int x, int y, bool seleccion_barra) {
 
 void barra_nivel1(bool seleccion_barra[]) {
 	barra(46, 0);
+	gotoxy(50, 5); cout << "1";
+	gotoxy(59, 5); cout << "2";
+	gotoxy(68, 5); cout << "3";
+	gotoxy(77, 5); cout << "4";
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
 	barra_vecino1(47, 1, seleccion_barra[0]);
 	barra_vecino2(56, 1, seleccion_barra[1]);
 	barra_vacia(65, 1);
+	barra_vacia(74, 1);
 }
 
 void barra_nivel2(bool seleccion_barra[]) {
@@ -599,6 +602,7 @@ void barra_nivel2(bool seleccion_barra[]) {
 	barra_vecino1(47, 1, seleccion_barra[0]);
 	barra_vecino2(56, 1, seleccion_barra[1]);
 	aliado_uchulu(65, 1, seleccion_barra[2]);
+	barra_vacia(74, 1);
 }
 
 void barra_nivel3(bool seleccion_barra[]) {
@@ -606,18 +610,23 @@ void barra_nivel3(bool seleccion_barra[]) {
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
 	gotoxy(66, 0); cout << "50 PV";
+	gotoxy(75, 0); cout << "50 PV";
 	barra_vecino1(47, 1, seleccion_barra[0]);
 	barra_vecino2(56, 1, seleccion_barra[1]);
-	aliado_robotin(65, 1, seleccion_barra[2]);
+	aliado_uchulu(65, 1, seleccion_barra[2]);
+	aliado_robotin(74, 1, seleccion_barra[3]);
 }
 
 void barra_nivel4(bool seleccion_barra[]) {
 	barra(46, 0);
 	gotoxy(48, 0); cout << "25 PV";
 	gotoxy(57, 0); cout << "25 PV";
+	gotoxy(66, 0); cout << "50 PV";
+	gotoxy(75, 0); cout << "50 PV";
 	barra_vecino1(47, 1, seleccion_barra[0]);
 	barra_vecino2(56, 1, seleccion_barra[1]);
-	barra_vacia(65, 1);
+	aliado_uchulu(65, 1, seleccion_barra[2]);
+	aliado_robotin(74, 1, seleccion_barra[3]);
 }
 
 void dibujar_bala(int x, int y, int tipo) {
