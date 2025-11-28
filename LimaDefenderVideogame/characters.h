@@ -11,6 +11,7 @@ bool ataque;
 int vida;
 int cooldownataque;
 int cooldown_mov;
+int linea[2];
 };
 struct Enemigo {
 	bool activo;

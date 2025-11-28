@@ -76,9 +76,9 @@ bool Nivel1() {
 	int xcasilla = 40, ycasilla = 15;
 	//Constantes por nivel
 	const int numLineas = 4;
-	const int numColumnas = 3;
+	const int numColumnas = 6;
 	const int maxEnemigosLinea = 3;
-	const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
+	const int MAX_BALAS = 100; //max balas en pantalla dentro del nivel
 	int yLineas[numLineas] = { 16, 25, 34, 43 };
 
 	int enemigosGenerados = 0;
@@ -306,7 +306,7 @@ bool Nivel1() {
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14; }
 			}
 			if (tecla == '1' || tecla == '2' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -377,9 +377,9 @@ bool Nivel2() {
 	int xcasilla = 40, ycasilla = 15;
 	//Constantes por nivel
 	const int numLineas = 4;
-	const int numColumnas = 3;
+	const int numColumnas = 6;
 	const int maxEnemigosLinea = 3;
-	const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
+	const int MAX_BALAS = 100; //max balas en pantalla dentro del nivel
 	int yLineas[numLineas] = { 16, 25, 34, 43 };
 
 	int enemigosGenerados = 0;
@@ -615,7 +615,7 @@ bool Nivel2() {
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14; }
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -704,9 +704,9 @@ bool Nivel3() {
 	int xcasilla = 40, ycasilla = 15;
 	//Constantes por nivel
 	const int numLineas = 4;
-	const int numColumnas = 3;
+	const int numColumnas = 6;
 	const int maxEnemigosLinea = 4;// modifique de 3 a 4
-	const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
+	const int MAX_BALAS = 100; //max balas en pantalla dentro del nivel
 	int yLineas[numLineas] = { 16, 25, 34, 43 };
 
 	int enemigosGenerados = 0;
@@ -941,7 +941,7 @@ bool Nivel3() {
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14; }
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -1041,9 +1041,9 @@ bool Nivel4() {
 	int xcasilla = 40, ycasilla = 15;
 	//Constantes por nivel
 	const int numLineas = 4;
-	const int numColumnas = 3;
+	const int numColumnas = 6;
 	const int maxEnemigosLinea = 4;// modifique de 3 a 4
-	const int MAX_BALAS = 48; //max balas en pantalla dentro del nivel
+	const int MAX_BALAS = 100; //max balas en pantalla dentro del nivel
 	int yLineas[numLineas] = { 16, 25, 34, 43 };
 
 	int enemigosGenerados = 0;
@@ -1290,7 +1290,7 @@ bool Nivel4() {
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 68) { xcasilla += 14; }
+				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14; }
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -1375,9 +1375,7 @@ bool Nivel4() {
 		// 9. HUD
 		barra_nivel4(barra_seleccion);
 		// 10. FIN DEL NIVEL
-		if (enemigosGenerados == 2) {
-			cuervo.activo = true;
-		}
+		if (enemigosEliminados == 2) cuervo.activo = true;
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
