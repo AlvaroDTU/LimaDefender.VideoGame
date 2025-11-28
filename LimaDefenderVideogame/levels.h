@@ -1065,7 +1065,7 @@ bool Nivel4() {
 	cuervo.ataque = false;
 	cuervo.vida = 200;
 	cuervo.cooldownataque = 200;
-	cuervo.cooldown_mov = 60 + rand() % 100 - 60 + 1;
+	cuervo.cooldown_mov = 150 + rand() % 200 - 150 + 1;
 
 	//Inicializar enemigos
 	for (int l = 0; l < numLineas; l++) {
@@ -1147,7 +1147,7 @@ bool Nivel4() {
 				bool colisionVecino = false;
 				for (int c = 0; c < numColumnas; c++) {
 					if (vecinos[l][c].activo) {
-						if (enemigos[l][s].x >= vecinos[l][c].x && enemigos[l][s].x <= vecinos[l][c].x + 8) {
+						if ((enemigos[l][s].x >= vecinos[l][c].x && enemigos[l][s].x <= vecinos[l][c].x + 8)) {
 							colisionVecino = true;
 							enemigos[l][s].atacando = true;
 							break;
@@ -1196,6 +1196,7 @@ bool Nivel4() {
 				}
 			}
 		}
+		
 		// 3. DETECTAR ENEMIGOS EN CADA LÍNEA
 		bool enemigoEnLinea[numLineas] = { false,false,false,false };
 
@@ -1204,6 +1205,7 @@ bool Nivel4() {
 				if (enemigos[l][s].activo) enemigoEnLinea[l] = true;
 			}
 		}
+	
 		// 6. DISPARO AUTOMÁTICO
 		for (int l = 0; l < numLineas; l++)
 		{
@@ -1255,7 +1257,7 @@ bool Nivel4() {
 			{
 				if (!enemigos[balas[i].linea][s].activo) continue;
 
-				if (balas[i].x >= enemigos[balas[i].linea][s].x && balas[i].x <= enemigos[balas[i].linea][s].x + 8)
+				if ((balas[i].x >= enemigos[balas[i].linea][s].x && balas[i].x <= enemigos[balas[i].linea][s].x + 8))
 				{
 					balas[i].activa = false;
 					enemigos[balas[i].linea][s].vida--;
@@ -1271,17 +1273,13 @@ bool Nivel4() {
 					break;
 				}
 			}
-
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
-		if (cuervo.activo) {
-			if (cuervo.ataque) borrar_cuervo_apuntando(cuervo.x - 3, cuervo.y);
-			else borrar_cuervo(cuervo.x, cuervo.y);
-		}
+		
 		// 5. DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
@@ -1353,6 +1351,22 @@ bool Nivel4() {
 				}
 			}
 		}
+		if (cuervo.activo) {
+			borrar_cuervo(cuervo.x, cuervo.y);
+			if (cuervo.cooldown_mov > 0) cuervo.cooldown_mov--;
+			else {
+				if (cuervo.y == yLineas[0] - 1) { cuervo.y += 9; }
+				else if (cuervo.y == yLineas[2] - 1) { cuervo.y -= 9; }
+				else {
+					int direccion = rand() % 2;
+					if (direccion == 0) cuervo.y -= 9;
+					if (direccion == 1) cuervo.y += 9;
+				}
+				cuervo.cooldown_mov = 150 + rand() % 200 - 150 + 1;
+			}
+			dibujar_cuervo(cuervo.x, cuervo.y);
+		}
+		
 		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
 		for (int l = 0; l < numLineas; l++) {
 			for (int c = 0; c < numColumnas; c++) {
@@ -1368,10 +1382,7 @@ bool Nivel4() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
-		if (cuervo.activo) {
-			if (cuervo.ataque) dibujar_cuervo_apuntando(cuervo.x - 3, cuervo.y);
-			else dibujar_cuervo(cuervo.x, cuervo.y);
-		}
+		
 		// 9. HUD
 		barra_nivel4(barra_seleccion);
 		// 10. FIN DEL NIVEL

@@ -330,7 +330,7 @@ void dibujar_enemigo3_pegando(int x, int y) {
 //JEFE
 void dibujar_cuervo(int x, int y) {
 
-	int prota[17][16] = {
+	int cuervo[17][16] = {
 	{0,0,0,0,0,1,1,1,2,2,5,0,0,0,0,0},
 	{0,0,0,0,0,1,1,1,2,2,2,2,5,0,0,0},
 	{0,0,1,1,1,1,1,1,1,1,2,2,2,2,5,5},
@@ -352,11 +352,11 @@ void dibujar_cuervo(int x, int y) {
 	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 16; c++) {
 			gotoxy(x + c, y + f);
-			if (prota[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
-			if (prota[f][c] == 2) { setTextColorRGB(56, 56, 56); cout << (char)219; }
-			if (prota[f][c] == 3) { setTextColorRGB(255, 144, 0); cout << (char)219; }
-			if (prota[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
-			if (prota[f][c] == 5) { setTextColorRGB(110, 110, 110); cout << (char)219; }
+			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
+			if (cuervo[f][c] == 2) { setTextColorRGB(56, 56, 56); cout << (char)219; }
+			if (cuervo[f][c] == 3) { setTextColorRGB(255, 144, 0); cout << (char)219; }
+			if (cuervo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
+			if (cuervo[f][c] == 5) { setTextColorRGB(110, 110, 110); cout << (char)219; }
 		}
 	}
 }
@@ -371,7 +371,7 @@ void borrar_cuervo(int x, int y) {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -384,11 +384,8 @@ void borrar_cuervo(int x, int y) {
 	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 16; c++) {
 			gotoxy(x + c, y + f);
-			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
-			if (cuervo[f][c] == 2) { setTextColorRGB(56, 56, 56); cout << (char)219; }
-			if (cuervo[f][c] == 3) { setTextColorRGB(255, 144, 0); cout << (char)219; }
-			if (cuervo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
-			if (cuervo[f][c] == 5) { setTextColorRGB(110, 110, 110); cout << (char)219; }
+			if (cuervo[f][c] == 0) { Console::BackgroundColor = ConsoleColor::Black; cout << " "; }
+			if (cuervo[f][c] == 9) { Console::BackgroundColor = ConsoleColor::White; cout << " "; }
 		}
 	}
 }
@@ -435,7 +432,7 @@ void borrar_cuervo_apuntando(int x, int y) {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -448,11 +445,7 @@ void borrar_cuervo_apuntando(int x, int y) {
 	for (int f = 0; f < 17; f++) {
 		for (int c = 0; c < 19; c++) {
 			gotoxy(x + c, y + f);
-			if (cuervo[f][c] == 1) { setTextColorRGB(28, 28, 28); cout << (char)219; }
-			if (cuervo[f][c] == 2) { setTextColorRGB(56, 56, 56); cout << (char)219; }
-			if (cuervo[f][c] == 3) { setTextColorRGB(255, 144, 0); cout << (char)219; }
-			if (cuervo[f][c] == 4) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
-			if (cuervo[f][c] == 5) { setTextColorRGB(110, 110, 110); cout << (char)219; }
+			if (cuervo[f][c] == 0) cout << " ";
 		}
 	}
 }
