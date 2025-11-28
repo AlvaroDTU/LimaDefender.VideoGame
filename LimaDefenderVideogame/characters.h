@@ -510,7 +510,7 @@ void dibujar_chupetin() {
 			if (chupetin[f][c] == 4) setTextColorRGB(255, 170, 0);
 			if (chupetin[f][c] == 5) Console::ForegroundColor = ConsoleColor::Blue;
 			if (chupetin[f][c] == 6) Console::ForegroundColor = ConsoleColor::DarkBlue;
-			if (chupetin[f][c] == 7) Console::ForegroundColor = ConsoleColor::Gray;
+			if (chupetin[f][c] == 7) Console::ForegroundColor = ConsoleColor::Black;
 			cout << char(219);
 		}
 	}
@@ -622,29 +622,6 @@ void aliado_robotin(int x, int y, bool seleccion_barra) {
 			if (barra[f][c] == 5) { Console::ForegroundColor = ConsoleColor::DarkGray; cout << (char)219; }
 			if (barra[f][c] == 8) { Console::ForegroundColor = ConsoleColor::DarkBlue; cout << (char)219; }
 			if (barra[f][c] == 9) { Console::ForegroundColor = ConsoleColor::Gray; cout << (char)219; }
-		}
-	}
-}
-
-void aliado_chica(int x, int y, bool seleccion_barra) {
-	int barra[4][8] = {
-	{1,0,0,0,0,0,0,1},
-	{1,0,3,3,3,3,0,1},
-	{1,3,2,2,2,2,3,1},
-	{1,1,7,1,1,7,1,1},
-	};
-	for (int f = 0; f < 4; f++) {
-		for (int c = 0; c < 8; c++) {
-			gotoxy(x + c, y + f);
-			if (barra[f][c] == 0) { Console::ForegroundColor = ConsoleColor::Black; cout << (char)219; }
-			if (barra[f][c] == 1) {
-				if (seleccion_barra == true) setBackgroundColor(171, 255, 186);
-				else Console::BackgroundColor = ConsoleColor::White;
-				cout << " ";
-			}
-			if (barra[f][c] == 2) { Console::ForegroundColor = ConsoleColor::Cyan; cout << (char)219; }
-			if (barra[f][c] == 3) { setTextColorRGB(255, 211, 186); cout << (char)219; }
-			if (barra[f][c] == 7) { Console::ForegroundColor = ConsoleColor::DarkRed; cout << (char)219; }
 		}
 	}
 }

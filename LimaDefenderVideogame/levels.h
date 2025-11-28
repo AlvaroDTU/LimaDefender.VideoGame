@@ -69,7 +69,7 @@ bool Nivel1() {
 	while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
 	slod1();
 	while (_getch() != 13) {}
-	bool barra_seleccion[3] = { false };
+	bool barra_seleccion[4] = { false };
 	nivel_surco();
 	puntosVecinales();
 	int xprota = 31, yprota = 16;
@@ -122,10 +122,14 @@ bool Nivel1() {
 		balas[i].y = 0;
 		balas[i].linea = 0;
 	}
+
+	//Inicializar barra de selección
+	barra_nivel1(barra_seleccion);
+
 	//INICIO NIVEL 1
 	while (true)
 	{
-		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
+		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		// SISTEMA DE PUNTOS VECINALES
 		gotoxy(6, 1);
 		Console::BackgroundColor = ConsoleColor::White;
@@ -333,7 +337,7 @@ bool Nivel1() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 25;
-							barra_seleccion[0] = true;
+							barra_seleccion[1] = true;
 						}
 					}
 				}
@@ -358,8 +362,12 @@ bool Nivel1() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
+
 		// 9. HUD
-		barra_nivel1(barra_seleccion);
+		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
+			barra_nivel1(barra_seleccion);
+			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
+
 		// 10. FIN DEL NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
@@ -370,7 +378,7 @@ bool Nivel1() {
 bool Nivel2() {
 	slod2();
 	while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
-	bool barra_seleccion[3] = { false };
+	bool barra_seleccion[4] = { false };
 	nivel_ves();
 	puntosVecinales();
 	int xprota = 31, yprota = 16;
@@ -424,10 +432,15 @@ bool Nivel2() {
 		balas[i].y = 0;
 		balas[i].linea = 0;
 	}
+
+
+	//Inicializar barra de selección
+	barra_nivel2(barra_seleccion);
+
 	//INICIO ANIMACIONES NIVEL 2
 	while (true)
 	{
-		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
+		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		// SISTEMA DE PUNTOS VECINALES
 		gotoxy(6, 1);
 		Console::BackgroundColor = ConsoleColor::White;
@@ -642,7 +655,7 @@ bool Nivel2() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 25;
-							barra_seleccion[0] = true;
+							barra_seleccion[1] = true;
 						}
 					}
 					if (tecla == '3') {
@@ -654,7 +667,7 @@ bool Nivel2() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[0] = true;
+							barra_seleccion[2] = true;
 						}
 					}
 				}
@@ -681,7 +694,10 @@ bool Nivel2() {
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
 		// 9. HUD
-		barra_nivel2(barra_seleccion);
+		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
+			barra_nivel2(barra_seleccion);
+			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
+
 		// 10. APARICION BOSS
 		if (enemigosEliminados >= 2) {
 			dibujar_policorrupto();
@@ -697,7 +713,7 @@ bool Nivel2() {
 bool Nivel3() {
 	slod3();
 	while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
-	bool barra_seleccion[3] = { false,false,false };
+	bool barra_seleccion[4] = { false,false,false };
 	nivel_callao();
 	puntosVecinales();
 	int xprota = 31, yprota = 16;
@@ -751,10 +767,14 @@ bool Nivel3() {
 		balas[i].tipo = 0;
 		balas[i].linea = 0;
 	}
+
+
+	//Inicializar barra de selección
+	barra_nivel3(barra_seleccion);
+
 	//INICIO ANIMACIONES NIVEL 3
 	while (true)
 	{
-		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
 		// SISTEMA DE PUNTOS VECINALES
 		gotoxy(6, 1);
 		Console::BackgroundColor = ConsoleColor::White;
@@ -968,7 +988,7 @@ bool Nivel3() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 25;
-							barra_seleccion[0] = true;
+							barra_seleccion[1] = true;
 						}
 					}
 					if (tecla == '3') {
@@ -980,7 +1000,7 @@ bool Nivel3() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[0] = true;
+							barra_seleccion[2] = true;
 						}
 					}
 					if (tecla == '4') {
@@ -992,7 +1012,7 @@ bool Nivel3() {
 							vecinos[lineaActual][columnaActual].vida = 15;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[0] = true;
+							barra_seleccion[3] = true;
 						}
 					}
 				}
@@ -1019,7 +1039,6 @@ bool Nivel3() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
-		barra_nivel3(barra_seleccion);
 		if (enemigosEliminados >= 3) {
 			dibujar_chupetin();
 			barraVida_chupetin(maxEnemigosNivel - enemigosEliminados);
@@ -1028,13 +1047,20 @@ bool Nivel3() {
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
+
+		// 9. HUD
+		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
+			barra_nivel3(barra_seleccion);
+			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
+		}
+
 		_sleep(30);
 	}
 }
 bool Nivel4() {
 	slod4();
 	while (_getch() != 13) {} //Se pausa hasta que pulsemos enter
-	bool barra_seleccion[3] = { false,false,false };
+	bool barra_seleccion[4] = { false,false,false };
 	nivel_centro();
 	puntosVecinales();
 	int xprota = 31, yprota = 16;
@@ -1098,9 +1124,13 @@ bool Nivel4() {
 		balas[i].y = 0;
 		balas[i].linea = 0;
 	}
+
+	//Inicializar barra de seleccion
+	barra_nivel4(barra_seleccion);
+
 	//INICIO ANIMACIONES NIVEL 4
 	while (true) {
-		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = false;
+
 		// SISTEMA DE PUNTOS VECINALES
 		gotoxy(6, 1);
 		Console::BackgroundColor = ConsoleColor::White;
@@ -1306,7 +1336,7 @@ bool Nivel4() {
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14; }
+				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14;	}
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -1333,7 +1363,7 @@ bool Nivel4() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 25;
-							barra_seleccion[0] = true;
+							barra_seleccion[1] = true;
 						}
 					}
 					if (tecla == '3') {
@@ -1345,7 +1375,7 @@ bool Nivel4() {
 							vecinos[lineaActual][columnaActual].vida = 5;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[0] = true;
+							barra_seleccion[2] = true;
 						}
 					}
 					if (tecla == '4') {
@@ -1357,7 +1387,7 @@ bool Nivel4() {
 							vecinos[lineaActual][columnaActual].vida = 15;
 							vecinos[lineaActual][columnaActual].activo = true;
 							puntosV -= 50;
-							barra_seleccion[0] = true;
+							barra_seleccion[3] = true;
 						}
 					}
 				}
@@ -1404,7 +1434,10 @@ bool Nivel4() {
 		casilla(xcasilla, ycasilla);
 
 		// 9. HUD
+		if(barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
 		barra_nivel4(barra_seleccion);
+		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
+
 		// 10. FIN DEL NIVEL
 		if (enemigosEliminados == 2) cuervo.activo = true;
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
