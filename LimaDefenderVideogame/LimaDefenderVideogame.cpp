@@ -25,7 +25,6 @@ int main() {
 			if (nivel[1]) {
 				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 				bool ganaste = Nivel2();
-				PlaySound(TEXT("victoria.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (ganaste) { PlaySound(TEXT("victorianormal.wav"), NULL, SND_FILENAME | SND_ASYNC); ganastes(); while (_getch() != 13) {} nivel[2] = true; }
 				else { PlaySound(TEXT("gameover.wav"), NULL, SND_FILENAME | SND_ASYNC); perdiste(); while (_getch() != 13) {} }
 			}

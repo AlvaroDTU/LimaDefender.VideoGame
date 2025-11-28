@@ -1063,7 +1063,7 @@ bool Nivel4() {
 	cuervo.y = 24;
 	cuervo.activo = false;
 	cuervo.ataque = false;
-	cuervo.vida = 2;
+	cuervo.vida = 20;
 	cuervo.cooldownataque = 200;
 	cuervo.cooldown_mov = 150 + rand() % 200 - 150 + 1;
 	cuervo.linea[0] = 1;
