@@ -135,7 +135,7 @@ bool Nivel1() {
 		Console::BackgroundColor = ConsoleColor::White;
 		Console::ForegroundColor = ConsoleColor::Black;
 		cout << puntosV << " ";
-		//SPAWN DE ENEMIGOS
+		// SPAWN DE ENEMIGOS
 		if (enemigosGenerados < maxEnemigosNivel)
 		{
 			if (spawnCooldown <= 0)
@@ -165,7 +165,7 @@ bool Nivel1() {
 			}
 			else spawnCooldown--;
 		}
-		// 2. MOVER + DIBUJAR ENEMIGOS
+		// MOVER ENEMIGOS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int s = 0; s < maxEnemigosLinea; s++)
@@ -226,7 +226,7 @@ bool Nivel1() {
 				}
 			}
 		}
-		// 3. DETECTAR ENEMIGOS EN CADA LÍNEA
+		// DETECTAR ENEMIGOS EN LINEA ANTES DE CREAR BALAS
 		bool enemigoEnLinea[numLineas] = { false,false,false,false };
 
 		for (int l = 0; l < numLineas; l++) {
@@ -235,7 +235,7 @@ bool Nivel1() {
 			}
 		}
 
-		// 6. CREACION DE BALA
+		// CREACION DE BALAs
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int c = 0; c < numColumnas; c++)
@@ -275,7 +275,6 @@ bool Nivel1() {
 				balas[i].activa = false;
 				continue;
 			}
-
 			//COLISION CON EL ENEMIGO
 			for (int s = 0; s < maxEnemigosLinea; s++)
 			{
@@ -299,10 +298,10 @@ bool Nivel1() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+		// BORRAR PROTA Y CASILLAS
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
-		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
+		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
@@ -349,7 +348,7 @@ bool Nivel1() {
 				}
 			}
 		}
-		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
+		// REDIBUJAR VECINOS, PROTA Y CASILLAS
 		for (int l = 0; l < numLineas; l++) {
 			for (int c = 0; c < numColumnas; c++) {
 				if (vecinos[l][c].activo) {
@@ -362,17 +361,14 @@ bool Nivel1() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
-
-		// 9. HUD
 		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
 			barra_nivel1(barra_seleccion);
-			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
-
-		// 10. FIN DEL NIVEL
+			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
+		}
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
-		_sleep(30);
+		Sleep(25);
 	}
 }
 bool Nivel2() {
@@ -392,11 +388,11 @@ bool Nivel2() {
 
 	int enemigosGenerados = 0;
 	int enemigosEliminados = 0;
-	int maxEnemigosNivel = 9;// modifique de 5 a 8
+	int maxEnemigosNivel = 9;// modifique de 5 a 9
 
 	int spawnCooldown = 80;// modifique de 100 a 80
 	const int TIEMPO_ENTRE_DISPAROS = 50;
-	int puntosV = 100;// modifique de 100 a 90
+	int puntosV = 100;
 
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
@@ -446,7 +442,7 @@ bool Nivel2() {
 		Console::BackgroundColor = ConsoleColor::White;
 		Console::ForegroundColor = ConsoleColor::Black;
 		cout << puntosV << " ";
-		// 1. SPAWN DE ENEMIGOS
+		// SPAWN DE ENEMIGOS
 		if (enemigosGenerados < maxEnemigosNivel)
 		{
 			if (spawnCooldown <= 0)
@@ -478,7 +474,7 @@ bool Nivel2() {
 			}
 			else spawnCooldown--;
 		}
-		// 2. MOVER + DIBUJAR ENEMIGOS
+		// MOVER ENEMIGOS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int s = 0; s < maxEnemigosLinea; s++)
@@ -539,14 +535,14 @@ bool Nivel2() {
 				}
 			}
 		}
-		// 3. DETECTAR ENEMIGOS EN CADA LÍNEA
+		// DETECTAR ENEMIGOS EN LINEA ANTES DE CREAR BALAS
 		bool enemigoEnLinea[numLineas] = { false,false,false,false };
 		for (int l = 0; l < numLineas; l++) {
 			for (int s = 0; s < maxEnemigosLinea; s++) {
 				if (enemigos[l][s].activo) enemigoEnLinea[l] = true;
 			}
 		}
-		// 6. DISPARO AUTOMÁTICO
+		// CREACION DE BALAS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int c = 0; c < numColumnas; c++)
@@ -579,7 +575,7 @@ bool Nivel2() {
 				vecinos[l][c].cooldown = TIEMPO_ENTRE_DISPAROS;
 			}
 		}
-		// 7. MOVER BALAS 
+		// MOVER BALAS
 		for (int i = 0; i < MAX_BALAS; i++)
 		{
 			if (!balas[i].activa) continue;
@@ -591,7 +587,6 @@ bool Nivel2() {
 				balas[i].activa = false;
 				continue;
 			}
-
 			//COLISION CON EL ENEMIGO
 			for (int s = 0; s < maxEnemigosLinea; s++)
 			{
@@ -617,10 +612,10 @@ bool Nivel2() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+		// BORRAR PROTA Y CASILLAS
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
-		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
+		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
@@ -679,7 +674,7 @@ bool Nivel2() {
 				}
 			}
 		}
-		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
+		// REDIBUJAR VECINOS, PROTA Y CASILLAS
 		for (int l = 0; l < numLineas; l++) {
 			for (int c = 0; c < numColumnas; c++) {
 				if (vecinos[l][c].activo) {
@@ -693,21 +688,20 @@ bool Nivel2() {
 		}
 		dibujar_prota(xprota, yprota);
 		casilla(xcasilla, ycasilla);
-		// 9. HUD
 		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
 			barra_nivel2(barra_seleccion);
 			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
 
-		// 10. APARICION BOSS
+		// APARICION MINIJEFE
 		if (enemigosEliminados >= 2) {
 			dibujar_policorrupto();
 			barraVida_policorrupto(maxEnemigosNivel - enemigosEliminados);
 		}
-		// 11. FIN DEL NIVEL
+		// FIN DEL NIVEL
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
-		_sleep(30);
+		Sleep(25);
 	}
 }
 bool Nivel3() {
@@ -780,7 +774,7 @@ bool Nivel3() {
 		Console::BackgroundColor = ConsoleColor::White;
 		Console::ForegroundColor = ConsoleColor::Black;
 		cout << puntosV << " ";
-		// 1. SPAWN DE ENEMIGOS
+		// SPAWN DE ENEMIGOS
 		if (enemigosGenerados < maxEnemigosNivel)
 		{
 			if (spawnCooldown <= 0)
@@ -812,7 +806,7 @@ bool Nivel3() {
 			}
 			else spawnCooldown--;
 		}
-		// 2. MOVER + DIBUJAR ENEMIGOS
+		// MOVER ENEMIGOS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int s = 0; s < maxEnemigosLinea; s++)
@@ -874,14 +868,14 @@ bool Nivel3() {
 				}
 			}
 		}
-		// 3. DETECTAR ENEMIGOS EN CADA LÍNEA
+		// DETECTAR ENEMIGOS EN LINEA ANTES DE CREAR BALAS
 		bool enemigoEnLinea[numLineas] = { false,false,false,false };
 		for (int l = 0; l < numLineas; l++) {
 			for (int s = 0; s < maxEnemigosLinea; s++) {
 				if (enemigos[l][s].activo) enemigoEnLinea[l] = true;
 			}
 		}
-		// 6. CREACION DE BALAS
+		// CREACION DE BALAS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int c = 0; c < numColumnas; c++)
@@ -904,7 +898,7 @@ bool Nivel3() {
 						switch (vecinos[l][c].tipo) {
 						case 1: balas[i].tipo = 1; break;
 						case 2: balas[i].tipo = 1; break;
-						case 3: balas[i].tipo = 2 + rand() % 4; break; //puede ser de 2 a 5
+						case 3: balas[i].tipo = 2 + rand() % 4; break;
 						}
 						balas[i].linea = l;
 						break;
@@ -913,7 +907,7 @@ bool Nivel3() {
 				vecinos[l][c].cooldown = TIEMPO_ENTRE_DISPAROS;
 			}
 		}
-		// 7. MOVER BALAS 
+		// MOVER BALAS 
 		for (int i = 0; i < MAX_BALAS; i++)
 		{
 			if (!balas[i].activa) continue;
@@ -925,7 +919,6 @@ bool Nivel3() {
 				balas[i].activa = false;
 				continue;
 			}
-
 			//COLISION CON EL ENEMIGO
 			for (int s = 0; s < maxEnemigosLinea; s++)
 			{
@@ -950,10 +943,10 @@ bool Nivel3() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+		// BORRAR PROTA Y CASILLAS
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
-		// 5. INPUT DEL JUGADOR (MOV + PLANTAR VECINO)
+		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
@@ -1024,7 +1017,7 @@ bool Nivel3() {
 				}
 			}
 		}
-		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
+		// REDIBUJAR VECINOS CUANDO ESTEN ACTIVOS
 		for (int l = 0; l < numLineas; l++) {
 			for (int c = 0; c < numColumnas; c++) {
 				if (vecinos[l][c].activo) {
@@ -1043,18 +1036,15 @@ bool Nivel3() {
 			dibujar_chupetin();
 			barraVida_chupetin(maxEnemigosNivel - enemigosEliminados);
 		}
-		//FIN DE NIVEL
-		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
-			return true;
-		}
-
-		// 9. HUD
 		if (barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
 			barra_nivel3(barra_seleccion);
 			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		}
-
-		_sleep(30);
+		//FIN DE NIVEL
+		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
+			return true;
+		}
+		Sleep(25);
 	}
 }
 bool Nivel4() {
@@ -1078,7 +1068,7 @@ bool Nivel4() {
 
 	int spawnCooldown = 60;// modifique de 100 a 60
 	const int TIEMPO_ENTRE_DISPAROS = 50;
-	int puntosV = 150;// modifique de 100 a 80
+	int puntosV = 150;// modifique de 100 a 150
 
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
@@ -1091,7 +1081,7 @@ bool Nivel4() {
 	cuervo.ataque = false;
 	cuervo.vida = 20;
 	cuervo.cooldownataque = 200;
-	cuervo.cooldown_mov = 150 + rand() % 200 - 150 + 1;
+	cuervo.cooldown_mov = 120 + rand() % 150 - 120 + 1;
 	cuervo.linea[0] = 1;
 	cuervo.linea[1] = 2;
 	//Inicializar enemigos
@@ -1136,7 +1126,7 @@ bool Nivel4() {
 		Console::BackgroundColor = ConsoleColor::White;
 		Console::ForegroundColor = ConsoleColor::Black;
 		cout << puntosV << " ";
-		// 1. SPAWN DE ENEMIGOS
+		// SPAWN DE ENEMIGOS
 		if (enemigosGenerados < maxEnemigosNivel)
 		{
 			if (spawnCooldown <= 0)
@@ -1167,7 +1157,7 @@ bool Nivel4() {
 			}
 			else spawnCooldown--;
 		}
-		// 2. MOVER + DIBUJAR ENEMIGOS
+		// MOVER ENEMIGOS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int s = 0; s < maxEnemigosLinea; s++)
@@ -1228,7 +1218,7 @@ bool Nivel4() {
 			}
 		}
 
-		// 3. DETECTAR ENEMIGOS EN CADA LÍNEA
+		// DETECTAR ENEMIGOS EN LINEA ANTES DE CREAR BALAS
 		bool enemigoEnLinea[numLineas] = { false };
 
 		for (int l = 0; l < numLineas; l++) {
@@ -1241,7 +1231,7 @@ bool Nivel4() {
 			cuervoEnLinea[cuervo.linea[0]] = true;
 			cuervoEnLinea[cuervo.linea[1]] = true;
 		}
-		// 6. DISPARO AUTOMÁTICO
+		// CREACION DE BALAS
 		for (int l = 0; l < numLineas; l++)
 		{
 			for (int c = 0; c < numColumnas; c++)
@@ -1274,7 +1264,7 @@ bool Nivel4() {
 				vecinos[l][c].cooldown = TIEMPO_ENTRE_DISPAROS;
 			}
 		}
-		// 7. MOVER BALAS 
+		// MOVER BALAS 
 		for (int i = 0; i < MAX_BALAS; i++)
 		{
 			if (!balas[i].activa) continue;
@@ -1324,11 +1314,11 @@ bool Nivel4() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// 4. BORRAR PROTAGONISTA Y CASILLA ANTERIOR
+		// BORRAR PORTA Y CASILLAS
 		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
 
-		// 5. DETECTAR TECLAS
+		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
@@ -1412,7 +1402,7 @@ bool Nivel4() {
 					
 					
 				}
-				cuervo.cooldown_mov = 150 + rand() % 200 - 150 + 1;
+				cuervo.cooldown_mov = 120 + rand() % 150 - 120 + 1;
 			}
 			dibujar_cuervo(cuervo.x, cuervo.y);
 		}
@@ -1443,6 +1433,6 @@ bool Nivel4() {
 		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
-		_sleep(0);
+		Sleep(25);
 	}
 }
