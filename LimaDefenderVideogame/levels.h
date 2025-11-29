@@ -1053,8 +1053,9 @@ bool Nivel4() {
 	bool barra_seleccion[4] = { false,false,false };
 	nivel_centro();
 	puntosVecinales();
-	int xprota = 31, yprota = 16;
+	int xprota = 31, yprota = 16; 
 	int xcasilla = 40, ycasilla = 15;
+	bool movProta = false;
 	//Constantes por nivel
 	const int numLineas = 4;
 	const int numColumnas = 6;
@@ -1064,7 +1065,7 @@ bool Nivel4() {
 
 	int enemigosGenerados = 0;
 	int enemigosEliminados = 0;
-	int maxEnemigosNivel = 18;// modifique de 5 a 18
+	int maxEnemigosNivel = 20;// modifique de 5 a 40 (para que de tiempo a que el cuervo sea derrotado)
 
 	int spawnCooldown = 60;// modifique de 100 a 60
 	const int TIEMPO_ENTRE_DISPAROS = 50;
@@ -1079,9 +1080,9 @@ bool Nivel4() {
 	cuervo.y = 24;
 	cuervo.activo = false;
 	cuervo.ataque = false;
-	cuervo.vida = 20;
+	cuervo.vida = 25;
 	cuervo.cooldownataque = 200;
-	cuervo.cooldown_mov = 120 + rand() % 150 - 120 + 1;
+	cuervo.cooldown_mov = 130 + rand() % 150 - 130 + 1;
 	cuervo.linea[0] = 1;
 	cuervo.linea[1] = 2;
 	//Inicializar enemigos
@@ -1150,7 +1151,8 @@ bool Nivel4() {
 						enemigos[lineaRandom][s].cooldownataque = 0;
 						enemigos[lineaRandom][s].tiempoEfecto = 0;
 						enemigosGenerados++;
-						spawnCooldown = 60; // modifique de 100 a 70
+						if (cuervo.activo) spawnCooldown = 50;
+						else spawnCooldown = 60; // modifique de 100 a 70
 						break;
 					}
 				}
@@ -1303,11 +1305,6 @@ bool Nivel4() {
 				{
 					balas[i].activa = false;
 					cuervo.vida--;
-					if (cuervo.vida <= 0) {
-						borrar_cuervo(cuervo.x, cuervo.y);
-						puntosV = 999;
-						return true;
-					}
 					break;
 				}
 			}
@@ -1315,18 +1312,15 @@ bool Nivel4() {
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// BORRAR PORTA Y CASILLAS
-		borrar_prota(xprota, yprota);
-		borrarcasilla(xcasilla, ycasilla);
-
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
-				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
-				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
-				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 110) { xcasilla += 14;	}
+				if (flecha == upkey && yprota > 16) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { borrar_prota(xprota, yprota); yprota += 9; borrarcasilla(xcasilla, ycasilla); ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 110) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); xcasilla += 14;	}
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;
@@ -1389,6 +1383,7 @@ bool Nivel4() {
 				}
 			}
 		}
+		//MOVIMIENTO DEL CUERVO
 		if (cuervo.activo) {
 			borrar_cuervo(cuervo.x, cuervo.y);
 			if (cuervo.cooldown_mov > 0) cuervo.cooldown_mov--;
@@ -1402,12 +1397,11 @@ bool Nivel4() {
 					
 					
 				}
-				cuervo.cooldown_mov = 120 + rand() % 150 - 120 + 1;
+				cuervo.cooldown_mov = 130 + rand() % 150 - 130 + 1;
 			}
 			dibujar_cuervo(cuervo.x, cuervo.y);
 		}
-
-		// 8. REDIBUJAR VECINOS + PROTA + CASILLA
+		// REDIBUJAR VECINOS, PROTA Y CASILLAS
 		for (int l = 0; l < numLineas; l++) {
 			for (int c = 0; c < numColumnas; c++) {
 				if (vecinos[l][c].activo) {
@@ -1420,18 +1414,24 @@ bool Nivel4() {
 				}
 			}
 		}
-		dibujar_prota(xprota, yprota);
-		casilla(xcasilla, ycasilla);
-
-		// 9. HUD
+			dibujar_prota(xprota, yprota);
+			casilla(xcasilla, ycasilla);
+		// ACTIVACION DEL CUERVO
+			if (enemigosEliminados >= 2) {
+				cuervo.activo = true;
+				barraVida_cuervo(cuervo.vida);
+				tituloElCuervo();
+			}
+		// DERROTA DEL CUERVO
+			if (cuervo.vida <= 0) {
+				borrar_cuervo(cuervo.x, cuervo.y);
+				puntosV = 999;
+				return true;
+			}
+		// BARRITA
 		if(barra_seleccion[0] == true || barra_seleccion[1] == true || barra_seleccion[2] == true || barra_seleccion[3] == true) {
 		barra_nivel4(barra_seleccion);
-		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;}
-
-		// 10. FIN DEL NIVEL
-		if (enemigosEliminados == 2) cuervo.activo = true;
-		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
-			return true;
+		barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		}
 		Sleep(25);
 	}
