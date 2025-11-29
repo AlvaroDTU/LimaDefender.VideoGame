@@ -750,6 +750,7 @@ void barraVida_policorrupto(int estado) {
 			cout << char(219);
 		}
 	}
+	gotoxy(123, 11); setTextColorRGB(255, 255, 255); setBackgroundColor(22, 22, 22); cout << "POLICIA CORRUPTO";
 }
 void barraVida_chupetin(int estado) {
 	int barravida[3][55] = {
@@ -772,4 +773,5 @@ void barraVida_chupetin(int estado) {
 			cout << char(219);
 		}
 	}
+	gotoxy(145, 11); setTextColorRGB(255, 255, 255); setBackgroundColor(22, 22, 22); cout << "CHUPETIN";
 }

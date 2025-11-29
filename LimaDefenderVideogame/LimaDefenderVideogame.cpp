@@ -11,7 +11,8 @@ int main() {
 	lockNoScroll(190, 50);
 	Console::CursorVisible = false;
 	bool nivel[] = { false, false, false, false };
-	while (true) {
+	bool juego = true;
+	while (juego) {
 		int seleccion = Menu();
 		switch (seleccion) {
 		case 1:
@@ -46,7 +47,7 @@ int main() {
 		case 2:
 			system("color 0F");
 			system("cls");
-			exit(0);
+			juego = false;
 			break;
 		case 3:
 			instrucciones();
