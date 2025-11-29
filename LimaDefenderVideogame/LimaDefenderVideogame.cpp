@@ -16,7 +16,7 @@ int main() {
 		int seleccion = Menu();
 		switch (seleccion) {
 		case 1:
-			nivel[2] = true;
+			nivel[0] = true;
 			if (nivel[0]) {
 				PlaySound(TEXT("niveles.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 				bool ganaste = Nivel1();

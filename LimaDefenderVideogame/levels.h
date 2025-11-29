@@ -298,13 +298,13 @@ bool Nivel1() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// BORRAR PROTA Y CASILLAS
-		borrarcasilla(xcasilla, ycasilla);
+
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
+				borrarcasilla(xcasilla, ycasilla);
 				borrar_prota(xprota, yprota);
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
@@ -612,11 +612,11 @@ bool Nivel2() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// BORRAR PROTA Y CASILLAS
-		borrarcasilla(xcasilla, ycasilla);
+	
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
+			borrarcasilla(xcasilla, ycasilla);
 			borrar_prota(xprota, yprota);
 			if (tecla == 224) {
 				int flecha = _getch();
@@ -943,13 +943,13 @@ bool Nivel3() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// BORRAR PROTA Y CASILLAS
-		borrarcasilla(xcasilla, ycasilla);
+
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
+				borrarcasilla(xcasilla, ycasilla);
 				borrar_prota(xprota, yprota);
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
@@ -1311,12 +1311,13 @@ bool Nivel4() {
 			if (balas[i].activa)
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
-		// BORRAR PORTA Y CASILLAS
+	
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
+				borrarcasilla(xcasilla, ycasilla);
 				borrar_prota(xprota, yprota);
 				if (flecha == upkey && yprota > 16) { borrar_prota(xprota, yprota); yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { borrar_prota(xprota, yprota); yprota += 9; ycasilla += 9; }
