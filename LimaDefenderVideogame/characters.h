@@ -510,7 +510,7 @@ void dibujar_chupetin() {
 			if (chupetin[f][c] == 4) setTextColorRGB(255, 170, 0);
 			if (chupetin[f][c] == 5) Console::ForegroundColor = ConsoleColor::Blue;
 			if (chupetin[f][c] == 6) Console::ForegroundColor = ConsoleColor::DarkBlue;
-			if (chupetin[f][c] == 7) Console::ForegroundColor = ConsoleColor::Black;
+			if (chupetin[f][c] == 7) Console::ForegroundColor = ConsoleColor::Gray;
 			cout << char(219);
 		}
 	}
