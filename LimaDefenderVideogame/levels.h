@@ -299,13 +299,13 @@ bool Nivel1() {
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// BORRAR PROTA Y CASILLAS
-		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
+				borrar_prota(xprota, yprota);
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
@@ -613,11 +613,11 @@ bool Nivel2() {
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// BORRAR PROTA Y CASILLAS
-		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
+			borrar_prota(xprota, yprota);
 			if (tecla == 224) {
 				int flecha = _getch();
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
@@ -944,13 +944,13 @@ bool Nivel3() {
 				dibujar_bala((int)balas[i].x, balas[i].y, balas[i].tipo);
 		}
 		// BORRAR PROTA Y CASILLAS
-		borrar_prota(xprota, yprota);
 		borrarcasilla(xcasilla, ycasilla);
 		// DETECTAR TECLAS
 		if (_kbhit()) {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
+				borrar_prota(xprota, yprota);
 				if (flecha == upkey && yprota > 16) { yprota -= 9; ycasilla -= 9; }
 				if (flecha == downkey && yprota < 41) { yprota += 9; ycasilla += 9; }
 				if (flecha == leftkey && xcasilla > 40) { xcasilla -= 14; }
@@ -1317,10 +1317,11 @@ bool Nivel4() {
 			int tecla = _getch();
 			if (tecla == 224) {
 				int flecha = _getch();
-				if (flecha == upkey && yprota > 16) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); yprota -= 9; ycasilla -= 9; }
-				if (flecha == downkey && yprota < 41) { borrar_prota(xprota, yprota); yprota += 9; borrarcasilla(xcasilla, ycasilla); ycasilla += 9; }
-				if (flecha == leftkey && xcasilla > 40) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); xcasilla -= 14; }
-				if (flecha == rightkey && xcasilla < 110) { borrar_prota(xprota, yprota); borrarcasilla(xcasilla, ycasilla); xcasilla += 14;	}
+				borrar_prota(xprota, yprota);
+				if (flecha == upkey && yprota > 16) { borrar_prota(xprota, yprota); yprota -= 9; ycasilla -= 9; }
+				if (flecha == downkey && yprota < 41) { borrar_prota(xprota, yprota); yprota += 9; ycasilla += 9; }
+				if (flecha == leftkey && xcasilla > 40) { borrar_prota(xprota, yprota); xcasilla -= 14; }
+				if (flecha == rightkey && xcasilla < 110) { borrar_prota(xprota, yprota); xcasilla += 14; }
 			}
 			if (tecla == '1' || tecla == '2' || tecla == '3' || tecla == '4' || tecla == 13) {
 				int lineaActual = (yprota - 16) / 9;

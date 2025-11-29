@@ -361,13 +361,13 @@ void nivel_surco() {
 		for (int c = 0; c < 190; c++) {
 			gotoxy(c, f);
 
-			if (surco[f][c] == 0) Console::BackgroundColor = ConsoleColor::DarkCyan;
+			if (surco[f][c] == 0) setBackgroundColor(125, 220, 255);
 			if (surco[f][c] == 1) Console::BackgroundColor = ConsoleColor::DarkRed;
-			if (surco[f][c] == 2) Console::BackgroundColor = ConsoleColor::Yellow;
+			if (surco[f][c] == 2) setBackgroundColor(120, 52, 0);
 			if (surco[f][c] == 3) Console::BackgroundColor = ConsoleColor::White;
 			if (surco[f][c] == 4) Console::BackgroundColor = ConsoleColor::DarkGray;
 			if (surco[f][c] == 5) Console::BackgroundColor = ConsoleColor::Black;
-			if (surco[f][c] == 6) Console::BackgroundColor = ConsoleColor::Yellow;
+			if (surco[f][c] == 6) setBackgroundColor(120, 52, 0);
 			if (surco[f][c] == 7) Console::BackgroundColor = ConsoleColor::Blue;
 			if (surco[f][c] == 8) Console::BackgroundColor = ConsoleColor::DarkGreen;
 			if (surco[f][c] == 9) Console::BackgroundColor = ConsoleColor::DarkYellow;
@@ -436,7 +436,7 @@ void nivel_ves() {
 		for (int c = 0; c < 190; c++) {
 			gotoxy(c, f);
 
-			if (ves[f][c] == 0) Console::BackgroundColor = ConsoleColor::DarkCyan;
+			if (ves[f][c] == 0) setBackgroundColor(125, 220, 255);
 			if (ves[f][c] == 1) Console::BackgroundColor = ConsoleColor::DarkGray;
 			if (ves[f][c] == 2) Console::BackgroundColor = ConsoleColor::Gray;
 			if (ves[f][c] == 3) Console::BackgroundColor = ConsoleColor::Yellow;
@@ -546,7 +546,7 @@ void nivel_callao() {
 		for (int c = 0; c < 190; c++) {
 			gotoxy(c, f);
 
-			if (callao[f][c] == 0) Console::BackgroundColor = ConsoleColor::DarkCyan;
+			if (callao[f][c] == 0) setBackgroundColor(125, 220, 255);
 			if (callao[f][c] == 1) Console::BackgroundColor = ConsoleColor::Red;
 			if (callao[f][c] == 2) Console::BackgroundColor = ConsoleColor::White;
 			if (callao[f][c] == 3) Console::BackgroundColor = ConsoleColor::Gray;
@@ -554,7 +554,7 @@ void nivel_callao() {
 			if (callao[f][c] == 5) Console::BackgroundColor = ConsoleColor::DarkGray;
 			if (callao[f][c] == 6) Console::BackgroundColor = ConsoleColor::Blue;
 			if (callao[f][c] == 7) Console::BackgroundColor = ConsoleColor::DarkBlue;
-			if (callao[f][c] == 8) Console::BackgroundColor = ConsoleColor::DarkYellow;
+			if (callao[f][c] == 8)  setBackgroundColor(255, 170, 0);
 			if (callao[f][c] == 9) Console::BackgroundColor = ConsoleColor::Blue;
 			cout << " ";
 		}
