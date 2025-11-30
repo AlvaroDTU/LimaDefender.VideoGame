@@ -773,7 +773,7 @@ void barraVida_chupetin(int estado) {
 			cout << char(219);
 		}
 	}
-	gotoxy(145, 11); setTextColorRGB(255, 255, 255); setBackgroundColor(22, 22, 22); cout << "CHUPETIN";
+	gotoxy(121, 11); setTextColorRGB(255, 255, 255); setBackgroundColor(22, 22, 22); cout << "CHUPETIN";
 }
 void tituloElCuervo() {
 	int name[5][41] = {
