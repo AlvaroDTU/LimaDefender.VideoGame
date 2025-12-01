@@ -347,6 +347,9 @@ bool Nivel1() {
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
 			}
+			if (tecla == '0') {
+				enemigosEliminados = maxEnemigosNivel - 2;
+			}
 		}
 		// REDIBUJAR VECINOS, PROTA Y CASILLAS
 		for (int l = 0; l < numLineas; l++) {
@@ -365,7 +368,7 @@ bool Nivel1() {
 			barra_nivel1(barra_seleccion);
 			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		}
-		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
+		if (enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
 		Sleep(25);
@@ -673,6 +676,9 @@ bool Nivel2() {
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
 			}
+			if (tecla == '0') {
+				enemigosEliminados = maxEnemigosNivel - 2;
+			}
 		}
 		// REDIBUJAR VECINOS, PROTA Y CASILLAS
 		for (int l = 0; l < numLineas; l++) {
@@ -698,7 +704,7 @@ bool Nivel2() {
 			barraVida_policorrupto(maxEnemigosNivel - enemigosEliminados);
 		}
 		// FIN DEL NIVEL
-		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
+		if (enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
 		Sleep(25);
@@ -1008,6 +1014,7 @@ bool Nivel3() {
 							barra_seleccion[3] = true;
 						}
 					}
+
 				}
 				if (tecla == 13) {
 					borrar_enemigo(xcasilla + 3, yprota);
@@ -1015,6 +1022,9 @@ bool Nivel3() {
 					vecinos[lineaActual][columnaActual].vida = 5;
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
+			}
+			if (tecla == '0') {
+				enemigosEliminados = maxEnemigosNivel - 2;
 			}
 		}
 		// REDIBUJAR VECINOS CUANDO ESTEN ACTIVOS
@@ -1041,7 +1051,7 @@ bool Nivel3() {
 			barra_seleccion[0] = barra_seleccion[1] = barra_seleccion[2] = barra_seleccion[3] = false;
 		}
 		//FIN DE NIVEL
-		if (enemigosGenerados == maxEnemigosNivel && enemigosEliminados == maxEnemigosNivel) {
+		if (enemigosEliminados == maxEnemigosNivel) {
 			return true;
 		}
 		Sleep(25);
@@ -1065,12 +1075,11 @@ bool Nivel4() {
 
 	int enemigosGenerados = 0;
 	int enemigosEliminados = 0;
-	int maxEnemigosNivel = 20;// modifique de 5 a 40 (para que de tiempo a que el cuervo sea derrotado)
+	int maxEnemigosNivel = 30;// modifique de 5 a 40 (para que de tiempo a que el cuervo sea derrotado)
 
 	int spawnCooldown = 60;// modifique de 100 a 60
 	const int TIEMPO_ENTRE_DISPAROS = 50;
 	int puntosV = 150;// modifique de 100 a 150
-
 	Enemigo enemigos[numLineas][maxEnemigosLinea];
 	Vecino vecinos[numLineas][numColumnas];
 	Bala balas[MAX_BALAS];
@@ -1383,6 +1392,9 @@ bool Nivel4() {
 					vecinos[lineaActual][columnaActual].vida = 5;
 					vecinos[lineaActual][columnaActual].tipo = 0;
 				}
+			}
+			if (tecla == '0') {
+				cuervo.vida = 3;
 			}
 		}
 		//MOVIMIENTO DEL CUERVO
