@@ -5,6 +5,8 @@
 #include "scenery.h"
 #include "levels.h"
 
+//IMPORTANTE CORRER EN DEBUG
+
 int main() {
 	srand(time(nullptr));
 	changeWindowSize(190, 50);
